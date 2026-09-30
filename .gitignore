@@ -50,3 +50,9 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Presentations, Documents & PDF files (Keep repository clean code only)
+*.pdf
+*.pptx
+*.ppt
+scripts/
