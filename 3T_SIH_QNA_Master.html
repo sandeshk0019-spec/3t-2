@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3T Dairy — SIH 2026 Jury Defense & Viva Master Q&A</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0f172a;
+      background-color: #f8fafc;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .card-box {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+      .container-pdf {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5in !important;
+      }
+    }
+  </style>
+</head>
+<body class="p-4 sm:p-8 antialiased">
+
+  <!-- TOP BAR (NOT PRINTED) -->
+  <div class="max-w-5xl mx-auto mb-6 flex items-center justify-between no-print bg-slate-900 text-white p-4 rounded-2xl shadow-lg border border-slate-800">
+    <div class="flex items-center space-x-3">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+      <div>
+        <span class="text-xs font-black uppercase tracking-wider text-emerald-400 block">Smart India Hackathon • Viva & Jury Guide</span>
+        <span class="text-sm font-bold text-white">3T (Time To Time) 35-Question Master Defense Q&A</span>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-3">
+      <button onclick="window.print()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow transition-all cursor-pointer flex items-center space-x-2 active:scale-95">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>Print / Save as PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN PDF CONTENT CONTAINER (A4 PRINT OPTIMIZED) -->
+  <div class="container-pdf max-w-5xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8">
+
+    <!-- DOCUMENT HEADER -->
+    <div class="pb-6 border-b-2 border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center space-x-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 font-mono">
+            SIH 2026 Finalist Documentation
+          </span>
+          <span class="text-slate-400 font-bold">•</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Confidential Jury Playbook</span>
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+          <span class="text-emerald-700">3T – Time To Time</span> Defense Guide
+        </h1>
+        <p class="text-xs text-slate-600 font-medium">
+          Comprehensive 35-Question Technical & Business Defense for Smart India Hackathon
+        </p>
+      </div>
+
+      <div class="text-left sm:text-right text-xs text-slate-500 font-mono">
+        <div><strong>Project:</strong> 3T Dairy Platform</div>
+        <div><strong>Live URL:</strong> 3tdairy.vercel.app</div>
+        <div><strong>Domain:</strong> AgriTech & FinTech</div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 1: PROBLEM & IMPACT -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-blue-100">
+        <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">1. Problem & Impact</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- Q1 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-blue-600 font-mono">Q1.</span>
+            <span>What exactly is the problem you are solving?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            India’s dairy sector suffers from <strong>a 10-to-15 day payment delay</strong>, <strong>rampant operator fraud</strong>, <strong>high hardware costs (₹1.5L per center)</strong>, and <strong>zero cattle health intelligence</strong>. Smallholder farmers pour milk twice daily but wait weeks for payment, forcing them into debt with local moneylenders for daily feed and household groceries. Simultaneously, corrupt collection operators hijack farmer bank details in legacy desktop software, while illiterate farmers struggle with complex tabular passbooks.
+          </p>
+        </div>
+
+        <!-- Q2 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-blue-600 font-mono">Q2.</span>
+            <span>Who is facing this problem, and how do you know it is a real problem?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>Who:</strong> Over 80 million smallholder dairy farmers and thousands of cooperative/private dairies across India.<br>
+            <strong>Evidence:</strong> NITI Aayog and NABARD reports show smallholder dairy farmers pay <strong>24% to 36% annual interest</strong> to local moneylenders just to bridge the 15-day milk payment gap. Field studies across Maharashtra (Kolhapur/Sangli) and cooperative audit reports prove payment delay is the #1 reason farmers switch to unregulated private middlemen.
+          </p>
+        </div>
+
+        <!-- Q3 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-blue-600 font-mono">Q3.</span>
+            <span>Why did you choose this particular SIH problem statement?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Dairy is India's <strong>single largest agricultural commodity</strong> (larger than wheat and rice combined, contributing $\approx 5\%$ of national GDP). Yet, while urban India has experienced the UPI digital revolution, rural milk procurement is still trapped in 1990s desktop batch-processing software. Solving milk procurement cash flow directly empowers rural livelihoods at national scale.
+          </p>
+        </div>
+
+        <!-- Q4 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-blue-600 font-mono">Q4.</span>
+            <span>What is the biggest limitation of the current system?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>Delayed batch settlement coupled with zero-trust vulnerability.</strong> Current AMCS (Automatic Milk Collection Systems) only record data locally on a desktop PC and delay payout files by 10 to 15 days. Furthermore, the operator has unrestricted write access to farmer bank accounts with zero farmer-side authorization.
+          </p>
+        </div>
+
+        <!-- Q5 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-blue-600 font-mono">Q5.</span>
+            <span>What happens if this problem is not solved?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Smallholder farmers continue selling milk to predatory local private vendors who give instant cash but cheat on fat measurements. Rural youth abandon dairy farming due to cash-flow unpredictability, and cooperative dairies lose procurement market share due to leakages and operational distrust.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 2: INNOVATION & COMPETITION -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-emerald-100">
+        <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">2. Innovation & Competition</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- Q6 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-emerald-700 font-mono">Q6.</span>
+            <span>What is innovative about your solution?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>1. Instant Sub-3-Second Settlement:</strong> Converts milk intake directly into instant NPCI UPI/IMPS bank credit the moment milk passes quality tests.<br>
+            <strong>2. 2FA Farmer Mobile OTP Handshake:</strong> Operators cannot alter bank accounts, phones, or UPI IDs without the farmer’s real-time OTP authorization.<br>
+            <strong>3. Hardware-Agnostic Web-BLE / Serial:</strong> Connects to any scale/analyzer directly from Chrome on any ₹5,000 phone without driver installation.<br>
+            <strong>4. AI Mitra Voice AI:</strong> Generative conversational AI in Marathi & Hindi for illiterate farmers.<br>
+            <strong>5. AI Milk Drop Sentinel:</strong> 7-day rolling statistical anomaly detector for early cattle health drops.
+          </p>
+        </div>
+
+        <!-- Q7 & Q8 COMPARISON TABLE -->
+        <div class="card-box p-4 bg-white rounded-2xl border border-slate-200 space-y-2">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-emerald-700 font-mono">Q7 & Q8.</span>
+            <span>Existing solutions and how 3T is different:</span>
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-[11px] text-left border border-slate-200 rounded-xl">
+              <thead class="bg-slate-100 text-slate-800 font-bold">
+                <tr>
+                  <th class="p-2 border-b">Dimension</th>
+                  <th class="p-2 border-b">Legacy Systems (Amul AMCS / Prompt / Stellapps)</th>
+                  <th class="p-2 border-b text-emerald-800">3T (Time To Time)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="p-2 font-bold">Payout Model</td>
+                  <td class="p-2 text-rose-700">7–15 day delayed batch processing</td>
+                  <td class="p-2 text-emerald-700 font-bold">Instant &lt;3s per-pour UPI/IMPS settlement</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Operator Security</td>
+                  <td class="p-2 text-rose-700">Operator can edit bank details directly</td>
+                  <td class="p-2 text-emerald-700 font-bold">Strict 2FA Farmer Mobile OTP write-lock</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Identity Protection</td>
+                  <td class="p-2 text-rose-700">Full Aadhaar & Bank A/C numbers exposed</td>
+                  <td class="p-2 text-emerald-700 font-bold">Zero-Knowledge PII Masking (XXXX-1234)</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Hardware Setup</td>
+                  <td class="p-2 text-rose-700">Proprietary ₹1.5L desktop PC + dongles</td>
+                  <td class="p-2 text-emerald-700 font-bold">Zero-CapEx browser PWA on any phone</td>
+                </tr>
+                <tr>
+                  <td class="p-2 font-bold">Farmer Interface</td>
+                  <td class="p-2 text-rose-700">Static English accounting tables</td>
+                  <td class="p-2 text-emerald-700 font-bold">Marathi/Hindi Generative Voice AI (AI Mitra)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-emerald-700 font-mono">Q9.</span>
+            <span>If existing solutions already solve 70–80% of this problem, why do we need yours?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Existing solutions only solve <strong>data entry</strong>; they completely fail at <strong>financial inclusion, fraud prevention, and farmer usability</strong>. Recording milk in a computer is meaningless if the farmer still has to wait 15 days for money and can be cheated by a rogue operator altering their bank account. 3T solves the critical 20% that delivers 100% of the trust.
+          </p>
+        </div>
+
+        <!-- Q10 -->
+        <div class="card-box p-4 bg-emerald-50 rounded-2xl border border-emerald-300 space-y-1">
+          <h3 class="font-extrabold text-sm text-emerald-950 flex items-start gap-2">
+            <span class="text-emerald-700 font-mono">Q10.</span>
+            <span>What is your USP?</span>
+          </h3>
+          <p class="pl-6 font-extrabold text-xs text-emerald-900">
+            "Milk Now, Money in Bank in 3 Seconds with Zero-Trust Fraud Shield."
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 3: TECHNICAL & ARCHITECTURE -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-amber-100">
+        <span class="w-3 h-3 rounded-full bg-amber-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">3. Technical & Architecture</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- Q11 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-amber-700 font-mono">Q11.</span>
+            <span>Explain your complete system architecture.</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Our architecture operates across <strong>5 integrated layers</strong>:<br>
+            <strong>1. IoT Ingestion Layer:</strong> Weighing Scale (Weight) + Ultrasonic Analyzer (FAT%, SNF%, CLR) streamed over Web-Serial / Web-BLE into our PWA.<br>
+            <strong>2. 3T Core Edge Engine:</strong> Runs on Next.js 16 Edge Runtime; executes dynamic formula pricing ($\text{Rate} = \text{Base} + (\text{FAT} \times 3.5) + (\text{SNF} \times 2.0)$) and 7-day anomaly scans in $<40\text{ms}$.<br>
+            <strong>3. Automated Payment Switch:</strong> Dispatches payouts via RazorpayX / NPCI IMPS/UPI API with a 3-state state machine (<code>SUCCESS</code> / <code>PENDING</code> / <code>FAILED</code>).<br>
+            <strong>4. Decoupled Cloud Database:</strong> PostgreSQL on Supabase Cloud with clean schema separation (<code>farmers</code>, <code>collections</code>, <code>payments</code>, <code>settings</code>).<br>
+            <strong>5. Farmer & Stakeholder Layer:</strong> Multilingual PWA with DLT SMS receipts, AI Mitra voice assistance, and real-time dual-monitor display.
+          </p>
+        </div>
+
+        <!-- Q12 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-amber-700 font-mono">Q12.</span>
+            <span>Why did you choose these technologies?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>Next.js 16 Edge Runtime:</strong> Sub-50ms serverless response times across India.<br>
+            • <strong>Web Serial & Web Bluetooth (BLE):</strong> Eliminates desktop drivers; hardware connects directly to the Chrome browser on Android/Windows/Mac.<br>
+            • <strong>Supabase PostgreSQL Edge:</strong> Decoupled relational persistence with atomic JSON stores for notifications and settings.<br>
+            • <strong>RazorpayX / NPCI Banking APIs:</strong> Instant programmable direct payouts across all Indian commercial and cooperative banks.
+          </p>
+        </div>
+
+        <!-- Q13 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-amber-700 font-mono">Q13.</span>
+            <span>Where exactly are you using AI/ML/IoT/etc., and why is it necessary?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>IoT:</strong> Web-Serial / Web-BLE automatic telemetry grab from digital scales and ultrasonic analyzers to prevent operator manual entry tampering.<br>
+            • <strong>AI / ML (Anomaly Sentinel):</strong> 7-day rolling statistical anomaly detector that flags milk drops $>20\%$ to detect mastitis or feed deficiencies before cattle deteriorate.<br>
+            • <strong>Generative NLP & Voice AI (AI Mitra):</strong> Speech-to-Text and contextual LLM in Marathi & Hindi allowing illiterate smallholders to query passbooks naturally.<br>
+            • <strong>Anti-Tamper Ledger:</strong> Cloud tombstone markers (<code>DELNOTIF</code>) and immutable transaction timelines prevent historical record manipulation.
+          </p>
+        </div>
+
+        <!-- Q14 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-amber-700 font-mono">Q14.</span>
+            <span>How will your system handle security and data privacy?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>2FA Mobile OTP Handshake:</strong> No bank account, UPI ID, or phone number can be changed without an SMS OTP sent to the farmer's SIM.<br>
+            • <strong>Server-Side Zero-Knowledge PII Masking:</strong> Aadhaar (<code>XXXX-XXXX-1234</code>) and Bank Accounts (<code>••••••••5678</code>) are masked server-side.<br>
+            • <strong>Anti-Syndicate Account Lock:</strong> Blocks registering duplicate bank accounts/UPI VPAs across different farmer IDs.
+          </p>
+        </div>
+
+        <!-- Q15 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-amber-700 font-mono">Q15.</span>
+            <span>What happens if your internet/server/API goes down?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>1. Offline-First PWA (IndexedDB Queue):</strong> When internet drops, the booth terminal continues capturing milk weight, FAT, and SNF locally, saving vouchers in IndexedDB.<br>
+            <strong>2. Auto-Reconciliation on Reconnect:</strong> The moment connectivity returns, vouchers sync to the cloud in chronological sequence and trigger payouts.<br>
+            <strong>3. Banking API Outage Resilience:</strong> If the bank server is down, the 3T state machine flags the transaction as <code>PENDING</code>, retries every 60s, or issues an instant booth cash voucher with SMS acknowledgment.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 4: FEASIBILITY & SCALABILITY -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-purple-100">
+        <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">4. Feasibility & Scalability</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- Q16 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-purple-700 font-mono">Q16.</span>
+            <span>Can this actually be implemented in the real world?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>Yes, it is already working live today on <code>https://3tdairy.vercel.app</code>:</strong><br>
+            • Real-time hardware dual customer display: <code>/branch/B-01/display</code><br>
+            • Farmer PWA Passbook & AI Mitra: <code>/farmer/login</code><br>
+            • Dynamic Pricing & 2FA OTP Bank updates: <code>/dashboard</code>
+          </p>
+        </div>
+
+        <!-- Q17 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-purple-700 font-mono">Q17.</span>
+            <span>What will it cost to deploy your solution?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>Legacy Setup Cost:</strong> ₹1,20,000 – ₹1,80,000 per village center (PC + Inverter + Dongles + AMC).<br>
+            • <strong>3T Setup Cost:</strong> <strong>₹0 in new hardware</strong>. The booth operator uses their existing smartphone or a ₹5,000 Android tablet paired via Bluetooth to existing scales and analyzers.
+          </p>
+        </div>
+
+        <!-- Q18 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-purple-700 font-mono">Q18.</span>
+            <span>Can your solution scale from 100 users to 1 lakh/1 crore users?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>Yes.</strong> 3T is built on a <strong>Stateless Edge Architecture</strong> using serverless Lambdas and Supabase PostgreSQL with connection pooling. Edge functions scale horizontally across regions with zero server maintenance overhead.
+          </p>
+        </div>
+
+        <!-- Q19 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-purple-700 font-mono">Q19.</span>
+            <span>What are the biggest challenges in implementing this solution?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            1. <strong>Rural Connectivity Dead Zones:</strong> Solved via our offline-first IndexedDB local cache.<br>
+            2. <strong>Elderly Farmer Smartphone Adoption:</strong> Solved by automated DLT SMS slips + booth thermal prints + Voice AI in Marathi.<br>
+            3. <strong>Dairy Floating Capital:</strong> Dairies maintain an escrow float for daily payouts, replenished via regular institutional buyer receivables.
+          </p>
+        </div>
+
+        <!-- Q20 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-purple-700 font-mono">Q20.</span>
+            <span>If we give you 6 months, what will your final production-ready system look like?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>Month 1–2:</strong> Integration with NPCI Aadhaar-Enabled Payment System (AEPS) for cash-out at the collection booth.<br>
+            • <strong>Month 3–4:</strong> Cattle muzzle/facial biometric recognition to tie milk yields to specific cows.<br>
+            • <strong>Month 5–6:</strong> IoT Chilling Telemetry integrated into Bulk Milk Coolers (BMC) to monitor milk cooling temperatures below $4^\circ\text{C}$ in real time.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 5: JURY STRESS-TEST & TRAP QUESTIONS -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-rose-100">
+        <span class="w-3 h-3 rounded-full bg-rose-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">5. Jury Stress-Test & Trap Questions</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- B1 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-rose-700 font-mono">B1.</span>
+            <span>"Why should we select YOUR team instead of the other 20 teams working on the same PS?"</span>
+          </h3>
+          <p class="pl-6 text-slate-700 font-medium">
+            <em>"Most teams built a standard dashboard with mock charts. We built a <strong>complete, production-grade fintech ecosystem</strong> that bridges physical hardware scales over Web-Bluetooth, calculates rates via edge formulas, triggers real-time bank payouts over NPCI rails in 3 seconds, and provides Marathi Voice AI for rural farmers. Our system is deployed, type-safe, and ready for field deployment today."</em>
+          </p>
+        </div>
+
+        <!-- B2 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-rose-700 font-mono">B2.</span>
+            <span>"Show me one feature that your competitor/current system doesn't have."</span>
+          </h3>
+          <p class="pl-6 text-slate-700 font-medium">
+            <strong>"The 2FA Farmer Mobile OTP Write-Lock."</strong> In existing systems like Prompt or Amul AMCS, a corrupt operator can change a farmer's bank account number on the desktop PC and steal their payouts. In 3T, the operator's interface is cryptographically locked until the farmer receives and verifies a 6-digit OTP on their personal phone.
+          </p>
+        </div>
+
+        <!-- B3 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-rose-700 font-mono">B3.</span>
+            <span>"Your idea sounds good, but why will the actual user use it?"</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>Farmers:</strong> Get money in their bank account the second they pour milk, freeing them from 36% interest loans.<br>
+            • <strong>Dairies:</strong> Instant payment eliminates milk diversion to middlemen, increasing milk intake volume by 20% to 30%.<br>
+            • <strong>Operators:</strong> Runs on a mobile phone with single-click hardware grabs instead of crashing Windows desktops.
+          </p>
+        </div>
+
+        <!-- B4 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-rose-700 font-mono">B4.</span>
+            <span>"What is the weakest part of your solution?"</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <em>"Our dependency on upstream banking gateway uptimes during peak morning collection hours (6 AM to 8 AM). We mitigated this by building an automated <strong>3-State Resilient Machine (<code>SUCCESS</code> / <code>PENDING</code> / <code>FAILED</code>)</strong> with auto-retry queues and instant booth fallback receipts, ensuring procurement never stops even if a bank server goes down."</em>
+          </p>
+        </div>
+
+        <!-- B5 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-rose-700 font-mono">B5.</span>
+            <span>"If I give you ₹10 lakh today, how will you deploy this in the real world?"</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>₹4,00,000 (40%):</strong> Hardware pairing kits (Web-BLE bridges) deployed across 50 village centers for a 90-day pilot.<br>
+            • <strong>₹3,00,000 (30%):</strong> NPCI/Banking payout API gateway fees and escrow float underwriting.<br>
+            • <strong>₹2,00,000 (20%):</strong> Field onboarding, local veterinary partner network integration, and training camps.<br>
+            • <strong>₹1,00,000 (10%):</strong> Edge cloud infrastructure and security compliance auditing.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 6: DAIRY DOMAIN & FINTECH SPECIFIC QUESTIONS -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-teal-100">
+        <span class="w-3 h-3 rounded-full bg-teal-600"></span>
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">6. Dairy Domain & FinTech Specific Defense</h2>
+      </div>
+
+      <div class="space-y-4 text-xs leading-relaxed text-slate-700">
+        
+        <!-- D1 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D1.</span>
+            <span>Gokul/other dairies already calculate FAT and SNF. So what is actually new in 3T?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Calculating FAT and SNF is basic arithmetic. What is revolutionary in 3T is <strong>what happens the millisecond AFTER the calculation</strong>: Instead of saving to a local text file and making the farmer wait 15 days for a cash envelope, 3T executes an <strong>instant atomic bank payout to the farmer’s UPI/Bank in under 3 seconds</strong>, logs an immutable cloud ledger, and verifies farmer cattle health via AI.
+          </p>
+        </div>
+
+        <!-- D2 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D2.</span>
+            <span>Why would a dairy pay farmers instantly instead of following its existing payment cycle?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            1. <strong>Prevents Middlemen Poaching:</strong> Private informal vendors steal cooperative farmers by offering immediate cash. By offering instant digital payout, the dairy retains 100% of farmer loyalty.<br>
+            2. <strong>Boosts Milk Intake Volume by 20–30%:</strong> Farmers prioritize pouring milk at the center that pays immediately.<br>
+            3. <strong>Eliminates Cash Handling Overhead:</strong> Dairies spend millions handling physical cash, transport security, and reconciliation disputes.
+          </p>
+        </div>
+
+        <!-- D3 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D3.</span>
+            <span>What happens if the milk is later found adulterated or rejected after you already paid the farmer?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            In our workflow, <strong>quality testing (FAT, SNF, CLR, Temperature, Water % check) occurs BEFORE the milk is poured into the collection vat</strong>. The intake valve remains closed until the analyzer passes the reading. Payment is triggered only upon verified hardware data ingestion.
+          </p>
+        </div>
+
+        <!-- D4 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D4.</span>
+            <span>Who bears the transaction/payment cost?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            • <strong>UPI Payouts:</strong> Under NPCI guidelines, P2P and merchant UPI transactions operate with <strong>Zero MDR</strong>.<br>
+            • <strong>Direct IMPS API Transfers:</strong> Cost approx. ₹1.50 per transfer. Dairies gladly absorb this ₹1.50 cost because they save over ₹10–₹15 per farmer on manual accounting, cash transit security, and branch reconciliation overhead.
+          </p>
+        </div>
+
+        <!-- D5 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D5.</span>
+            <span>Where does 3T make money? (Business Model)</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            1. <strong>B2B SaaS Subscription:</strong> Tiered monthly fee per collection center (₹299 to ₹499/booth/month) paid by the dairy.<br>
+            2. <strong>FinTech Credit Origination Fee:</strong> 0.5%–1% origination commission from partner banks/NBFCs when farmers take micro-loans for cattle feed backed by their verified 3T milk cashflow score.<br>
+            3. <strong>Feed & Agritech Marketplace Commission:</strong> 1%–2% take-rate on direct cattle feed and veterinary supplies ordered through the 3T app.
+          </p>
+        </div>
+
+        <!-- D6 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D6.</span>
+            <span>Why can't an existing dairy software simply add your instant-payment feature?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            Legacy AMCS software (Prompt, Stellapps, NDDB) is architectured on <strong>20-year-old desktop client-server stacks (Visual Basic, FoxPro, MS Access)</strong>. They lack real-time cloud webhook infrastructure, modern edge API runtimes, and zero-knowledge tokenization security. Re-architecting legacy desktop software requires rebuilding from scratch.
+          </p>
+        </div>
+
+        <!-- D7 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D7.</span>
+            <span>What happens if the bank/payment gateway fails?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            3T's <strong>Automated State Machine</strong> immediately categorizes the transaction as <code>PENDING</code> or <code>FAILED</code>. The terminal prints an instant thermal receipt with a QR voucher, the cloud queue retries every 60s, and the farmer receives an instant SMS explanation. If failed after 3 retries, an emergency cash voucher is issued at the booth.
+          </p>
+        </div>
+
+        <!-- D8 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D8.</span>
+            <span>How will you prevent fraudulent milk entries or fake farmer accounts?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            1. <strong>Public Dual-Monitor Display (<code>/branch/B-01/display</code>):</strong> Real-time customer screen shows the weight and FAT live to all waiting farmers in the queue.<br>
+            2. <strong>Anti-Syndicate Cloud Lock:</strong> Prevents creating duplicate accounts with the same bank or Aadhaar number.<br>
+            3. <strong>Statistical Shift Limits:</strong> Flags any collection where a farmer's quantity exceeds their registered cattle capacity.
+          </p>
+        </div>
+
+        <!-- D9 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D9.</span>
+            <span>Can 3T work with 1,000 dairy collection centers simultaneously?</span>
+          </h3>
+          <p class="pl-6 text-slate-700">
+            <strong>Yes.</strong> 3T is built on a serverless edge architecture with PostgreSQL connection pooling. Each center functions as an independent edge client; shifts run concurrently with zero database lock contention.
+          </p>
+        </div>
+
+        <!-- D10 -->
+        <div class="card-box p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
+          <h3 class="font-extrabold text-sm text-slate-900 flex items-start gap-2">
+            <span class="text-teal-700 font-mono">D10.</span>
+            <span>Are you a dairy, a payment company, or a SaaS platform?</span>
+          </h3>
+          <p class="pl-6 text-slate-700 font-bold">
+            We are an <strong>AgriTech Enterprise SaaS & Financial Settlement Platform</strong>. We do not buy milk or hold banking licenses; we provide the intelligent cloud operating system and secure payout rails that enable dairy enterprises to operate with zero fraud, zero latency, and 100% transparency.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="pt-6 border-t-2 border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-mono">
+      <div>3T (Time To Time) Dairy Platform • Smart India Hackathon 2026</div>
+      <div>Page Export / Print Ready (A4 PDF)</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

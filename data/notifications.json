@@ -1,0 +1,235 @@
+{
+  "notifications": [
+    {
+      "type": "rate_change",
+      "title": "Dairy Wide Rate Hike",
+      "body": "+₹2/L for all farmers",
+      "farmerId": "ALL",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1788353391875-UB0BE",
+      "createdAt": "2026-09-02T12:49:51.875Z",
+      "readBy": []
+    },
+    {
+      "type": "announcement",
+      "title": "B01 Maintenance",
+      "body": "Weighing scale update for B01",
+      "farmerId": "ALL",
+      "branchId": "B-01",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1788353391839-ZNNAI",
+      "createdAt": "2026-09-02T12:49:51.839Z",
+      "readBy": []
+    },
+    {
+      "type": "bonus_rate",
+      "title": "Audit Bonus F101",
+      "body": "₹5 bonus for F101",
+      "farmerId": "F-101",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1788353391780-FMV3Y",
+      "createdAt": "2026-09-02T12:49:51.780Z",
+      "readBy": []
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🟠 Warning: Milk Drop Detected",
+      "body": "Mahesh Yadav, today's milk (10.0L) dropped by 36% compared to your 7-day average (15.6L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-103",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788336632046-EFZPQ",
+      "createdAt": "2026-09-02T08:10:32.046Z",
+      "readBy": []
+    },
+    {
+      "type": "bonus_rate",
+      "title": "Direct Bonus to F-101",
+      "body": "Special audit bonus ₹5/L",
+      "farmerId": "F-101",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1788336629243-V9QL8",
+      "createdAt": "2026-09-02T08:10:29.243Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "bonus_rate",
+      "title": "Direct Bonus to F-101",
+      "body": "Special audit bonus ₹5/L",
+      "farmerId": "F-101",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1788332384107-26QDD",
+      "createdAt": "2026-09-02T06:59:44.107Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Aditya Chavan, today's milk (5.0L) dropped by 68% compared to your 7-day average (15.6L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-101",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788332040481-WLAN8",
+      "createdAt": "2026-09-02T06:54:00.481Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "bonus",
+      "title": "Diwali Bonus Test",
+      "body": "You have received an additional ₹2/L bonus on all deliveries!",
+      "farmerId": "F-101",
+      "branchId": "ALL",
+      "sentBy": "admin@3t.internal",
+      "id": "NOTIF-1788183932845-H9ZX5",
+      "createdAt": "2026-08-31T13:45:32.845Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Aditya Chavan, today's milk (12.0L) dropped by 41% compared to your 7-day average (20.3L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-101",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788183738030-2P2PV",
+      "createdAt": "2026-08-31T13:42:18.030Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Aditya Chavan, today's milk (10.0L) dropped by 45% compared to your 7-day average (18.1L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-101",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788108319920-SQGW9",
+      "createdAt": "2026-08-30T16:45:19.920Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Pritesh Ahire, today's milk (1.0L) dropped by 81% compared to your 7-day average (5.4L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-105",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788100467774-XGLCM",
+      "createdAt": "2026-08-30T14:34:27.774Z",
+      "readBy": []
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Sandesh Kadam, today's milk (1.0L) dropped by 88% compared to your 7-day average (8.1L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-102",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1788099204718-ZKRQT",
+      "createdAt": "2026-08-30T14:13:24.718Z",
+      "readBy": []
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Mahesh Yadav, today's milk (0.5L) dropped by 94% compared to your 7-day average (8.5L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-103",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1787898080664-WHURI",
+      "createdAt": "2026-08-28T06:21:20.664Z",
+      "readBy": [
+        "F-103"
+      ]
+    },
+    {
+      "type": "announcement",
+      "title": "Related To AI Mitra Upgradation",
+      "body": "\"Dear farmer brothers, we are pleased to inform you that we have started the AI Mike from today and higher version of AI friend. If you have any problems or questions, you can take help from your AI Friend (AI Mitra).\"",
+      "farmerId": "ALL",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1787563202996-DU40F",
+      "createdAt": "2026-08-24T09:20:02.996Z",
+      "readBy": [
+        "F-104",
+        "F-102",
+        "F-103",
+        "F-101"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Aditya Chavan, today's milk (12.0L) dropped by 44% compared to your 7-day average (21.3L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-101",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1787412018371-52M6V",
+      "createdAt": "2026-08-22T15:20:18.371Z",
+      "readBy": [
+        "F-101"
+      ]
+    },
+    {
+      "type": "announcement",
+      "title": "Regarding AI Mitr",
+      "body": "\"Dear farmer brothers, we are pleased to inform you that we have started the AI Mike from today. If you have any problems or questions, you can take help from your AI Friend (AI Mitra).\"",
+      "farmerId": "ALL",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1786686674328-1YC0Q",
+      "createdAt": "2026-08-14T05:51:14.328Z",
+      "readBy": [
+        "F-102",
+        "F-101",
+        "F-104",
+        "F-103"
+      ]
+    },
+    {
+      "type": "milk_drop_alert",
+      "title": "🔴 Critical: Milk Drop Detected",
+      "body": "Sandesh Kadam, today's milk (0.5L) dropped by 96% compared to your 7-day average (13.0L). Please check your cattle health. Open AI Mitra for guidance.",
+      "farmerId": "F-102",
+      "branchId": "B-01",
+      "sentBy": "SYSTEM",
+      "id": "NOTIF-1786685808099-MVOGJ",
+      "createdAt": "2026-08-14T05:36:48.099Z",
+      "readBy": [
+        "F-102"
+      ]
+    },
+    {
+      "type": "bonus_rate",
+      "title": "🎉 Diwali Milk Bonus: ₹2 Extra Per Liter!",
+      "body": "From 11 Oct 2026 to 20 Oct 2026",
+      "farmerId": "ALL",
+      "branchId": "ALL",
+      "sentBy": "3t@adminlogin",
+      "id": "NOTIF-1786600539061-OR6E4",
+      "createdAt": "2026-08-13T05:55:39.061Z",
+      "readBy": [
+        "F-101",
+        "F-102",
+        "F-104",
+        "F-103"
+      ]
+    }
+  ]
+}

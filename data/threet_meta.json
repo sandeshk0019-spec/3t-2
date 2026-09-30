@@ -1,0 +1,26 @@
+{
+  "branches": [
+    {
+      "id": "B-01",
+      "name": "Village Milk Collection Center",
+      "manager": "Vitthal Sawant",
+      "capacity": 15000,
+      "todayCollection": 332.95,
+      "employees": 8,
+      "payments": 19,
+      "status": "Active",
+      "x": 50,
+      "y": 50
+    }
+  ],
+  "formulaConfig": {
+    "basePrice": 10,
+    "fatFactor": 3.2,
+    "snfFactor": 3.8
+  },
+  "deletedFarmers": [],
+  "retiredIds": [
+    "F-106",
+    "F-107"
+  ]
+}

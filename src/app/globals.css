@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Syne:wght@600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F8A5F;
+  --color-primary-light: #e7f6f0;
+  --color-secondary: #46B36A;
+  --color-accent: #F6B73C;
+  --color-accent-light: #fef8eb;
+  --color-brand-bg: #FAFAFA;
+  --color-card-bg: #FFFFFF;
+  --color-text-main: #1A1A1A;
+  --color-text-muted: #707070;
+  --color-border-light: #EBEBEB;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Syne', 'Plus Jakarta Sans', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  --shadow-premium-sm: 0 1px 3px rgba(0, 0, 0, 0.01), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-premium-md: 0 6px 20px -2px rgba(0, 0, 0, 0.025), 0 2px 8px -1px rgba(0, 0, 0, 0.015);
+  --shadow-premium-lg: 0 20px 40px -4px rgba(0, 0, 0, 0.035), 0 4px 16px -2px rgba(0, 0, 0, 0.015);
+  
+  --radius-premium: 16px;
+  --radius-premium-lg: 24px;
+  --radius-premium-sm: 10px;
+}
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #1A1A1A;
+}
+
+/* Custom premium scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E5E5;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D0D0D0;
+}
+
+/* Base body tweaks */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+}
+
+/* Grid overlay pattern */
+.grid-bg {
+  background-image: radial-gradient(#0F8A5F 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
+}
+
+/* Premium card shadow hover helper */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-premium-lg);
+}
+
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Stylish founder typography & cards */
+.font-founder-name {
+  font-family: 'Syne', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-founder-title {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.12em;
+}
+
+.font-founder-quote {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.founder-gradient-text {
+  background: linear-gradient(135deg, #0F8A5F 0%, #16a34a 60%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.founder-gold-badge {
+  background: linear-gradient(135deg, rgba(246, 183, 60, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
+  border: 1px solid rgba(246, 183, 60, 0.35);
+  color: #b45309;
+}

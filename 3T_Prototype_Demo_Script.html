@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3T Dairy — Live Prototype Explanation Script (SIH Presentation Master)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0f172a;
+      background-color: #f8fafc;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .script-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+      .container-pdf {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5in !important;
+      }
+    }
+  </style>
+</head>
+<body class="p-4 sm:p-8 antialiased">
+
+  <!-- TOP ACTION BAR (NOT PRINTED) -->
+  <div class="max-w-5xl mx-auto mb-6 flex items-center justify-between no-print bg-slate-900 text-white p-4 rounded-2xl shadow-lg border border-slate-800">
+    <div class="flex items-center space-x-3">
+      <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+      <div>
+        <span class="text-xs font-black uppercase tracking-wider text-emerald-400 block">Smart India Hackathon • Finalist Presentation</span>
+        <span class="text-sm font-bold text-white">3T Live Prototype Demonstration Script (Word-for-Word Guide)</span>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-3">
+      <button onclick="window.print()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow transition-all cursor-pointer flex items-center space-x-2 active:scale-95">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>Print / Save as PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN DOCUMENT CONTAINER (A4 PRINT OPTIMIZED) -->
+  <div class="container-pdf max-w-5xl mx-auto bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-sm space-y-8">
+
+    <!-- HEADER / BANNER -->
+    <div class="pb-6 border-b-2 border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center space-x-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 font-mono">
+            Official SIH 2026 Presentation Script
+          </span>
+          <span class="text-slate-400 font-bold">•</span>
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">5-Minute Live Demo Blueprint</span>
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+          <span class="text-emerald-700">3T Dairy</span> — Prototype Pitch Script
+        </h1>
+        <p class="text-xs text-slate-600 font-medium">
+          Step-by-step speaker narration, click-by-click screen actions, Marathi voice demo, and judge handling.
+        </p>
+      </div>
+
+      <div class="text-left sm:text-right text-xs text-slate-500 font-mono">
+        <div><strong>Demo URL:</strong> 3tdairy.vercel.app</div>
+        <div><strong>Timing:</strong> 5 Mins (Demo) + 3 Mins (Q&A)</div>
+        <div><strong>Status:</strong> 100% Production Ready</div>
+      </div>
+    </div>
+
+    <!-- QUICK PRESENTATION CHEAT-SHEET -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+      <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+        <span class="font-extrabold text-slate-900 block text-xs mb-1">🎯 Core Objective</span>
+        <span class="text-slate-600 leading-snug">Prove that 3T converts physical milk into instant bank payout in under 3 seconds with zero operator fraud.</span>
+      </div>
+      <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+        <span class="font-extrabold text-slate-900 block text-xs mb-1">👥 Team Roles</span>
+        <span class="text-slate-600 leading-snug"><strong>Speaker:</strong> Delivers script. <strong>Pilot:</strong> Clicks screen. <strong>Hardware:</strong> Pairs BLE scale/analyzer.</span>
+      </div>
+      <div class="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-200">
+        <span class="font-extrabold text-emerald-900 block text-xs mb-1">💡 The Big "Aha!" Moment</span>
+        <span class="text-emerald-800 leading-snug font-medium">Triggering instant UPI payout & showing the real-time Marathi voice AI replying to the farmer.</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 1: THE HOOK (0:00 - 0:45) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-blue-100">
+        <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 1: The Hook & The Problem (0:00 – 0:45)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-blue-50/50 rounded-2xl border border-blue-200 space-y-3 text-xs leading-relaxed">
+        <div class="flex items-center justify-between">
+          <span class="font-mono font-bold text-blue-900 bg-blue-100 px-2 py-0.5 rounded">⏱️ 0:00 – 0:45</span>
+          <span class="font-bold text-slate-500">Screen on: <code>https://3tdairy.vercel.app</code></span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-white rounded-xl border border-blue-100">
+            <span class="font-extrabold text-blue-950 block mb-1">🗣️ WHAT TO SAY (Speaker):</span>
+            <p class="text-slate-800 font-medium italic">
+              "Respected judges, imagine a dairy farmer in rural India who wakes up at 4:30 AM, milks his cows, and delivers 15 liters of milk to the collection booth twice a day. He needs cash today to buy cattle feed and groceries. But under India’s current dairy system, he has to wait <strong>10 to 15 days</strong> for a batch bank transfer. In the meantime, he is forced to borrow from local moneylenders at <strong>36% annual interest</strong>.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Worse, corrupt booth operators can silently change his bank account number in desktop software to steal his money.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              We present <strong>3T — Time To Time Dairy Platform</strong>. The UPI moment for Indian Dairy. Milk Now, Money in Bank in 3 Seconds with Zero-Trust Security. Let us show you our working prototype live."
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl text-[11px] font-mono">
+            <span class="text-emerald-400 font-bold">🖥️ SCREEN PILOT ACTION:</span> Keep landing page open. Point to the tagline <em>"Milk Now. Money Now."</em>. Click on <strong>"Launch Dashboard / Branch Terminal"</strong>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 2: COLLECTION BOOTH & BLE SCALE PAIRING (0:45 - 2:00) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-amber-100">
+        <span class="w-3 h-3 rounded-full bg-amber-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 2: The Collection Booth & IoT Ingestion (0:45 – 2:00)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-amber-50/50 rounded-2xl border border-amber-200 space-y-3 text-xs leading-relaxed">
+        <div class="flex items-center justify-between">
+          <span class="font-mono font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded">⏱️ 0:45 – 2:00</span>
+          <span class="font-bold text-slate-500">Screen on: <code>/branch/B-01</code> and <code>/branch/B-01/display</code></span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-white rounded-xl border border-amber-100">
+            <span class="font-extrabold text-amber-950 block mb-1">🗣️ WHAT TO SAY (Speaker):</span>
+            <p class="text-slate-800 font-medium italic">
+              "We are now at the <strong>Kolhapur Center 01 Collection Terminal</strong>. 
+              Notice that we don't need expensive ₹1.5 Lakh desktop PCs with proprietary dongles. 3T is 100% browser-native using <strong>Web Bluetooth (BLE) and Web Serial APIs</strong> running on any phone, tablet, or laptop.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Farmer <strong>Aditya Chavan (F-101)</strong> arrives at the booth. As the pilot selects farmer F-101, the IoT digital scale and ultrasonic milk analyzer automatically stream the live readings: <strong>12.5 Liters, 4.2% FAT, and 8.5% SNF</strong>.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Simultaneously, look at our <strong>Live Customer Dual-Display Unit</strong> on <code>/branch/B-01/display</code>. The farmer sees his live weight, verified FAT, and rate update in real time with zero operator manipulation."
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl text-[11px] font-mono">
+            <span class="text-amber-400 font-bold">🖥️ SCREEN PILOT ACTION:</span>
+            <ul class="list-disc pl-4 space-y-1 mt-1">
+              <li>Select farmer <strong>Aditya Chavan (F-101)</strong> from dropdown or type <code>F-101</code>.</li>
+              <li>Show the Weight: <code>12.5 kg</code>, FAT: <code>4.2</code>, SNF: <code>8.5</code>.</li>
+              <li>Show the calculated Rate: <code>₹53.85 / L</code> and Total: <code>₹673.13</code>.</li>
+              <li>Open new tab / side window to <code>/branch/B-01/display</code> to show the live farmer dual-screen.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 3: THE MAGIC MOMENT - INSTANT PAYOUT (2:00 - 3:00) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-emerald-100">
+        <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 3: The Magic Moment — Instant Settlement (< 3s) (2:00 – 3:00)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-emerald-50/50 rounded-2xl border border-emerald-200 space-y-3 text-xs leading-relaxed">
+        <div class="flex items-center justify-between">
+          <span class="font-mono font-bold text-emerald-900 bg-emerald-100 px-2 py-0.5 rounded">⏱️ 2:00 – 3:00</span>
+          <span class="font-bold text-slate-500">Screen on: Instant Settlement Trigger & Receipt</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-white rounded-xl border border-emerald-100">
+            <span class="font-extrabold text-emerald-950 block mb-1">🗣️ WHAT TO SAY (Speaker):</span>
+            <p class="text-slate-800 font-medium italic">
+              "Now comes the core innovation. In traditional software, this milk entry is just written to a local text file for batch processing 15 days later.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              In 3T, the moment the operator clicks <strong>'Record & Pay Instant'</strong>:
+              1. Our Edge pricing engine locks the transaction.
+              2. It dispatches an automated programmable payout over <strong>NPCI UPI / IMPS rails</strong> directly to the farmer's verified VPA <code>aditya@upi</code>.
+              3. In <strong>2.1 seconds</strong>, the transaction status transitions to <strong>SUCCESS</strong>.
+              4. A DLT-approved SMS receipt is dispatched, and a thermal slip prints at the booth.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Milk in the tank, money in the farmer’s bank account. Right here, right now."
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl text-[11px] font-mono">
+            <span class="text-emerald-400 font-bold">🖥️ SCREEN PILOT ACTION:</span>
+            <ul class="list-disc pl-4 space-y-1 mt-1">
+              <li>Click <strong>"Record Collection & Pay Instant"</strong>.</li>
+              <li>Show the modal confirming instant UPI credit with green checkmark (<code>Payment ID: PAY-...</code>).</li>
+              <li>Show the thermal slip / SMS preview.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 4: FARMER PWA PASSBOOK & MARATHI AI MITRA (3:00 - 4:00) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-purple-100">
+        <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 4: Farmer Experience & Voice AI "AI Mitra" (3:00 – 4:00)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-purple-50/50 rounded-2xl border border-purple-200 space-y-3 text-xs leading-relaxed">
+        <div class="flex items-center justify-between">
+          <span class="font-mono font-bold text-purple-900 bg-purple-100 px-2 py-0.5 rounded">⏱️ 3:00 – 4:00</span>
+          <span class="font-bold text-slate-500">Screen on: <code>/farmer/F-101</code> (Farmer Passbook & AI Mitra)</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-white rounded-xl border border-purple-100">
+            <span class="font-extrabold text-purple-950 block mb-1">🗣️ WHAT TO SAY (Speaker):</span>
+            <p class="text-slate-800 font-medium italic">
+              "Now let’s switch to the farmer’s mobile screen at <code>/farmer/F-101</code>.
+              The farmer opens his 3T Digital Passbook. He immediately sees today's payout credited to his account, his historical yield graphs, and cattle stats.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              <strong>What about illiterate or elderly farmers?</strong>
+              They don't have to read tables. We built <strong>AI Mitra</strong> — India's first multilingual dairy voice AI.
+              Watch this live voice query in Marathi:
+            </p>
+            <p class="text-purple-950 font-bold mt-1 bg-purple-100 p-2 rounded-lg">
+              🎙️ Speak into mic / trigger question: <em>"माझे मागच्या ५ दिवसांचे किती पैसे झाले आणि फॅट का कमी झाला?"</em>
+            </p>
+            <p class="text-slate-800 font-medium italic mt-1">
+              AI Mitra analyzes his exact ledger history, explains his total earnings in spoken Marathi, and gives actionable advice on silage and mineral mixture to recover his fat percentage."
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl text-[11px] font-mono">
+            <span class="text-purple-400 font-bold">🖥️ SCREEN PILOT ACTION:</span>
+            <ul class="list-disc pl-4 space-y-1 mt-1">
+              <li>Open <code>/farmer/F-101</code> in mobile view mode.</li>
+              <li>Show the instant payment entry in the passbook table.</li>
+              <li>Open <strong>AI Mitra</strong> chat drawer. Click the quick prompt or speak: <em>"माझे मागचे पेमेंट आणि फॅट रिपोर्ट सांगा"</em>.</li>
+              <li>Show AI Mitra's instant contextual reply in Marathi.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 5: FRAUD SHIELD & 2FA MOBILE OTP DEMO (4:00 - 4:45) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-rose-100">
+        <span class="w-3 h-3 rounded-full bg-rose-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 5: Zero-Trust Security & 2FA OTP Defense (4:00 – 4:45)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-rose-50/50 rounded-2xl border border-rose-200 space-y-3 text-xs leading-relaxed">
+        <div class="flex items-center justify-between">
+          <span class="font-mono font-bold text-rose-900 bg-rose-100 px-2 py-0.5 rounded">⏱️ 4:00 – 4:45</span>
+          <span class="font-bold text-slate-500">Screen on: <code>/dashboard</code> (Edit Farmer Profile Modal)</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-white rounded-xl border border-rose-100">
+            <span class="font-extrabold text-rose-950 block mb-1">🗣️ WHAT TO SAY (Speaker):</span>
+            <p class="text-slate-800 font-medium italic">
+              "Judges often ask: <em>'What if a corrupt operator tries to change a farmer's bank account to his own to steal money?'</em>
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Let's try to do exactly that right now on the Admin Dashboard.
+              When the operator edits farmer Aditya's bank details, 3T completely write-locks the update and triggers our <strong>2FA Farmer Mobile OTP Handshake</strong>. 
+              Unless the farmer gives the 6-digit OTP received on his personal phone, the system rejects the change.
+            </p>
+            <p class="text-slate-800 font-medium italic mt-2">
+              Add to that our <strong>Server-Side Zero-Knowledge PII Masking</strong> (`XXXX-XXXX-1234`) and <strong>Anti-Syndicate Account Lock</strong> (preventing duplicate bank accounts across different farmers), and 3T becomes completely tamper-proof."
+            </p>
+          </div>
+
+          <div class="p-2.5 bg-slate-900 text-slate-200 rounded-xl text-[11px] font-mono">
+            <span class="text-rose-400 font-bold">🖥️ SCREEN PILOT ACTION:</span>
+            <ul class="list-disc pl-4 space-y-1 mt-1">
+              <li>Go to <code>/dashboard</code> $\rightarrow$ Farmers directory.</li>
+              <li>Click <strong>"Edit"</strong> on any farmer $\rightarrow$ modify bank account / UPI ID.</li>
+              <li>Click <strong>"Save Changes"</strong> $\rightarrow$ Show the 2FA OTP modal popping up with phone authorization!</li>
+              <li>Show the masked Aadhaar (<code>XXXX-XXXX-1234</code>) and masked Bank Account (<code>••••••••5678</code>).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ACT 6: THE CLOSING PUNCHLINE (4:45 - 5:00) -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4 page-break">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-emerald-100">
+        <span class="w-3 h-3 rounded-full bg-emerald-600"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Act 6: The 15-Second Closing Pitch (4:45 – 5:00)
+        </h2>
+      </div>
+
+      <div class="script-card p-5 bg-gradient-to-r from-emerald-900 to-slate-950 text-white rounded-2xl space-y-3 text-xs leading-relaxed shadow-md">
+        <div class="flex items-center justify-between border-b border-emerald-800 pb-2">
+          <span class="font-mono font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">⏱️ 4:45 – 5:00</span>
+          <span class="text-emerald-300 font-bold">Closing Statement</span>
+        </div>
+
+        <div class="p-3 bg-white/10 rounded-xl border border-white/10 text-slate-100 font-medium italic leading-relaxed text-sm">
+          "Judges, existing dairy giants like Amul and Gokul built great software for the desktop era of the 1990s. 
+          <strong>3T is the UPI moment for Indian Dairy.</strong> 
+          We eliminate payment delays, protect farmers from operator theft through 2FA OTP locks, empower them with Marathi Voice AI, and do it all with zero hardware CapEx.
+          Thank you! We are now open for your questions."
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- RAPID-FIRE JURY Q&A CHEAT-SHEET -->
+    <!-- ========================================================================= -->
+    <section class="space-y-4">
+      <div class="flex items-center space-x-2 pb-2 border-b-2 border-slate-200">
+        <span class="w-3 h-3 rounded-full bg-slate-700"></span>
+        <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider">
+          Judge Q&A Rapid-Fire Cheat Sheet (Top 5 Comebacks)
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        
+        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
+          <span class="font-extrabold text-slate-900 block">Q1: "Gokul/Amul already calculate FAT/SNF. What's new?"</span>
+          <p class="text-slate-600">
+            <strong>Say:</strong> <em>"Calculation is basic math; our innovation is what happens 1 millisecond later: <strong>instant sub-3-second bank payout</strong> directly over NPCI rails, zero-trust 2FA OTP operator protection, and Marathi Voice AI."</em>
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
+          <span class="font-extrabold text-slate-900 block">Q2: "What if internet goes down in the village?"</span>
+          <p class="text-slate-600">
+            <strong>Say:</strong> <em>"Our PWA operates <strong>100% offline via IndexedDB</strong>. The hardware logs milk entries locally with signed vouchers. The instant 4G reconnects, it syncs and executes payouts automatically."</em>
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
+          <span class="font-extrabold text-slate-900 block">Q3: "Who pays the transaction fee?"</span>
+          <p class="text-slate-600">
+            <strong>Say:</strong> <em>"UPI payouts operate with <strong>Zero MDR</strong> under NPCI guidelines. IMPS costs ~₹1.50, which the dairy gladly absorbs because it saves over ₹15 per farmer on manual cash handling and branch reconciliation."</em>
+          </p>
+        </div>
+
+        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
+          <span class="font-extrabold text-slate-900 block">Q4: "What if milk is adulterated after payment?"</span>
+          <p class="text-slate-600">
+            <strong>Say:</strong> <em>"Quality analysis (FAT, SNF, CLR, Water %) is verified by hardware <strong>BEFORE</strong> the milk is poured into the common collection vat. Payment triggers ONLY after sensor validation passes."</em>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="pt-6 border-t-2 border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-mono">
+      <div>3T (Time To Time) Prototype Pitch Playbook • SIH 2026</div>
+      <div>Live Demo Script & Viva Cue Sheet</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

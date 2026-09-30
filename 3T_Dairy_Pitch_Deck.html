@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3T Dairy — Next-Gen Dairy Fintech Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              emerald: '#0F8A5F',
+              darkemerald: '#0B6B49',
+              lightemerald: '#E7F6F0',
+              gold: '#F6B73C',
+              navy: '#0F172A',
+              cardbg: '#FFFFFF',
+              slate: '#1E293B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @page { size: 16in 9in; margin: 0; }
+    body { background: #0B0F19; color: #1E293B; }
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      max-width: 1600px;
+      max-height: 900px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide.active { display: flex; }
+    @media print {
+      body { background: white; }
+      .slide { display: flex !important; page-break-after: always; width: 100vw; height: 100vh; }
+      .nav-controls { display: none !important; }
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark-card {
+      background: rgba(30, 41, 59, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center select-none font-sans">
+
+  <!-- SLIDE 1: HERO & TITLE -->
+  <div class="slide active flex-col justify-between p-14 bg-gradient-to-br from-brand-navy via-[#131F37] to-[#0A1020] text-white" id="slide-1">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-emerald flex items-center justify-center font-outfit font-black text-2xl text-white shadow-lg shadow-emerald-900/40">3T</div>
+        <span class="font-outfit font-black text-xl tracking-wider text-white">TIME TO TIME DAIRY</span>
+      </div>
+      <span class="px-4 py-1.5 rounded-full bg-emerald-900/60 border border-emerald-500/30 text-emerald-400 font-outfit font-bold text-xs uppercase tracking-widest">
+        🌱 Next-Gen Agritech & Fintech
+      </span>
+    </div>
+
+    <div class="grid grid-cols-12 gap-10 items-center my-auto">
+      <div class="col-span-7 space-y-6">
+        <div class="inline-block px-3.5 py-1 rounded-lg bg-amber-400/10 border border-amber-400/20 text-brand-gold font-bold text-xs uppercase tracking-wider">
+          🚀 India's First Direct-to-Farmer Micro-Payout Terminal
+        </div>
+        <h1 class="text-5xl font-display font-black leading-tight tracking-tight text-white">
+          Milk Today. <br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300">Money Today.</span>
+        </h1>
+        <p class="text-lg text-slate-300 font-normal leading-relaxed pr-6">
+          Empowering 80M+ dairy farmers with zero-touch Bluetooth weighing scales, tamper-proof dual displays, and instant 2-second direct-to-bank UPI payouts.
+        </p>
+        <div class="pt-2 flex items-center space-x-4 text-xs font-semibold text-slate-400">
+          <span>Founder: <strong class="text-white">Sandesh Kadam</strong></span>
+          <span>•</span>
+          <span>Location: <strong class="text-white">Sangamner, Maharashtra</strong></span>
+        </div>
+      </div>
+
+      <div class="col-span-5 space-y-4">
+        <div class="dark-card p-6 rounded-3xl space-y-2 border-l-4 border-l-emerald-400 shadow-2xl">
+          <div class="text-3xl font-outfit font-black text-emerald-400">₹10,000 Cr+</div>
+          <div class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Annual Delayed Farmer Working Capital Crisis</div>
+          <p class="text-[11px] text-slate-400">Solved by eliminating the traditional 15–20 day cooperative credit cycle.</p>
+        </div>
+        <div class="dark-card p-6 rounded-3xl space-y-2 border-l-4 border-l-amber-400 shadow-2xl">
+          <div class="text-3xl font-outfit font-black text-amber-400">2 Seconds</div>
+          <div class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Automated UPI Payout Upon Milk Pouring</div>
+          <p class="text-[11px] text-slate-400">Instant SMS/WhatsApp notification before the farmer leaves the booth.</p>
+        </div>
+        <div class="dark-card p-6 rounded-3xl space-y-2 border-l-4 border-l-cyan-400 shadow-2xl">
+          <div class="text-3xl font-outfit font-black text-cyan-400">100% Zero-Touch</div>
+          <div class="text-xs font-semibold text-slate-300 uppercase tracking-wide">Web Bluetooth BLE Scale Integration</div>
+          <p class="text-[11px] text-slate-400">Zero operator tampering with real-time customer dual-screen display.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-800">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 1 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: THE PROBLEM -->
+  <div class="slide flex-col justify-between p-14 bg-[#F8FAFC]" id="slide-2">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-emerald mb-1">THE GROUND REALITY</div>
+      <h2 class="text-3xl font-display font-black text-slate-900">3 Pain Points Holding Back 80 Million Indian Farmers</h2>
+      <p class="text-sm text-slate-500 mt-1">Why traditional manual registers and delayed cooperative cycles hurt rural livelihood</p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 my-auto">
+      <div class="glass-card p-8 rounded-3xl border border-red-100 shadow-xl space-y-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-2xl">⏳</div>
+        <h3 class="text-xl font-display font-bold text-red-700">15–20 Day Payment Delay</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Farmers work 365 days a year starting before sunrise and incur daily expenses for cattle feed and medicine. Yet, payments are held for weeks, forcing them into high-interest local debt.
+        </p>
+        <div class="p-3 rounded-xl bg-red-50 text-[11px] font-bold text-red-800">
+          🚨 Result: Severe rural working-capital crisis
+        </div>
+      </div>
+
+      <div class="glass-card p-8 rounded-3xl border border-amber-100 shadow-xl space-y-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-2xl">❌</div>
+        <h3 class="text-xl font-display font-bold text-amber-800">Opacity & Manual Tampering</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Milk weight, FAT%, and SNF% are written by hand in paper registers. Centers frequently under-read metrics, reducing farmer income by 10%–18% with zero proof for dispute resolution.
+        </p>
+        <div class="p-3 rounded-xl bg-amber-50 text-[11px] font-bold text-amber-900">
+          🚨 Result: Chronic distrust between farmers & dairies
+        </div>
+      </div>
+
+      <div class="glass-card p-8 rounded-3xl border border-blue-100 shadow-xl space-y-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-2xl">📉</div>
+        <h3 class="text-xl font-display font-bold text-blue-800">Zero Early Disease Alerts</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          When cattle fall ill (e.g., subclinical mastitis), milk yield drops silently. Farmers realize too late, causing permanent damage to livestock health and ₹4,000+ loss per cow.
+        </p>
+        <div class="p-3 rounded-xl bg-blue-50 text-[11px] font-bold text-blue-900">
+          🚨 Result: High cattle mortality & production loss
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-200">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 2 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: THE SOLUTION -->
+  <div class="slide flex-col justify-between p-14 bg-[#F8FAFC]" id="slide-3">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-emerald mb-1">THE 3T BREAKTHROUGH</div>
+      <h2 class="text-3xl font-display font-black text-slate-900">The 4-Pillar Transparent Dairy Fintech Ecosystem</h2>
+      <p class="text-sm text-slate-500 mt-1">Transforming village milk collection into a high-speed, 100% transparent digital experience</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 my-auto">
+      <div class="glass-card p-7 rounded-3xl border-l-4 border-l-brand-emerald shadow-lg space-y-3">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">⚖️</span>
+          <h3 class="text-lg font-display font-bold text-brand-emerald">Web Bluetooth IoT Scale Sync</h3>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Wirelessly streams live milk volume from digital scales via Web Bluetooth API (BLE 4.0+) directly into the browser with zero operator keystrokes.
+        </p>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border-l-4 border-l-brand-gold shadow-lg space-y-3">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🖥️</span>
+          <h3 class="text-lg font-display font-bold text-amber-800">Real-Time Customer Dual Display</h3>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Synchronizes across screens via BroadcastChannel API, letting farmers standing in queue verify their Weight, FAT%, SNF%, and calculated payout live.
+        </p>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border-l-4 border-l-emerald-600 shadow-lg space-y-3">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">⚡</span>
+          <h3 class="text-lg font-display font-bold text-emerald-800">Instant 2-Sec UPI Bank Settlement</h3>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Dynamic formula engine calculates net rate and executes automated webhook payouts via NPCI UPI / IMPS directly into the farmer's bank within 2 seconds.
+        </p>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border-l-4 border-l-indigo-600 shadow-lg space-y-3">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🤖</span>
+          <h3 class="text-lg font-display font-bold text-indigo-800">Multilingual AI Krishi Mitra</h3>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Conversational voice & text AI assistant supporting Marathi, Hindi, and English, coupled with automatic anomaly detection alerting farmers to yield drops.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-200">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 3 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: HARDWARE & PIPELINE -->
+  <div class="slide flex-col justify-between p-14 bg-gradient-to-br from-brand-navy via-[#131F37] to-[#0A1020] text-white" id="slide-4">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-gold mb-1">OPERATIONAL PIPELINE</div>
+      <h2 class="text-3xl font-display font-black text-white">From Milk Pouring to Bank Credit in Under 30 Seconds</h2>
+      <p class="text-sm text-slate-300 mt-1">High-speed 6-step automated workflow designed for peak rural morning & evening shifts</p>
+    </div>
+
+    <div class="grid grid-cols-6 gap-4 my-auto">
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-emerald-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 1</span>
+        <div class="text-xl">⚖️</div>
+        <h4 class="text-xs font-bold text-white">Weighing</h4>
+        <p class="text-[11px] text-slate-400">Streamed via Bluetooth BLE scale</p>
+      </div>
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-emerald-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 2</span>
+        <div class="text-xl">🧪</div>
+        <h4 class="text-xs font-bold text-white">FAT & SNF</h4>
+        <p class="text-[11px] text-slate-400">Ultrasonic milk analyzer read</p>
+      </div>
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-amber-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 3</span>
+        <div class="text-xl">⚙️</div>
+        <h4 class="text-xs font-bold text-white">Pricing Formula</h4>
+        <p class="text-[11px] text-slate-400">Dynamic rate calculation engine</p>
+      </div>
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-amber-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 4</span>
+        <div class="text-xl">🖥️</div>
+        <h4 class="text-xs font-bold text-white">Dual Display</h4>
+        <p class="text-[11px] text-slate-400">Live screen verification for farmer</p>
+      </div>
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-cyan-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 5</span>
+        <div class="text-xl">⚡</div>
+        <h4 class="text-xs font-bold text-white">Instant UPI</h4>
+        <p class="text-[11px] text-slate-400">2-second direct bank payout</p>
+      </div>
+      <div class="dark-card p-5 rounded-2xl border-t-4 border-t-cyan-400 space-y-3">
+        <span class="text-[10px] font-bold text-brand-gold uppercase">Step 6</span>
+        <div class="text-xl">📱</div>
+        <h4 class="text-xs font-bold text-white">SMS Slip</h4>
+        <p class="text-[11px] text-slate-400">Live digital passbook & SMS receipt</p>
+      </div>
+    </div>
+
+    <div class="p-4 rounded-2xl bg-emerald-900/40 border border-emerald-500/30 text-center text-xs font-bold text-emerald-300">
+      ⚡ Zero Manual Operator Calculation • 100% Machine-to-Cloud Integrity • Instant Liquidity for Dairy Farmers
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-800">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 4 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: TECH ARCHITECTURE -->
+  <div class="slide flex-col justify-between p-14 bg-[#F8FAFC]" id="slide-5">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-emerald mb-1">TECHNICAL EXCELLENCE</div>
+      <h2 class="text-3xl font-display font-black text-slate-900">Scalable, Enterprise & Offline-First Architecture</h2>
+      <p class="text-sm text-slate-500 mt-1">Built to withstand harsh rural internet drops with zero data loss</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6 my-auto">
+      <div class="glass-card p-7 rounded-3xl border border-slate-200 shadow-lg space-y-2">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-brand-emerald">💻 Frontend & Presentation Layer</h3>
+        <ul class="text-xs text-slate-700 space-y-1.5 pt-1">
+          <li>• <strong>Next.js 16 (App Router) & React 19:</strong> Blazing fast SSR + CSR.</li>
+          <li>• <strong>Tailwind CSS & Framer Motion:</strong> High-DPI responsive UI.</li>
+          <li>• <strong>Web Bluetooth API (BLE 4.0+):</strong> Direct hardware scale connectivity.</li>
+          <li>• <strong>BroadcastChannel API:</strong> Sub-millisecond dual display sync.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border border-slate-200 shadow-lg space-y-2">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-indigo-700">⚙️ Business Logic & Intelligence</h3>
+        <ul class="text-xs text-slate-700 space-y-1.5 pt-1">
+          <li>• <strong>Dynamic Rate Engine:</strong> Configurable Base + FAT + SNF formula.</li>
+          <li>• <strong>Milk Drop Detection:</strong> Rolling 7-day anomaly detection engine.</li>
+          <li>• <strong>Zero-Knowledge Security:</strong> Server-side PII masking for Aadhaar/Bank.</li>
+          <li>• <strong>OTP Shield:</strong> 6-digit OTP verification for bank modifications.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border border-slate-200 shadow-lg space-y-2">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-amber-700">💾 Hybrid Database & Edge Sync</h3>
+        <ul class="text-xs text-slate-700 space-y-1.5 pt-1">
+          <li>• <strong>Write-Through Storage:</strong> Immediate disk serialization.</li>
+          <li>• <strong>Supabase Cloud PostgreSQL:</strong> State-wide multi-branch sync.</li>
+          <li>• <strong>Local LowDB Cache:</strong> Zero-downtime offline rural collection.</li>
+          <li>• <strong>Atomic Write Lock:</strong> Eliminates concurrent overwrite races.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card p-7 rounded-3xl border border-slate-200 shadow-lg space-y-2">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-teal-700">🏦 Banking Rails & AI Engine</h3>
+        <ul class="text-xs text-slate-700 space-y-1.5 pt-1">
+          <li>• <strong>NPCI UPI / IMPS Gateway:</strong> Automated 2-second bank transfer.</li>
+          <li>• <strong>RazorpayX Integration:</strong> Live sandbox & multi-account payouts.</li>
+          <li>• <strong>Google Gemini AI LLM:</strong> Contextual rural advisory in Marathi/Hindi.</li>
+          <li>• <strong>SMS & WhatsApp Webhooks:</strong> Automated delivery notifications.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-200">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 5 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: BUSINESS MODEL -->
+  <div class="slide flex-col justify-between p-14 bg-[#F8FAFC]" id="slide-6">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-emerald mb-1">COMMERCIAL SUSTAINABILITY</div>
+      <h2 class="text-3xl font-display font-black text-slate-900">High-Margin, Diversified Revenue Streams</h2>
+      <p class="text-sm text-slate-500 mt-1">Multi-sided business model serving Private Dairies, Cooperatives, and Farmers</p>
+    </div>
+
+    <div class="grid grid-cols-4 gap-5 my-auto">
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 shadow-lg space-y-3">
+        <div class="text-2xl">🏢</div>
+        <h3 class="text-sm font-bold text-slate-900">B2B SaaS License</h3>
+        <p class="text-[11px] text-slate-600">Monthly subscription charged per village collection center for terminal software & live cloud sync.</p>
+        <div class="pt-2 border-t border-slate-100">
+          <div class="text-sm font-black text-brand-emerald">₹500 – ₹1,500 / mo</div>
+          <span class="text-[10px] text-slate-400">Recurring Annual SaaS</span>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 shadow-lg space-y-3">
+        <div class="text-2xl">⚡</div>
+        <h3 class="text-sm font-bold text-slate-900">Instant Micro-Payout Fee</h3>
+        <p class="text-[11px] text-slate-600">Nominal processing fee charged per instant direct-to-bank UPI payout transaction.</p>
+        <div class="pt-2 border-t border-slate-100">
+          <div class="text-sm font-black text-brand-emerald">₹0.50 – ₹1.00 / payout</div>
+          <span class="text-[10px] text-slate-400">High Daily Transaction Volume</span>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 shadow-lg space-y-3">
+        <div class="text-2xl">🌾</div>
+        <h3 class="text-sm font-bold text-slate-900">Agri-Commerce Supplies</h3>
+        <p class="text-[11px] text-slate-600">Commission from partnering cattle feed, mineral mixture, and veterinary pharmaceutical manufacturers.</p>
+        <div class="pt-2 border-t border-slate-100">
+          <div class="text-sm font-black text-brand-emerald">3% – 5% Commission</div>
+          <span class="text-[10px] text-slate-400">Direct-to-Farmer Marketplace</span>
+        </div>
+      </div>
+
+      <div class="glass-card p-6 rounded-3xl border border-slate-200 shadow-lg space-y-3">
+        <div class="text-2xl">🏦</div>
+        <h3 class="text-sm font-bold text-slate-900">Cattle Loan Credit Score</h3>
+        <p class="text-[11px] text-slate-600">Monetizing verified milk delivery histories to enable instant bank loan origination for farmers.</p>
+        <div class="pt-2 border-t border-slate-100">
+          <div class="text-sm font-black text-brand-emerald">1% – 2% Origination Fee</div>
+          <span class="text-[10px] text-slate-400">Rural Fintech Lending Rails</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-200">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 6 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: COMPETITIVE MOAT & IMPACT -->
+  <div class="slide flex-col justify-between p-14 bg-[#F8FAFC]" id="slide-7">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-emerald mb-1">COMPETITIVE MOAT & IMPACT</div>
+      <h2 class="text-3xl font-display font-black text-slate-900">Why 3T Outperforms Traditional & Legacy Software</h2>
+      <p class="text-sm text-slate-500 mt-1">Transforming agricultural produce processing and driving national rural inclusion</p>
+    </div>
+
+    <div class="my-auto space-y-5">
+      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-900 text-white font-bold uppercase tracking-wider">
+            <tr>
+              <th class="p-3">Feature</th>
+              <th class="p-3">Traditional Centers</th>
+              <th class="p-3">Legacy Software (Stellapps/Prompt)</th>
+              <th class="p-3 bg-brand-emerald text-white">3T (Time To Time)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 bg-white">
+            <tr>
+              <td class="p-3 font-bold">Payment Settlement</td>
+              <td class="p-3 text-red-600">15–20 Days Delay</td>
+              <td class="p-3 text-amber-600">7–10 Days Batch</td>
+              <td class="p-3 bg-emerald-50 text-emerald-800 font-bold">✅ Instant 2-Sec Direct UPI</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Testing Transparency</td>
+              <td class="p-3 text-red-600">Manual paper register</td>
+              <td class="p-3 text-amber-600">Operator screen only</td>
+              <td class="p-3 bg-emerald-50 text-emerald-800 font-bold">✅ Live Customer Dual-Display</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Scale Connectivity</td>
+              <td class="p-3 text-red-600">Manual operator typing</td>
+              <td class="p-3 text-amber-600">Proprietary locked hardware</td>
+              <td class="p-3 bg-emerald-50 text-emerald-800 font-bold">✅ Universal Web Bluetooth BLE</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold">Advisory & Health</td>
+              <td class="p-3 text-red-600">None</td>
+              <td class="p-3 text-amber-600">Basic historical charts</td>
+              <td class="p-3 bg-emerald-50 text-emerald-800 font-bold">✅ Multilingual AI Mitra + Alert</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-1 shadow-sm">
+          <h4 class="text-xs font-bold text-brand-emerald">👩‍🌾 Women Financial Empowerment</h4>
+          <p class="text-[11px] text-slate-600">70%+ of dairy labor is by women; direct mobile UPI credits ensure earnings reach women directly.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-1 shadow-sm">
+          <h4 class="text-xs font-bold text-brand-emerald">🇮🇳 Digital India & UPI Expansion</h4>
+          <p class="text-[11px] text-slate-600">Deepens formal digital payment penetration into Tier-3 & Tier-4 agrarian economies.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-1 shadow-sm">
+          <h4 class="text-xs font-bold text-brand-emerald">🥛 NDDB Clean Milk Mission</h4>
+          <p class="text-[11px] text-slate-600">Quality-based transparent pricing rewards hygienic milk production and penalizes adulteration.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-200">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 7 of 8</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: ROADMAP & DEMO -->
+  <div class="slide flex-col justify-between p-14 bg-gradient-to-br from-brand-navy via-[#131F37] to-[#0A1020] text-white" id="slide-8">
+    <div>
+      <div class="text-xs font-outfit font-black tracking-widest uppercase text-brand-gold mb-1">EXECUTION PLAN</div>
+      <h2 class="text-3xl font-display font-black text-white">Execution Roadmap & Prototype Demonstration</h2>
+      <p class="text-sm text-slate-300 mt-1">Structured 18-month plan to digitize 100,000+ village milk centers</p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 my-auto">
+      <div class="dark-card p-6 rounded-3xl border-t-4 border-t-emerald-400 space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm font-bold text-emerald-400">Phase 1: Ground Pilot</h3>
+          <span class="text-[10px] font-bold text-brand-gold">Q1 2026</span>
+        </div>
+        <ul class="text-xs text-slate-300 space-y-1.5">
+          <li>• 1 Primary Hub (Sangamner, Maharashtra)</li>
+          <li>• 100+ Daily Active Farmers</li>
+          <li>• Live UPI direct settlement validation</li>
+          <li>• Bluetooth scale hardware calibration</li>
+        </ul>
+      </div>
+
+      <div class="dark-card p-6 rounded-3xl border-t-4 border-t-amber-400 space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm font-bold text-amber-400">Phase 2: District Scale</h3>
+          <span class="text-[10px] font-bold text-brand-gold">Q2–Q3 2026</span>
+        </div>
+        <ul class="text-xs text-slate-300 space-y-1.5">
+          <li>• 50 Village Milk Collection Hubs</li>
+          <li>• 5,000+ Daily Milk Pours</li>
+          <li>• Cattle Feed Marketplace Integration</li>
+          <li>• Startup India / RKVY Grant Application</li>
+        </ul>
+      </div>
+
+      <div class="dark-card p-6 rounded-3xl border-t-4 border-t-cyan-400 space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm font-bold text-cyan-400">Phase 3: State Federation</h3>
+          <span class="text-[10px] font-bold text-brand-gold">Q4 2026+</span>
+        </div>
+        <ul class="text-xs text-slate-300 space-y-1.5">
+          <li>• Cooperative Dairy Federation Tie-ups</li>
+          <li>• 100,000+ Registered Farmers</li>
+          <li>• Bank Cattle Loan Credit Engine</li>
+          <li>• Multi-state expansion across India</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dark-card p-5 rounded-2xl border border-emerald-500/40 bg-emerald-950/40 flex items-center justify-between">
+      <div>
+        <h4 class="text-sm font-bold text-white">🚀 Live Working Prototype & Open-Source Repository</h4>
+        <p class="text-xs text-slate-300">Experience real-time Bluetooth scale sync, live dual display, and instant UPI checkout.</p>
+      </div>
+      <div class="text-right text-xs text-slate-400 space-y-0.5 font-mono">
+        <div>GitHub: <strong class="text-emerald-400">sandeshk0019-spec/3tdairy</strong></div>
+        <div>Founder: <strong class="text-white">Sandesh Kadam</strong></div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-800">
+      <span>3T Dairy Fintech Innovation</span>
+      <span>Slide 8 of 8</span>
+    </div>
+  </div>
+
+  <!-- NAVIGATION FLOATING CONTROLS -->
+  <div class="nav-controls fixed bottom-6 right-8 flex items-center space-x-3 z-50 bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl border border-slate-700 shadow-2xl">
+    <button onclick="prevSlide()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition">◀ Prev</button>
+    <span id="slideIndicator" class="text-xs font-mono font-bold text-emerald-400 px-2">1 / 8</span>
+    <button onclick="nextSlide()" class="p-2 rounded-xl bg-brand-emerald hover:bg-emerald-600 text-white text-xs font-bold transition">Next ▶</button>
+    <button onclick="window.print()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-brand-gold text-xs font-bold transition ml-2">🖨️ PDF</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(`slide-${n}`);
+      if (target) {
+        target.classList.add('active');
+        currentSlide = n;
+        document.getElementById('slideIndicator').innerText = `${currentSlide} / ${totalSlides}`;
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>

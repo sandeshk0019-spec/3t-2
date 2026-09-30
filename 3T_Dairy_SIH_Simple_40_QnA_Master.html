@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3T Dairy - Easy 40 Defense Questions (20 Frontend + 20 Backend)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+    
+    :root {
+      --primary: #064e3b;
+      --primary-dark: #022c22;
+      --emerald: #059669;
+      --accent: #0f766e;
+      --navy: #1e3a8a;
+      --dark: #0f172a;
+      --slate: #334155;
+      --light-bg: #f8fafc;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--dark);
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    header {
+      border-bottom: 3px solid var(--primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ecfdf5;
+      color: #065f46;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      border: 1px solid #a7f3d0;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--slate);
+      font-weight: 500;
+    }
+
+    .section-header {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-header.blue {
+      background: var(--navy);
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      page-break-inside: avoid;
+    }
+
+    .card-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .punchline {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+      background: #f0fdfa;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--slate);
+      line-height: 1.55;
+    }
+
+    .card-body b {
+      color: var(--dark);
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #fff;
+      }
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .card {
+        border: 1px solid #cbd5e1;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">Round 2 / Technical Jury Defense (Simple Edition)</span>
+      <h1>3T DAIRY: EASY 40 DEFENSE Q&amp;A (20 FRONTEND + 20 BACKEND)</h1>
+      <p class="subtitle">Simplified, Plain-English Answers Specially Written for 1st-Year Team Members to Speak Confidently in Front of Judges</p>
+    </header>
+
+    <!-- SECTION 1: FRONTEND -->
+    <div class="section-header">
+      <span>SECTION 1: FRONTEND (TOP 20 QUESTIONS &amp; SIMPLE ANSWERS)</span>
+      <span style="font-size: 11px; opacity: 0.9;">UI, Next.js &amp; PWA</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q1. What is Next.js and why are we using it for the frontend?</div>
+      <div class="punchline">👉 1-Line Punchline: Next.js is a modern React framework that makes web pages load super-fast on slow village 3G/4G networks.</div>
+      <div class="card-body">
+        • It renders pages on the server first, so farmers see the screen in less than 0.3 seconds without a white loading screen.<br/>
+        • It allows us to write both frontend screens and backend APIs inside one clean project without needing a separate server.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q2. Why did you use React 19?</div>
+      <div class="punchline">👉 1-Line Punchline: React lets us build fast, interactive screens with reusable components.</div>
+      <div class="card-body">
+        • When a farmer pours milk, the total price and weight calculate on the screen instantly without reloading the page.<br/>
+        • React components keep our code neat, organized, and easy to maintain.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q3. Why did you choose TypeScript instead of plain JavaScript?</div>
+      <div class="punchline">👉 1-Line Punchline: TypeScript stops coding mistakes before running the code so the app never crashes during milk collection.</div>
+      <div class="card-body">
+        • Because we calculate money, milk weight, and rates, TypeScript ensures we never get calculation errors or blank screens.<br/>
+        • It makes teamwork easy because everyone knows the exact shape of farmer data.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q4. Why did you use Tailwind CSS for styling?</div>
+      <div class="punchline">👉 1-Line Punchline: Tailwind CSS makes our app lightweight, beautiful, and easy to design for both phones and laptops.</div>
+      <div class="card-body">
+        • It creates a tiny CSS file (under 15KB) that downloads in milliseconds even in remote villages.<br/>
+        • We used high-contrast dark green and white colors so operators can read the screen clearly under bright village sunlight.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q5. What is a PWA (Progressive Web App) and why did we build it?</div>
+      <div class="punchline">👉 1-Line Punchline: PWA lets farmers install 3T Dairy on their phone home screen with 1 click without going to Google Play Store.</div>
+      <div class="card-body">
+        • Farmers simply scan a QR code and tap "Add to Home Screen" — no 50MB app download required.<br/>
+        • Whenever we update the code or fix a bug, all farmers get the update immediately on their phone.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q6. Why didn't you build a native Android Kotlin or Flutter app?</div>
+      <div class="punchline">👉 1-Line Punchline: Because rural farmers have cheap budget phones with very low storage and don't want to download heavy apps.</div>
+      <div class="card-body">
+        • Our PWA works on every device (Android, iPhone, Windows Laptop, Tablet) through any web browser.<br/>
+        • Center operators can use the exact same software on a booth laptop or Android tablet.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q7. How does the frontend work when internet is completely disconnected in a village?</div>
+      <div class="punchline">👉 1-Line Punchline: Our PWA Service Worker saves the app screens offline inside the browser memory.</div>
+      <div class="card-body">
+        • The operator can still enter milk weight, calculate rates, and print receipts completely offline.<br/>
+        • When internet reconnects, all saved deliveries automatically sync to the cloud database.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q8. How does the milk rate calculate so fast on the screen (under 1 millisecond)?</div>
+      <div class="punchline">👉 1-Line Punchline: We use React's useMemo hook to do the math directly on the computer CPU.</div>
+      <div class="card-body">
+        • The math formula <code>Weight × (Base + FAT + SNF)</code> runs inside the browser in 0.1ms.<br/>
+        • The screen updates instantly as the operator types without waiting for any server response.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q9. How does the search bar find farmers so quickly in the collection form?</div>
+      <div class="punchline">👉 1-Line Punchline: Instant client-side filtering by Name, ID (like F-101), or Phone number.</div>
+      <div class="card-body">
+        • As you type, the dropdown list filters in real time across hundreds of farmers in under 2 milliseconds.<br/>
+        • It also shows a green confirmation chip showing the selected farmer's name and village so operators don't make mistakes.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q10. What is Framer Motion and where is it used in your UI?</div>
+      <div class="punchline">👉 1-Line Punchline: It is a smooth animation library used for visual feedback.</div>
+      <div class="card-body">
+        • We use it for smooth popup animations: the green "Payment Success" badge, the red "Anti-Fraud Lock" modal, and KYC drawers.<br/>
+        • Smooth animations make the web app feel like a premium, native mobile application.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q11. What is Lucide React and why is it important for rural farmers?</div>
+      <div class="punchline">👉 1-Line Punchline: A lightweight icon library providing clear visual symbols for non-English speaking farmers.</div>
+      <div class="card-body">
+        • We use clear icons like Milk Can, Rupee Symbol, QR Code, and Shield Lock.<br/>
+        • Farmers who cannot read English can easily understand what each button does just by looking at the icons.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q12. How does the QR code digital passbook work for farmers?</div>
+      <div class="punchline">👉 1-Line Punchline: Every farmer has a unique scannable QR code generated directly inside the browser.</div>
+      <div class="card-body">
+        • When scanned with any smartphone camera, it opens the farmer's personal milk passbook without requiring a password.<br/>
+        • QR codes are generated instantly on the client canvas without calling any slow third-party API.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q13. What is the Anti-Fraud Shift Lock Modal on the frontend?</div>
+      <div class="punchline">👉 1-Line Punchline: A safety pop-up that blocks operators from entering milk twice for the same farmer in the same shift.</div>
+      <div class="card-body">
+        • If a farmer already poured milk in the Morning shift, trying to log them again shows a bright Red Warning Modal.<br/>
+        • It can only be unlocked if the dairy Super Admin enters their secret override PIN.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q14. How does the frontend stop operators from typing crazy numbers like 1000 Liters?</div>
+      <div class="punchline">👉 1-Line Punchline: Automatic form validation guardrails.</div>
+      <div class="card-body">
+        • Milk weight is limited to 0.5L - 100L per can, FAT is checked between 1.5% - 12%, and SNF between 6% - 12%.<br/>
+        • If an operator types an impossible number, the form shows an instant error warning.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q15. How do elderly farmers without smartphones get their payment slip?</div>
+      <div class="punchline">👉 1-Line Punchline: Via 1-click Thermal Receipt Printing and automated vernacular SMS.</div>
+      <div class="card-body">
+        • The operator clicks "Print Voucher" to print a 2-inch physical paper slip on a POS receipt printer.<br/>
+        • An automated SMS / WhatsApp slip with weight, FAT, rate, and amount is also sent to basic mobile phones.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q16. What is the BroadcastChannel API and why did you use it?</div>
+      <div class="punchline">👉 1-Line Punchline: It allows multiple browser tabs on the same computer to talk to each other with 0ms delay.</div>
+      <div class="card-body">
+        • If the scale operator logs milk in Tab 1, Tab 2 (Admin view) updates instantly without touching the internet.<br/>
+        • It gives real-time synchronization on the counter machine with zero server costs.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q17. How does the UI look on a mobile phone vs a big laptop screen?</div>
+      <div class="punchline">👉 1-Line Punchline: Responsive design that automatically adapts to any screen size.</div>
+      <div class="card-body">
+        • On mobile phones, it shows a clean single-column view with bottom navigation tabs.<br/>
+        • On laptops and tablets, it expands into a split-screen view: scale logger on the left and live delivery ledger on the right.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q18. What is Google Gemini AI Mitra in the frontend?</div>
+      <div class="punchline">👉 1-Line Punchline: An AI veterinary and cattle feed assistant inside the app.</div>
+      <div class="card-body">
+        • Farmers can ask questions in Marathi, Hindi, or English to diagnose cattle diseases and improve milk fat.<br/>
+        • It shows simple, actionable tips on how to feed cows green fodder and minerals.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q19. How are farmer passwords and bank details kept private on the screen?</div>
+      <div class="punchline">👉 1-Line Punchline: Zero-Knowledge masking: sensitive numbers are hidden behind dots.</div>
+      <div class="card-body">
+        • The screen only shows masked numbers like <code>•••• •••• 7133</code> for Aadhaar and <code>••••••••9012</code> for Bank Account.<br/>
+        • People standing in line behind the counter cannot see or steal the farmer's private banking details.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q20. What will you say if judges ask: "Why is your UI better than existing dairy apps?"</div>
+      <div class="punchline">👉 1-Line Punchline: 3T Dairy takes under 2 seconds per farmer, works on mobile, and gives instant UPI receipts.</div>
+      <div class="card-body">
+        • Old dairy software looks like ugly 1995 accounting spreadsheets and takes 15-20 seconds per farmer.<br/>
+        • 3T Dairy is modern, ultra-fast, works offline, and empowers farmers with live digital passbooks.
+      </div>
+    </div>
+
+    <!-- SECTION 2: BACKEND -->
+    <div class="section-header blue">
+      <span>SECTION 2: BACKEND (TOP 20 QUESTIONS &amp; SIMPLE ANSWERS)</span>
+      <span style="font-size: 11px; opacity: 0.9;">APIs, Database &amp; Security</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q21. What database are you using and why?</div>
+      <div class="punchline">👉 1-Line Punchline: We use Supabase PostgreSQL in the cloud and LowDB (db.json) on local disk.</div>
+      <div class="card-body">
+        • <b>Supabase PostgreSQL:</b> Keeps all cloud records safe, organized, and synced across all mobile passbooks.<br/>
+        • <b>LowDB:</b> Saves milk entries directly to the counter computer disk so the app works even when village internet drops.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q22. What is a Serverless API Route in Next.js?</div>
+      <div class="punchline">👉 1-Line Punchline: Backend code that runs instantly on-demand without needing an expensive 24/7 server.</div>
+      <div class="card-body">
+        • When an operator clicks "Submit Milk", the serverless function wakes up in milliseconds, calculates rates, and saves the data.<br/>
+        • It scales automatically during morning rush hour without costing money when idle.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q23. How does the backend prevent double payments to farmers?</div>
+      <div class="punchline">👉 1-Line Punchline: Every payment gets a unique cryptographic Idempotency Key (like PAY-123456).</div>
+      <div class="card-body">
+        • Even if an operator accidentally clicks "Pay" twice or internet lags, the banking gateway processes the transfer only once.<br/>
+        • It guarantees that double disbursements are mathematically impossible.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q24. How does the backend formula calculate milk rate and price?</div>
+      <div class="punchline">👉 1-Line Punchline: A transparent mathematical formula: Rate = Base Price + (FAT × FatFactor) + (SNF × SnfFactor).</div>
+      <div class="card-body">
+        • If Base is ₹30, FAT is 4.2% (×5), and SNF is 8.5% (×2), Rate = 30 + 21 + 17 = ₹68/L.<br/>
+        • Total payout is simply <code>Liters × Rate</code> (e.g. 10L × ₹68 = ₹680).
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q25. What is Historical Rate Freezing and why is it important?</div>
+      <div class="punchline">👉 1-Line Punchline: Past payments and collection records permanently lock their calculated rates.</div>
+      <div class="card-body">
+        • If a farmer was paid ₹55/L yesterday, that record will always say ₹55/L.<br/>
+        • If the dairy owner changes milk rates next week, old payment ledgers and audit records will never get corrupted.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q26. How does the backend detect duplicate shift entries?</div>
+      <div class="punchline">👉 1-Line Punchline: Our getCollectionShift code checks the Farmer ID, Date, and Shift (Morning vs Evening).</div>
+      <div class="card-body">
+        • If a delivery already exists for that farmer today in the same shift, the server rejects the second entry with an error.<br/>
+        • This stops dishonest operators and farmers from logging the same milk twice.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q27. What happens if a milk entry has a clock time like "03:55 PM" instead of "Evening"?</div>
+      <div class="punchline">👉 1-Line Punchline: Our intelligent shift resolver automatically converts timestamps into Morning or Evening.</div>
+      <div class="card-body">
+        • Any time between 00:00 - 12:59 (AM) maps to <b>Morning</b>; any time between 13:00 - 23:59 (PM) maps to <b>Evening</b>.<br/>
+        • This ensures duplicate prevention works reliably no matter what time format is used.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q28. What happens if the village loses internet during live collection?</div>
+      <div class="punchline">👉 1-Line Punchline: Zero downtime: the backend writes all milk records to local hard disk in db.json.</div>
+      <div class="card-body">
+        • The operator continues weighing milk and printing receipts without any interruption.<br/>
+        • As soon as internet is restored, our background sync pushes all saved records to Supabase Cloud.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q29. How do you protect farmer Aadhaar and Bank Account details in the backend API?</div>
+      <div class="punchline">👉 1-Line Punchline: Server-Side Zero-Knowledge Masking.</div>
+      <div class="card-body">
+        • The server converts Aadhaar to <code>•••• •••• 7133</code> and Bank Account to <code>••••••••9012</code> before sending JSON to the browser.<br/>
+        • Even if someone inspects network traffic, real bank details are never visible in plaintext.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q30. What is Role-Based Access Control (RBAC) in your backend?</div>
+      <div class="punchline">👉 1-Line Punchline: Separating permissions between Super Admin (Owner) and Staff Operators.</div>
+      <div class="card-body">
+        • <b>Super Admin:</b> Can change pricing formulas, delete farmers, and enter fraud override PINs.<br/>
+        • <b>Staff Operator:</b> Can only log milk collections and view passbooks — they cannot alter pricing rates.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q31. How are user logins and sessions secured in the backend?</div>
+      <div class="punchline">👉 1-Line Punchline: Encrypted HttpOnly cookies and HMAC-SHA256 session tokens.</div>
+      <div class="card-body">
+        • Session tokens are stored in secure browser cookies that cannot be accessed or stolen by malicious JavaScript.<br/>
+        • Inactive sessions automatically expire for safety.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q32. How does the Razorpay / UPI Instant Payout integration work?</div>
+      <div class="punchline">👉 1-Line Punchline: When milk is verified, our API triggers the UPI banking gateway to transfer money instantly.</div>
+      <div class="card-body">
+        • Money is credited directly to the farmer's bank account via UPI in under 1 second.<br/>
+        • The bank returns an official UTR (Unique Transaction Reference) number stored on the receipt.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q33. How does the Cattle Health Anomaly Detection work?</div>
+      <div class="punchline">👉 1-Line Punchline: The backend monitors the farmer's 14-day average milk yield.</div>
+      <div class="card-body">
+        • If a cow's milk drops suddenly by more than 25-30%, the system flags potential illness (like Mastitis).<br/>
+        • It automatically creates an alert advising the farmer to consult a veterinarian or use Gemini AI Mitra.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q34. How will the backend handle 500 dairy centers logging milk at 7:00 AM rush hour?</div>
+      <div class="punchline">👉 1-Line Punchline: Serverless auto-scaling and database connection pooling.</div>
+      <div class="card-body">
+        • Next.js serverless functions spin up in parallel across edge networks to handle thousands of requests.<br/>
+        • Supabase PgBouncer connection pool ensures the PostgreSQL database never gets overloaded.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q35. What is a Soft Delete for farmers and why is it useful?</div>
+      <div class="punchline">👉 1-Line Punchline: Deleted farmers are moved to a 15-day recovery archive instead of being permanently erased immediately.</div>
+      <div class="card-body">
+        • This allows the dairy to resolve disputes or restore a farmer if they were deleted by accident.<br/>
+        • After 15 days, expired records are automatically cleaned up.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q36. What is the Permanent Retired Farmer ID Registry?</div>
+      <div class="punchline">👉 1-Line Punchline: Deleted farmer IDs (e.g. F-109) are registered in CONFIG-RETIRED-FARMERS in the cloud.</div>
+      <div class="card-body">
+        • This ensures the server never re-uses deleted IDs for new farmers and never resurrects deleted mock data.<br/>
+        • All devices and laptops stay 100% in sync regarding who is active and who is deleted.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q37. How do you prevent SQL Injection and hacking attacks on the database?</div>
+      <div class="punchline">👉 1-Line Punchline: Parameterized SQL queries and strict input sanitization.</div>
+      <div class="card-body">
+        • Supabase PostgREST client uses parameterized queries that make SQL injection impossible.<br/>
+        • All user inputs pass through a sanitizing function that removes HTML and script tags.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q38. Why is the data API configured with dynamic = "force-dynamic"?</div>
+      <div class="punchline">👉 1-Line Punchline: To guarantee that financial records are always 100% fresh and live.</div>
+      <div class="card-body">
+        • It tells Next.js never to cache old milk or payment data.<br/>
+        • Every time a farmer checks their passbook, they see the exact live balance.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q39. How does the backend send instant WhatsApp receipts?</div>
+      <div class="punchline">👉 1-Line Punchline: Our API formats an itemized message and dispatches it via WhatsApp Webhook URL.</div>
+      <div class="card-body">
+        • The WhatsApp message contains: Farmer Name, Date, Shift, Liters, FAT%, SNF%, Rate/L, Amount, and Bank UTR.<br/>
+        • The farmer gets a permanent digital receipt on their phone within 2 seconds.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Q40. What will you say if judges ask: "Summarize your backend in one powerful sentence?"</div>
+      <div class="punchline">👉 1-Line Punchline: A high-speed, offline-first hybrid architecture that guarantees instant UPI payments and 100% data reliability even in remote rural villages.</div>
+      <div class="card-body">
+        • It connects Next.js serverless APIs, Supabase PostgreSQL, and LowDB local disk into a fault-tolerant system.<br/>
+        • It protects farmers from payment delays, middleman cuts, and calculation fraud.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
