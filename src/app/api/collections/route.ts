@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getDb, syncCollectionToSupabase, syncFarmerToSupabase } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
-import { CollectionItem, PaymentItem, calculateRate, getLocalDateString, getAutoShift, getIndiaTimeString, getCollectionShift, isEveningShiftOpen } from '@/app/data';
+import { CollectionItem, PaymentItem, calculateRate, getLocalDateString, getAutoShift, getIndiaTimeString, getCollectionShift, isEveningShiftOpen, maskBankAccount } from '@/app/data';
 import { checkAndCreateMilkDropAlert } from '@/lib/notifications';
 
 export const dynamic = 'force-dynamic';
@@ -177,7 +177,7 @@ export async function POST(request: Request) {
         { label: "Milk Received", status: "completed", time: nowTimeStr, description: "Logged at 3T Dairy Sangamner Primary Center." },
         { label: "Quality Analysis", status: "completed", time: nowTimeStr, description: `FAT: ${numFat}%, SNF: ${numSnf}%, Rate: ₹${rate}/L` },
         { label: "Pricing Calculated", status: "completed", time: nowTimeStr, description: `Net payout calculated: ₹${total}` },
-        { label: "Bank Transfer", status: "completed", time: nowTimeStr, description: `Sent to ${farmer.upiId} via Instant Bank UPI. UTR: ${txnId}` }
+        { label: "Bank Transfer", status: "completed", time: nowTimeStr, description: farmer.upiId ? `Sent to ${farmer.upiId} via Instant Bank UPI. UTR: ${txnId}` : `Sent to Bank A/C ${maskBankAccount(farmer.bankAccount)} (IFSC: ${farmer.ifsc}) via Direct IMPS. UTR: ${txnId}` }
       ]
     };
 

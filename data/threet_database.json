@@ -1,6 +1,41 @@
 {
   "farmers": [
     {
+      "id": "F-117",
+      "name": "Balasaheb Thorat",
+      "village": "Sangamner",
+      "phone": "9822114477",
+      "animals": 4,
+      "avgFat": 4.3,
+      "avgSnf": 8.6,
+      "monthlyEarnings": 590.73,
+      "branchId": "B-01",
+      "aadhaar": "987654321099",
+      "bankAccount": "30281982739",
+      "ifsc": "SBIN0001234",
+      "upiId": "",
+      "qrCode": "3T-F-117-BALASAHEBTHORAT",
+      "createdAt": "2026-10-19T08:16:29.570Z",
+      "joinedDate": "2026-10-19T08:16:29.571Z",
+      "milkHistory": [
+        {
+          "date": "2026-10-19",
+          "volume": 10.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 590.73
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-10-19",
+          "amount": 590.73,
+          "status": "Success",
+          "transactionId": "TXN52856803"
+        }
+      ]
+    },
+    {
       "id": "F-103",
       "name": "Mahesh Yadav",
       "phone": "+91 7896541232",
@@ -2227,6 +2262,22 @@
     }
   ],
   "collections": [
+    {
+      "id": "C-907737",
+      "farmerId": "F-117",
+      "farmerName": "Balasaheb Thorat",
+      "village": "Sangamner",
+      "date": "2026-10-19",
+      "time": "Evening",
+      "shift": "Evening",
+      "weight": 10.5,
+      "fat": 4.3,
+      "snf": 8.6,
+      "rate": 56.26,
+      "total": 590.73,
+      "status": "Success",
+      "branchId": "B-01"
+    },
     {
       "id": "C-517795",
       "farmerId": "F-116",
@@ -5516,6 +5567,41 @@
     }
   ],
   "payments": [
+    {
+      "id": "PAY-907737",
+      "farmerId": "F-117",
+      "farmerName": "Balasaheb Thorat",
+      "date": "2026-10-19",
+      "time": "01:48 PM",
+      "amount": 590.73,
+      "status": "Success",
+      "timeline": [
+        {
+          "label": "Milk Received",
+          "status": "completed",
+          "time": "01:48 PM",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "label": "Quality Analysis",
+          "status": "completed",
+          "time": "01:48 PM",
+          "description": "FAT: 4.3%, SNF: 8.6%, Rate: ₹56.26/L"
+        },
+        {
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "time": "01:48 PM",
+          "description": "Net payout calculated: ₹590.73"
+        },
+        {
+          "label": "Bank Transfer",
+          "status": "completed",
+          "time": "01:48 PM",
+          "description": "Sent to Bank A/C ••••••••2739 (IFSC: SBIN0001234) via Direct IMPS. UTR: TXN52856803"
+        }
+      ]
+    },
     {
       "id": "PAY-517795",
       "farmerId": "F-116",
@@ -13143,9 +13229,9 @@
       "name": "Village Milk Collection Center",
       "manager": "Vitthal Sawant",
       "capacity": 15000,
-      "todayCollection": 402.5,
+      "todayCollection": 413,
       "employees": 8,
-      "payments": 170,
+      "payments": 171,
       "status": "Active",
       "x": 50,
       "y": 50
@@ -13156,115 +13242,7 @@
     "fatFactor": 3.4,
     "snfFactor": 2.4
   },
-  "deletedFarmers": [
-    {
-      "farmer": {
-        "id": "F-113",
-        "name": "msg",
-        "phone": "+91 1111111111",
-        "village": "Kolhapur, Maharashtra",
-        "animals": 5,
-        "avgFat": 4.2,
-        "avgSnf": 8.5,
-        "aadhaar": "111111111118",
-        "bankAccount": "123654789654563",
-        "ifsc": "IFSC1201200",
-        "upiId": "i@upi",
-        "qrCode": "3T-F-113-MSG",
-        "branchId": "B-01",
-        "monthlyEarnings": 110.2,
-        "milkHistory": [],
-        "paymentHistory": []
-      },
-      "deletedAt": "2026-09-08T05:46:42.848Z"
-    },
-    {
-      "farmer": {
-        "id": "F-110",
-        "name": "Let Me check",
-        "phone": "+91 1212121212",
-        "village": "Kolhapur, Maharashtra",
-        "animals": 999,
-        "avgFat": 3,
-        "avgSnf": 5,
-        "aadhaar": "741258965478",
-        "bankAccount": "12125445478788",
-        "ifsc": "IFSC2132654",
-        "upiId": "let@upi",
-        "qrCode": "3T-F-110-LETMECHECK",
-        "branchId": "B-01",
-        "monthlyEarnings": 3788.3,
-        "milkHistory": [],
-        "paymentHistory": []
-      },
-      "deletedAt": "2026-09-08T05:46:45.967Z"
-    },
-    {
-      "farmer": {
-        "id": "F-111",
-        "name": "Audit Test Farmer",
-        "phone": "9811223344",
-        "village": "Kolhapur Test",
-        "animals": 4,
-        "avgFat": 0,
-        "avgSnf": 0,
-        "aadhaar": "123456789012",
-        "bankAccount": "123456789",
-        "ifsc": "SBIN0001234",
-        "upiId": "testfarmer@upi",
-        "qrCode": "3T-F-111-AUDITTESTFARMER",
-        "branchId": "B-01",
-        "monthlyEarnings": 0,
-        "milkHistory": [],
-        "paymentHistory": []
-      },
-      "deletedAt": "2026-09-08T05:46:50.467Z"
-    },
-    {
-      "farmer": {
-        "id": "F-109",
-        "name": "Suresh Patil Test",
-        "phone": "+91 91807133",
-        "village": "Kolhapur, Maharashtra",
-        "animals": 6,
-        "avgFat": 4.2,
-        "avgSnf": 8.5,
-        "aadhaar": "880000807133",
-        "bankAccount": "123456789012",
-        "ifsc": "SBIN0001234",
-        "upiId": "suresh@upi",
-        "qrCode": "3T-F-109-SURESHPATILTEST",
-        "branchId": "B-01",
-        "monthlyEarnings": 275.5,
-        "milkHistory": [],
-        "paymentHistory": []
-      },
-      "deletedAt": "2026-09-08T05:46:54.001Z"
-    },
-    {
-      "farmer": {
-        "id": "F-115",
-        "name": "trial",
-        "phone": "+91 7777777777",
-        "village": "Sangamner",
-        "animals": 5,
-        "avgFat": 3.9,
-        "avgSnf": 8.4,
-        "aadhaar": "101114415125",
-        "bankAccount": "845865443485465845",
-        "ifsc": "22I54886FSC",
-        "upiId": "45165431@upi",
-        "qrCode": "3T-F-115-TRIAL",
-        "branchId": "B-01",
-        "monthlyEarnings": 242.47,
-        "createdAt": "2026-09-08T11:36:29.778066+00:00",
-        "joinedDate": "2026-09-08T11:36:29.778066+00:00",
-        "milkHistory": [],
-        "paymentHistory": []
-      },
-      "deletedAt": "2026-09-15T05:34:46.048Z"
-    }
-  ],
+  "deletedFarmers": [],
   "retiredIds": [
     "F-106",
     "F-113",
