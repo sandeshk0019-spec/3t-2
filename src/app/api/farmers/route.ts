@@ -33,10 +33,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, village, phone, animals, branchId, aadhaar, bankAccount, ifsc, upiId } = body;
 
-    // Required fields
-    if (!name || !phone || !aadhaar || !bankAccount || !ifsc || !upiId) {
+    // Required fields: Bank Account, IFSC, Aadhaar, Phone, and Name are mandatory.
+    // UPI ID is optional because many rural farmers only have a Bank Account and IFSC.
+    if (!name || !phone || !aadhaar || !bankAccount || !ifsc) {
       return NextResponse.json(
-        { success: false, error: 'Name, Phone, Aadhaar, Bank Account, IFSC, and UPI ID are required.' },
+        { success: false, error: 'Name, Phone, Aadhaar, Bank Account, and IFSC Code are required.' },
         { status: 400 }
       );
     }
@@ -52,6 +53,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Invalid phone number. Must be a valid 10-digit Indian number.' }, { status: 400 });
     }
 
+    const safeUpiId = upiId ? sanitize(upiId).trim() : '';
+    if (safeUpiId && !safeUpiId.includes('@')) {
+      return NextResponse.json({ success: false, error: 'Invalid UPI ID format. Example: name@upi' }, { status: 400 });
+    }
+
     // Sanitize inputs (XSS prevention)
     const safeName        = sanitize(name);
     const safeVillage     = sanitize(village || 'Village Center');
@@ -59,7 +65,6 @@ export async function POST(request: Request) {
     const safeAadhaar     = aadhaar.replace(/\s+/g, '');
     const safeBankAccount = sanitize(bankAccount);
     const safeIfsc        = ifsc.toUpperCase().trim();
-    const safeUpiId       = sanitize(upiId);
 
     const db = await getDb();
 
@@ -80,6 +85,18 @@ export async function POST(request: Request) {
         { success: false, error: `Mobile number is already registered to ${phoneExists.name} (${phoneExists.id}). Each farmer must have a unique phone number for OTP authentication.` },
         { status: 400 }
       );
+    }
+
+    // Unique UPI check (only if farmer provided one)
+    if (safeUpiId) {
+      const upiNorm = safeUpiId.toLowerCase();
+      const upiExists = db.data.farmers.find(f => (f.upiId || '').trim().toLowerCase() === upiNorm);
+      if (upiExists) {
+        return NextResponse.json(
+          { success: false, error: `UPI ID is already registered to ${upiExists.name} (${upiExists.id}). Multiple farmers cannot share the same UPI ID.` },
+          { status: 400 }
+        );
+      }
     }
 
     // Robust Global Sequential ID: checks farmers, deleted farmers, collections, payments, and retired IDs

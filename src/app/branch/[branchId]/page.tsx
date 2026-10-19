@@ -28,7 +28,9 @@ import {
   Tv,
   Monitor,
   Radio,
-  Copy
+  Copy,
+  Zap,
+  CreditCard
 } from "lucide-react";
 import {
   defaultFormulaConfig,
@@ -494,8 +496,8 @@ export default function BranchTerminal({ params }: PageProps) {
       setKycError("IFSC Code must be exactly 11 characters.");
       return;
     }
-    if (!kycUpi.trim() || !kycUpi.includes("@")) {
-      setKycError("Please enter a valid UPI ID (e.g. name@upi).");
+    if (kycUpi.trim() && !kycUpi.includes("@")) {
+      setKycError("Please enter a valid UPI ID (e.g. name@upi) or leave blank if farmer only has a bank account.");
       return;
     }
 
@@ -1187,7 +1189,9 @@ export default function BranchTerminal({ params }: PageProps) {
                 <div className="bg-[#E7F6F0] p-4 rounded-xl border border-primary/10 flex flex-col md:flex-row items-center justify-between gap-4">
                   <div className="text-xs font-semibold">
                     <span className="text-text-muted block">Farmer Credit Wallet</span>
-                    <span className="text-text-main font-bold">{activeFarmer.name} ({activeFarmer.upiId})</span>
+                    <span className="text-text-main font-bold">
+                      {activeFarmer.name} {activeFarmer.upiId ? `(${activeFarmer.upiId})` : `(Bank A/C ••••${activeFarmer.bankAccount ? activeFarmer.bankAccount.slice(-4) : 'Direct'})`}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-6">
                     <div className="text-right">
@@ -1202,7 +1206,7 @@ export default function BranchTerminal({ params }: PageProps) {
                       {isSubmitting ? (
                         <>
                           <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Processing UPI...</span>
+                          <span>{activeFarmer.upiId ? "Processing UPI..." : "Processing Bank Payout..."}</span>
                         </>
                       ) : (
                         <span>Verify & Dispatch Payout</span>
@@ -1424,15 +1428,20 @@ export default function BranchTerminal({ params }: PageProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="font-bold text-text-main">UPI ID (for Instant Payments)</label>
+                  <div className="flex items-center justify-between">
+                    <label className="font-bold text-text-main">UPI ID (Optional)</label>
+                    <span className="text-[11px] font-semibold text-text-muted">Optional · Bank A/C used if blank</span>
+                  </div>
                   <input
                     type="text"
-                    placeholder="e.g. name@upi"
+                    placeholder="e.g. name@upi (Optional - Leave blank if farmer has no UPI)"
                     value={kycUpi}
                     onChange={(e) => setKycUpi(e.target.value)}
                     className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
-                    required
                   />
+                  <p className="text-[11px] text-text-muted font-medium">
+                    💡 If farmer has no UPI, payments will settle directly to their Bank Account &amp; IFSC via IMPS.
+                  </p>
                 </div>
               </div>
 
@@ -1570,107 +1579,147 @@ export default function BranchTerminal({ params }: PageProps) {
               className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="fixed inset-0 m-auto max-w-lg h-fit max-h-[92vh] overflow-y-auto bg-white z-50 p-6 sm:p-7 rounded-3xl border border-border-light shadow-2xl flex flex-col space-y-4"
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-0 m-auto max-w-lg h-fit max-h-[94vh] overflow-y-auto bg-white z-50 p-6 sm:p-7 rounded-3xl border border-gray-100 shadow-2xl flex flex-col space-y-4"
             >
               {/* Modal Header */}
-              <div className="flex items-start justify-between pb-3 border-b border-border-light">
-                <div className="flex items-center space-x-3 text-primary">
-                  <div className="p-2.5 bg-emerald-100 text-emerald-800 rounded-2xl">
-                    <UserCheck className="w-6 h-6" />
+              <div className="flex items-center justify-between pb-3.5 border-b border-gray-100">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shadow-xs">
+                    <UserCheck className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      Step 2: Farmer Name Verification
-                    </span>
-                    <h4 className="font-black text-lg text-text-main mt-0.5">Confirm Farmer &amp; Payout</h4>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60 inline-flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Step 2 · Verification
+                      </span>
+                    </div>
+                    <h3 className="font-black text-lg text-gray-900 leading-tight mt-0.5">
+                      Confirm Farmer &amp; Payout
+                    </h3>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setDispatchConfirmation(null)}
-                  className="p-1 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+                  className="p-1.5 text-gray-400 hover:text-gray-600 rounded-xl hover:bg-gray-100 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Farmer Name Confirmation Hero Card */}
-              <div className="bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100/50 border-2 border-emerald-400/60 p-4 sm:p-5 rounded-2xl space-y-3 shadow-inner">
+              {/* Farmer Identity & Verbal Check Card */}
+              <div className="rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/40 via-white to-teal-50/30 p-4 sm:p-5 space-y-3.5 shadow-xs">
+                {/* Profile Row */}
                 <div className="flex items-start space-x-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white flex items-center justify-center font-black text-xl shrink-0 shadow-md">
-                    {dispatchConfirmation.farmer.name.charAt(0).toUpperCase()}
+                  <div className="relative shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-black text-xl shadow-md ring-4 ring-emerald-50">
+                      {dispatchConfirmation.farmer.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center text-[8px] text-white font-bold" title="Verified Member">
+                      ✓
+                    </div>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-mono font-bold text-[10px] bg-emerald-800 text-white px-2 py-0.5 rounded">
+                    <div className="flex items-center flex-wrap gap-1.5">
+                      <span className="font-mono font-bold text-[10px] bg-emerald-800 text-white px-2 py-0.5 rounded-md shadow-2xs">
                         {dispatchConfirmation.farmer.id}
                       </span>
-                      <span className="text-[10px] font-bold text-emerald-900 bg-emerald-200/80 px-2 py-0.5 rounded uppercase">
-                        {dispatchConfirmation.shift} Shift
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/80 border border-emerald-200/60 px-2 py-0.5 rounded-md uppercase tracking-wide inline-flex items-center gap-1">
+                        {dispatchConfirmation.shift === "Morning" ? "🌅" : "🌙"} {dispatchConfirmation.shift} Shift
                       </span>
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-black text-gray-900 leading-tight mt-1 truncate">
+                    <h3 className="text-xl font-black text-gray-900 leading-tight mt-1 truncate">
                       {dispatchConfirmation.farmer.name}
                     </h3>
-                    <p className="text-xs font-semibold text-gray-600 mt-0.5">
-                      📍 {dispatchConfirmation.farmer.village} • 📞 <span className="font-mono">{dispatchConfirmation.farmer.phone}</span>
+                    <p className="text-xs font-semibold text-gray-500 mt-0.5 flex items-center gap-2 flex-wrap">
+                      <span>📍 {dispatchConfirmation.farmer.village}</span>
+                      <span className="text-gray-300">•</span>
+                      <span className="font-mono">📞 {dispatchConfirmation.farmer.phone}</span>
                     </p>
                   </div>
                 </div>
 
-                {/* Verbal Confirmation Question Box */}
-                <div className="bg-white/90 border border-emerald-300/80 rounded-xl p-3 text-xs text-gray-800 shadow-sm space-y-1">
-                  <div className="flex items-center space-x-1.5 text-emerald-900 font-extrabold text-[11px] uppercase tracking-wide">
-                    <span>⚠️</span>
-                    <span>Intake Counter Confirmation Check:</span>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed font-medium">
-                    Please confirm directly with the farmer standing at the milk scale:
-                    <br />
-                    <span className="text-emerald-950 font-black text-sm block mt-1 bg-emerald-50 p-2 rounded-lg border border-emerald-200">
-                      &quot;Are you <span className="underline decoration-emerald-600 decoration-2">{dispatchConfirmation.farmer.name}</span>?&quot;
+                {/* Verbal Confirmation Strip */}
+                <div className="bg-white rounded-xl border border-emerald-200/70 p-3 shadow-2xs space-y-1.5">
+                  <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-emerald-800">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                      Scale Verbal Check
                     </span>
-                  </p>
+                    <span className="text-gray-400 font-semibold normal-case text-[10px]">Ask Farmer:</span>
+                  </div>
+                  <div className="bg-emerald-50/70 rounded-lg px-3 py-2 border border-emerald-100 flex items-center justify-between">
+                    <span className="text-xs text-gray-700 font-medium">
+                      &ldquo;Are you <strong className="text-emerald-950 font-black underline decoration-emerald-500 decoration-2 underline-offset-2">{dispatchConfirmation.farmer.name}</strong>?&rdquo;
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-200/60 px-2 py-0.5 rounded-full shrink-0 ml-2">
+                      Required
+                    </span>
+                  </div>
                 </div>
 
-                {dispatchConfirmation.farmer.upiId && (
-                  <div className="text-[11px] text-emerald-900 font-mono font-bold bg-white/70 p-2 rounded-lg border border-emerald-200/60 flex items-center justify-between">
-                    <span>💳 Payout Destination:</span>
-                    <span className="truncate max-w-[200px]">{dispatchConfirmation.farmer.upiId}</span>
-                  </div>
-                )}
+                {/* Payout Destination */}
+                <div className="flex items-center justify-between text-xs bg-white/80 rounded-xl px-3 py-2 border border-emerald-100">
+                  <span className="text-gray-500 font-semibold flex items-center gap-1.5">
+                    <CreditCard className="w-3.5 h-3.5 text-emerald-600" />
+                    Payout Destination
+                  </span>
+                  <span className="font-mono font-bold text-gray-900 truncate max-w-[200px] bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+                    {dispatchConfirmation.farmer.upiId 
+                      ? dispatchConfirmation.farmer.upiId 
+                      : `Bank A/C ••••${dispatchConfirmation.farmer.bankAccount ? dispatchConfirmation.farmer.bankAccount.slice(-4) : 'Direct IMPS'}`}
+                  </span>
+                </div>
               </div>
 
               {/* Delivery & Rate Breakdown Grid */}
-              <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                <div className="p-3 bg-gray-50 border border-gray-100 rounded-2xl">
-                  <span className="text-[10px] text-gray-500 font-bold block uppercase">Weight</span>
-                  <span className="text-base font-black text-gray-900 font-mono">{dispatchConfirmation.weight.toFixed(1)} L</span>
+              <div className="grid grid-cols-3 gap-2.5">
+                <div className="p-3 bg-slate-50/80 border border-slate-200/80 rounded-2xl text-center transition-all hover:bg-slate-50">
+                  <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">Weight</span>
+                  <div className="text-lg font-black text-gray-900 font-mono mt-0.5">
+                    {dispatchConfirmation.weight.toFixed(1)} <span className="text-xs font-bold text-gray-500">L</span>
+                  </div>
+                  <span className="text-[9px] text-emerald-600 font-bold block">Scale Verified</span>
                 </div>
-                <div className="p-3 bg-gray-50 border border-gray-100 rounded-2xl">
-                  <span className="text-[10px] text-gray-500 font-bold block uppercase">Quality</span>
-                  <span className="text-sm font-extrabold text-gray-900">{dispatchConfirmation.fat.toFixed(1)}% / {dispatchConfirmation.snf.toFixed(1)}%</span>
-                  <span className="text-[9px] text-gray-400 font-semibold block">FAT / SNF</span>
+
+                <div className="p-3 bg-slate-50/80 border border-slate-200/80 rounded-2xl text-center transition-all hover:bg-slate-50">
+                  <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">Quality</span>
+                  <div className="text-base font-black text-gray-900 font-mono mt-0.5">
+                    {dispatchConfirmation.fat.toFixed(1)}% <span className="text-gray-300 font-normal">/</span> {dispatchConfirmation.snf.toFixed(1)}%
+                  </div>
+                  <span className="text-[9px] text-gray-400 font-bold block uppercase">FAT / SNF</span>
                 </div>
-                <div className="p-3 bg-gray-50 border border-gray-100 rounded-2xl">
-                  <span className="text-[10px] text-gray-500 font-bold block uppercase">Rate / L</span>
-                  <span className="text-base font-black text-emerald-700 font-mono">₹{dispatchConfirmation.rate.toFixed(2)}</span>
+
+                <div className="p-3 bg-slate-50/80 border border-slate-200/80 rounded-2xl text-center transition-all hover:bg-slate-50">
+                  <span className="text-[10px] text-gray-400 font-bold block uppercase tracking-wider">Rate / L</span>
+                  <div className="text-lg font-black text-emerald-700 font-mono mt-0.5">
+                    ₹{dispatchConfirmation.rate.toFixed(2)}
+                  </div>
+                  <span className="text-[9px] text-gray-400 font-semibold block">Dynamic Price</span>
                 </div>
               </div>
 
-              {/* Total Payout Callout */}
-              <div className="p-3.5 bg-gradient-to-r from-emerald-700 to-teal-800 rounded-2xl text-white shadow-lg space-y-1">
-                <div className="flex items-center justify-between text-[11px] text-emerald-100 font-bold">
-                  <span>TOTAL PAYABLE TO {dispatchConfirmation.farmer.name.toUpperCase()}</span>
-                  <span>⚡ Instant UPI Settlement</span>
+              {/* Total Payout Callout Card */}
+              <div className="p-4 bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 rounded-2xl text-white shadow-lg relative overflow-hidden space-y-1.5">
+                <div className="flex items-center justify-between text-[11px] font-bold text-emerald-100">
+                  <span className="uppercase tracking-wider">Net Payable Amount</span>
+                  <span className="inline-flex items-center gap-1.5 bg-emerald-900/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full text-emerald-200 border border-emerald-500/30 text-[10px]">
+                    <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
+                    Instant UPI Settlement
+                  </span>
                 </div>
-                <div className="flex items-baseline justify-between">
-                  <span className="text-3xl font-black font-mono">₹{dispatchConfirmation.totalPayout.toFixed(2)}</span>
-                  <span className="text-xs text-emerald-200 font-semibold font-mono">
-                    ({dispatchConfirmation.weight.toFixed(1)} L × ₹{dispatchConfirmation.rate.toFixed(2)})
+
+                <div className="flex items-baseline justify-between pt-0.5">
+                  <span className="text-3xl sm:text-4xl font-black font-mono tracking-tight text-white drop-shadow-xs">
+                    ₹{dispatchConfirmation.totalPayout.toFixed(2)}
+                  </span>
+                  <span className="text-xs text-emerald-200 font-mono font-bold bg-black/15 px-2.5 py-1 rounded-lg border border-white/10">
+                    {dispatchConfirmation.weight.toFixed(1)} L × ₹{dispatchConfirmation.rate.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -1680,16 +1729,16 @@ export default function BranchTerminal({ params }: PageProps) {
                 <button
                   type="button"
                   onClick={() => setDispatchConfirmation(null)}
-                  className="py-3 px-4 rounded-xl border-2 border-gray-300 hover:bg-gray-100 text-gray-700 font-bold text-xs transition-colors flex items-center justify-center space-x-1.5"
+                  className="py-3 px-4 rounded-xl border border-gray-300 hover:bg-gray-50 active:bg-gray-100 text-gray-700 font-bold text-xs transition-all flex items-center justify-center space-x-1.5 cursor-pointer"
                 >
                   <X className="w-4 h-4 text-rose-500" />
-                  <span>No, Wrong Farmer (Cancel)</span>
+                  <span>Wrong Farmer (Cancel)</span>
                 </button>
                 <button
                   type="button"
                   onClick={executeConfirmDispatch}
                   disabled={isSubmitting}
-                  className="py-3 px-4 rounded-xl bg-primary hover:bg-[#0b6b49] text-white font-black text-xs transition-all shadow-md flex items-center justify-center space-x-2"
+                  className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xs transition-all shadow-md shadow-emerald-600/20 flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>
@@ -1698,7 +1747,7 @@ export default function BranchTerminal({ params }: PageProps) {
                     </>
                   ) : (
                     <>
-                      <CheckCircle2 className="w-4 h-4" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-200" />
                       <span>Yes, Dispatch ₹{dispatchConfirmation.totalPayout.toFixed(2)}</span>
                     </>
                   )}
@@ -1746,7 +1795,7 @@ export default function BranchTerminal({ params }: PageProps) {
                   <div className="flex justify-between items-center text-emerald-800">
                     <span className="flex items-center space-x-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span>Authenticating VPA ({paymentModalData.upiId})</span>
+                      <span>{paymentModalData.upiId ? `Authenticating VPA (${paymentModalData.upiId})` : "Routing to Bank Account & IFSC"}</span>
                     </span>
                     <span className="text-[10px] font-bold text-emerald-600">VERIFIED ✓</span>
                   </div>
@@ -1785,7 +1834,9 @@ export default function BranchTerminal({ params }: PageProps) {
                 <div className="bg-[#E7F6F0] p-4 rounded-2xl border border-primary/10 text-center space-y-1">
                   <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider block">Transferred to {paymentModalData.farmerName}</span>
                   <span className="text-3xl font-black text-primary block">₹{paymentModalData.total.toFixed(2)}</span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">UTR: {paymentModalData.utr} · Instant UPI</span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">
+                    UTR: {paymentModalData.utr} · {paymentModalData.upiId ? "Instant UPI" : "Direct Bank IMPS"}
+                  </span>
                 </div>
 
                 {/* Specs breakdown */}
