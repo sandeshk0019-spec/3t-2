@@ -4257,6 +4257,157 @@ UTR Settlement Gateway Status: ONLINE
               className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
             />
             <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="fixed inset-0 m-auto max-w-md w-[92vw] h-fit max-h-[92vh] overflow-y-auto bg-white z-50 p-6 rounded-[28px] border border-slate-100 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] flex flex-col space-y-4"
+            >
+              {/* Header: Clean & Modern */}
+              <div className="flex items-center justify-between pb-1 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <UserCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 leading-tight">Confirm Milk Intake</h3>
+                    <p className="text-[11px] text-slate-500 font-medium">Verify farmer &amp; authorize payment</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setDispatchConfirmation(null)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Hero Amount Display */}
+              <div className="text-center py-3 px-4 bg-gradient-to-b from-emerald-50/70 to-emerald-50/20 rounded-2xl border border-emerald-100/80">
+                <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block mb-0.5">
+                  Total Settlement Amount
+                </span>
+                <div className="text-4xl font-black text-slate-900 font-mono tracking-tight">
+                  ₹{dispatchConfirmation.totalPayout.toFixed(2)}
+                </div>
+                <div className="inline-flex items-center gap-1.5 mt-2 px-2.5 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800 text-[11px] font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  <span>Instant Direct Bank / UPI Settlement</span>
+                </div>
+              </div>
+
+              {/* Farmer Identity & Verbal Check Card */}
+              <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/60 space-y-3">
+                {/* Farmer Info Row */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-600 to-teal-700 text-white font-bold text-sm flex items-center justify-center shadow-xs shrink-0">
+                      {dispatchConfirmation.farmer.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-slate-900 truncate">{dispatchConfirmation.farmer.name}</span>
+                        <span className="font-mono text-[10px] font-bold bg-slate-200/80 text-slate-700 px-1.5 py-0.5 rounded">
+                          {dispatchConfirmation.farmer.id}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 font-medium truncate">
+                        {dispatchConfirmation.farmer.village} • {dispatchConfirmation.farmer.phone}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200/60 shrink-0">
+                    {dispatchConfirmation.shift}
+                  </span>
+                </div>
+
+                {/* Verbal Check strip */}
+                <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 flex items-center gap-2.5 text-xs text-slate-700">
+                  <span className="text-base shrink-0">🗣️</span>
+                  <span className="font-medium text-slate-600 flex-1">
+                    Ask farmer: <span className="text-slate-900 font-bold">&ldquo;Are you {dispatchConfirmation.farmer.name}?&rdquo;</span>
+                  </span>
+                </div>
+
+                {/* Destination Account */}
+                <div className="flex items-center justify-between text-[11px] pt-0.5 text-slate-500 font-medium">
+                  <span className="flex items-center gap-1.5">
+                    <CreditCard className="w-3.5 h-3.5 text-slate-400" />
+                    Payout Destination
+                  </span>
+                  <span className="font-mono font-semibold text-slate-800">
+                    {dispatchConfirmation.farmer.upiId 
+                      ? dispatchConfirmation.farmer.upiId 
+                      : `Bank A/C ••••${dispatchConfirmation.farmer.bankAccount ? dispatchConfirmation.farmer.bankAccount.slice(-4) : 'IMPS'}`}
+                  </span>
+                </div>
+              </div>
+
+              {/* 3 Telemetry Metrics */}
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div className="bg-slate-50/80 rounded-xl p-2.5 border border-slate-100">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Volume</span>
+                  <span className="text-sm font-bold text-slate-900 font-mono block mt-0.5">{dispatchConfirmation.weight.toFixed(1)} L</span>
+                </div>
+                <div className="bg-slate-50/80 rounded-xl p-2.5 border border-slate-100">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">FAT / SNF</span>
+                  <span className="text-sm font-bold text-slate-900 font-mono block mt-0.5">
+                    {dispatchConfirmation.fat.toFixed(1)}% / {dispatchConfirmation.snf.toFixed(1)}%
+                  </span>
+                </div>
+                <div className="bg-slate-50/80 rounded-xl p-2.5 border border-slate-100">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Rate / L</span>
+                  <span className="text-sm font-bold text-emerald-700 font-mono block mt-0.5">₹{dispatchConfirmation.rate.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-2 pt-1">
+                <button
+                  type="button"
+                  onClick={executeConfirmDispatch}
+                  disabled={isSubmittingCollection}
+                  className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-sm shadow-md shadow-emerald-600/25 transition-all flex items-center justify-center space-x-2 disabled:opacity-60 cursor-pointer"
+                >
+                  {isSubmittingCollection ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Dispatching Payout...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Confirm &amp; Pay ₹{dispatchConfirmation.totalPayout.toFixed(2)}</span>
+                    </>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDispatchConfirmation(null)}
+                  className="w-full py-2.5 px-4 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5 text-rose-500" />
+                  <span>Cancel (Wrong Farmer)</span>
+                </button>
+              </div>
+            </motion.div>
+          </React.Fragment>
+        )}
+      </AnimatePresence>
+
+      {/* Verify & Dispatch Payment Confirmation Modal */}
+      <AnimatePresence>
+        {dispatchConfirmation && (
+          <React.Fragment key="modal-dispatch-confirm">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setDispatchConfirmation(null)}
+              className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
+            />
+            <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
