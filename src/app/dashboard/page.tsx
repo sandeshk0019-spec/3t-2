@@ -982,19 +982,21 @@ export default function Dashboard() {
   const [isSubmittingCollection, setIsSubmittingCollection] = useState(false);
 
   // IoT Hardware vs Manual Reading Mode States
-  const [collectionReadingMode, setCollectionReadingMode] = useState<"iot" | "manual">("iot");
+  const [collectionReadingMode, setCollectionReadingMode] = useState<"iot" | "manual">("manual");
   const [isReadingSensor, setIsReadingSensor] = useState(false);
   const [sensorSuccessMsg, setSensorSuccessMsg] = useState<string | null>(null);
+  const [sensorErrorMsg, setSensorErrorMsg] = useState<string | null>(null);
   const [connectedHardwareType, setConnectedHardwareType] = useState<string | null>(null);
 
-  const handleAutoReadSensor = async (source: "auto" | "serial" | "bluetooth" = "auto") => {
+  const handleAutoReadSensor = async (source: "auto" | "serial" | "bluetooth" | "simulate" = "auto") => {
     setIsReadingSensor(true);
     setSensorSuccessMsg(null);
+    setSensorErrorMsg(null);
 
     if (source === "bluetooth") {
       try {
         if (!isWebBluetoothSupported()) {
-          alert("Web Bluetooth is not supported in this browser. Please use Google Chrome or Microsoft Edge on a Bluetooth-enabled device.");
+          setSensorErrorMsg("Web Bluetooth is not supported in this browser. Please use Chrome/Edge on a Bluetooth-enabled device.");
           setIsReadingSensor(false);
           return;
         }
@@ -1003,11 +1005,11 @@ export default function Dashboard() {
         });
         if (res) {
           setConnectedHardwareType(`BLE: ${res.name}`);
-          setSensorSuccessMsg(`Connected to ${res.name}`);
+          setSensorSuccessMsg(`Connected to ${res.name}. Live scale active!`);
         }
       } catch (err: any) {
         if (err.name !== "NotFoundError") {
-          alert(err.message || "Failed to pair Bluetooth scale.");
+          setSensorErrorMsg(err.message || "Failed to pair Bluetooth scale.");
         }
       } finally {
         setIsReadingSensor(false);
@@ -1024,11 +1026,11 @@ export default function Dashboard() {
           setConnectedHardwareType("USB COM Port");
           setSensorSuccessMsg("USB Scale & Analyzer Connected");
         } else {
-          alert("Web Serial API is not supported in this browser. Please use desktop Google Chrome or Microsoft Edge with USB cable plugged in.");
+          setSensorErrorMsg("Web Serial API is not supported in this browser. Please use Chrome or Edge on desktop.");
         }
       } catch (err: any) {
         if (err.name !== "NotFoundError") {
-          alert(err.message || "Serial connection cancelled or failed.");
+          setSensorErrorMsg(err.message || "USB connection cancelled or failed.");
         }
       } finally {
         setIsReadingSensor(false);
@@ -1036,23 +1038,38 @@ export default function Dashboard() {
       return;
     }
 
-    // Default "auto" reading: reads live calibrated values from sensor / smart engine
-    setTimeout(() => {
-      const currentFarmer = enrichedFarmers.find(f => f.id === newFarmerId);
-      const baseFat = currentFarmer?.avgFat && currentFarmer.avgFat > 0 ? currentFarmer.avgFat : 4.2;
-      const baseSnf = currentFarmer?.avgSnf && currentFarmer.avgSnf > 0 ? currentFarmer.avgSnf : 8.5;
-
-      const randomVol = (Math.floor(Math.random() * 80) + 80) / 10; // 8.0L to 16.0L
-      const jitterFat = Math.round((baseFat + (Math.random() * 0.4 - 0.2)) * 10) / 10;
-      const jitterSnf = Math.round((baseSnf + (Math.random() * 0.4 - 0.2)) * 10) / 10;
-
-      setNewWeight(randomVol.toFixed(1));
-      setNewFat(jitterFat.toFixed(1));
-      setNewSnf(jitterSnf.toFixed(1));
+    if (source === "auto") {
+      // Check if real hardware is connected
+      if (!connectedHardwareType) {
+        setIsReadingSensor(false);
+        setSensorErrorMsg("No IoT hardware connected. Connect USB Port or Bluetooth above, or use Demo Test Stream.");
+        return;
+      }
+      // If hardware is connected, confirm live capture
       setIsReadingSensor(false);
-      setSensorSuccessMsg(`✓ Read: ${randomVol.toFixed(1)} L | FAT ${jitterFat.toFixed(1)}% | SNF ${jitterSnf.toFixed(1)}%`);
-      setTimeout(() => setSensorSuccessMsg(null), 4000);
-    }, 600);
+      setSensorSuccessMsg(`Captured live telemetry from ${connectedHardwareType}`);
+      return;
+    }
+
+    if (source === "simulate") {
+      setTimeout(() => {
+        const currentFarmer = enrichedFarmers.find(f => f.id === newFarmerId);
+        const baseFat = currentFarmer?.avgFat && currentFarmer.avgFat > 0 ? currentFarmer.avgFat : 4.2;
+        const baseSnf = currentFarmer?.avgSnf && currentFarmer.avgSnf > 0 ? currentFarmer.avgSnf : 8.5;
+
+        const randomVol = (Math.floor(Math.random() * 80) + 80) / 10;
+        const jitterFat = Math.round((baseFat + (Math.random() * 0.4 - 0.2)) * 10) / 10;
+        const jitterSnf = Math.round((baseSnf + (Math.random() * 0.4 - 0.2)) * 10) / 10;
+
+        setNewWeight(randomVol.toFixed(1));
+        setNewFat(jitterFat.toFixed(1));
+        setNewSnf(jitterSnf.toFixed(1));
+        setIsReadingSensor(false);
+        setSensorSuccessMsg(`🧪 [Demo Simulated] Weight: ${randomVol.toFixed(1)} L | FAT: ${jitterFat.toFixed(1)}% | SNF: ${jitterSnf.toFixed(1)}%`);
+        setTimeout(() => setSensorSuccessMsg(null), 5000);
+      }, 500);
+      return;
+    }
   };
 
   const handleSelectFarmer = (farmerId: string) => {
@@ -2880,12 +2897,17 @@ UTR Settlement Gateway Status: ONLINE
                     <Milk className="w-5 h-5" />
                     <h3 className="text-base font-extrabold text-text-main">Log New Collection</h3>
                   </div>
-                  {connectedHardwareType && (
+                  {connectedHardwareType ? (
                     <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center space-x-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                       <span>{connectedHardwareType}</span>
                     </span>
-                  )}
+                  ) : collectionReadingMode === "iot" ? (
+                    <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full flex items-center space-x-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                      <span>No Hardware Connected</span>
+                    </span>
+                  ) : null}
                 </div>
 
                 {/* 🔄 Reading Mode Selector: Take Reading (IoT) vs Manual Reading */}
@@ -2894,28 +2916,33 @@ UTR Settlement Gateway Status: ONLINE
                     type="button"
                     onClick={() => {
                       setCollectionReadingMode("iot");
-                      handleAutoReadSensor("auto");
+                      setSensorSuccessMsg(null);
+                      setSensorErrorMsg(null);
                     }}
-                    className={`py-2 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center space-x-1.5 ${
+                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
                       collectionReadingMode === "iot"
-                        ? "bg-white text-emerald-900 shadow-sm border border-emerald-300"
+                        ? "bg-white text-emerald-900 shadow-sm border border-emerald-300 font-extrabold"
                         : "text-gray-500 hover:text-gray-900"
                     }`}
                   >
-                    <Zap className={`w-3.5 h-3.5 ${collectionReadingMode === "iot" ? "text-emerald-600 animate-pulse" : "text-gray-400"}`} />
-                    <span>⚡ Take Reading</span>
+                    <Cpu className={`w-3.5 h-3.5 ${collectionReadingMode === "iot" ? "text-emerald-600" : "text-gray-400"}`} />
+                    <span>Take Reading (IoT)</span>
                   </button>
                   <button
                     type="button"
-                    onClick={() => setCollectionReadingMode("manual")}
-                    className={`py-2 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center space-x-1.5 ${
+                    onClick={() => {
+                      setCollectionReadingMode("manual");
+                      setSensorSuccessMsg(null);
+                      setSensorErrorMsg(null);
+                    }}
+                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-1.5 ${
                       collectionReadingMode === "manual"
-                        ? "bg-white text-emerald-900 shadow-sm border border-emerald-300"
+                        ? "bg-white text-emerald-900 shadow-sm border border-emerald-300 font-extrabold"
                         : "text-gray-500 hover:text-gray-900"
                     }`}
                   >
                     <Sliders className={`w-3.5 h-3.5 ${collectionReadingMode === "manual" ? "text-emerald-600" : "text-gray-400"}`} />
-                    <span>✏️ Manual Reading</span>
+                    <span>Manual Reading</span>
                   </button>
                 </div>
 
@@ -2924,12 +2951,21 @@ UTR Settlement Gateway Status: ONLINE
                   <div className="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-green-50 rounded-2xl border border-emerald-200 mb-4 space-y-2.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <span className="p-1.5 rounded-lg bg-emerald-700 text-white shadow-2xs">
+                        <span className={`p-1.5 rounded-lg text-white shadow-2xs ${connectedHardwareType ? "bg-emerald-700" : "bg-gray-500"}`}>
                           <Cpu className="w-3.5 h-3.5" />
                         </span>
                         <div>
-                          <span className="text-[11px] font-black text-emerald-950 block leading-tight">Live Scale &amp; Analyzer</span>
-                          <span className="text-[10px] text-emerald-700 font-medium">Auto-captures weight, FAT &amp; SNF</span>
+                          <span className="text-[11px] font-black text-emerald-950 block leading-tight">Digital Scale &amp; Milk Analyzer</span>
+                          <span className="text-[10px] font-medium">
+                            {connectedHardwareType ? (
+                              <span className="text-emerald-800 font-bold flex items-center space-x-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                                <span>Connected: {connectedHardwareType}</span>
+                              </span>
+                            ) : (
+                              <span className="text-gray-500 font-medium">⚪ Disconnected · No device plugged in</span>
+                            )}
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center space-x-1.5">
@@ -2953,24 +2989,33 @@ UTR Settlement Gateway Status: ONLINE
                       </div>
                     </div>
 
-                    <button
-                      type="button"
-                      disabled={isReadingSensor}
-                      onClick={() => handleAutoReadSensor("auto")}
-                      className="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-[0.99] text-white text-xs font-black shadow-sm transition-all flex items-center justify-center space-x-2"
-                    >
-                      {isReadingSensor ? (
-                        <>
-                          <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Reading Scale &amp; Analyzer Sensor...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Zap className="w-3.5 h-3.5 text-yellow-300 fill-yellow-300" />
-                          <span>⚡ Capture Live Sensor Reading</span>
-                        </>
-                      )}
-                    </button>
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <button
+                        type="button"
+                        disabled={isReadingSensor}
+                        onClick={() => handleAutoReadSensor("auto")}
+                        className="w-full py-2 px-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-[0.99] text-white text-[11px] font-bold shadow-sm transition-all flex items-center justify-center space-x-1.5 disabled:opacity-60"
+                      >
+                        <Zap className="w-3.5 h-3.5 text-yellow-300" />
+                        <span>Read from Scale</span>
+                      </button>
+                      <button
+                        type="button"
+                        disabled={isReadingSensor}
+                        onClick={() => handleAutoReadSensor("simulate")}
+                        className="w-full py-2 px-2.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-900 border border-emerald-300 active:scale-[0.99] text-[11px] font-bold shadow-2xs transition-all flex items-center justify-center space-x-1.5 disabled:opacity-60"
+                        title="Simulate calibrated scale reading for demo when no physical hardware is plugged in"
+                      >
+                        <span>🧪 Demo Test Stream</span>
+                      </button>
+                    </div>
+
+                    {sensorErrorMsg && (
+                      <div className="text-[10px] text-amber-900 bg-amber-50 px-2.5 py-1.5 rounded-lg font-semibold flex items-center space-x-1.5 border border-amber-300">
+                        <Info className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                        <span>{sensorErrorMsg}</span>
+                      </div>
+                    )}
 
                     {sensorSuccessMsg && (
                       <div className="text-[10px] text-emerald-800 bg-emerald-100/90 px-2.5 py-1.5 rounded-lg font-bold flex items-center space-x-1.5 border border-emerald-300/60">
@@ -3169,10 +3214,14 @@ UTR Settlement Gateway Status: ONLINE
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-bold text-text-main">Weight (Liters)</label>
-                      {collectionReadingMode === "iot" ? (
+                      {collectionReadingMode === "iot" && connectedHardwareType ? (
                         <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-md border border-emerald-300/80 flex items-center space-x-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                           <span>Scale Live Sensor</span>
+                        </span>
+                      ) : collectionReadingMode === "iot" ? (
+                        <span className="text-[10px] font-semibold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">
+                          Hardware Disconnected
                         </span>
                       ) : (
                         <span className="text-[10px] font-semibold text-gray-400">Manual Entry</span>
@@ -3187,7 +3236,7 @@ UTR Settlement Gateway Status: ONLINE
                         value={newWeight}
                         onChange={(e) => setNewWeight(e.target.value)}
                         className={`w-full p-3 rounded-xl border text-xs font-semibold transition-all ${
-                          collectionReadingMode === "iot"
+                          collectionReadingMode === "iot" && connectedHardwareType
                             ? "bg-emerald-50/50 border-emerald-300 font-mono font-bold text-emerald-950 focus:border-emerald-600 focus:bg-white"
                             : "border-border-light bg-[#FAFAFA] text-text-main"
                         }`}
@@ -3250,11 +3299,13 @@ UTR Settlement Gateway Status: ONLINE
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="text-xs font-bold text-text-main">FAT %</label>
-                        {collectionReadingMode === "iot" ? (
+                        {collectionReadingMode === "iot" && connectedHardwareType ? (
                           <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100/90 px-1.5 py-0.5 rounded border border-emerald-300/80 flex items-center space-x-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                             <span>IoT Analyzer</span>
                           </span>
+                        ) : collectionReadingMode === "iot" ? (
+                          <span className="text-[9px] font-semibold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">Manual / Test</span>
                         ) : (
                           <span className="text-[9px] font-semibold text-gray-400">Manual Entry</span>
                         )}
@@ -3267,7 +3318,7 @@ UTR Settlement Gateway Status: ONLINE
                         value={newFat}
                         onChange={(e) => setNewFat(e.target.value)}
                         className={`w-full p-3 rounded-xl border text-xs font-semibold transition-all ${
-                          collectionReadingMode === "iot"
+                          collectionReadingMode === "iot" && connectedHardwareType
                             ? "bg-emerald-50/50 border-emerald-300 font-mono font-bold text-emerald-950 focus:border-emerald-600 focus:bg-white"
                             : "border-border-light bg-[#FAFAFA] text-text-main"
                         }`}
@@ -3276,11 +3327,13 @@ UTR Settlement Gateway Status: ONLINE
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <label className="text-xs font-bold text-text-main">SNF %</label>
-                        {collectionReadingMode === "iot" ? (
+                        {collectionReadingMode === "iot" && connectedHardwareType ? (
                           <span className="text-[9px] font-bold text-emerald-800 bg-emerald-100/90 px-1.5 py-0.5 rounded border border-emerald-300/80 flex items-center space-x-1">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                             <span>Ultrasonic</span>
                           </span>
+                        ) : collectionReadingMode === "iot" ? (
+                          <span className="text-[9px] font-semibold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">Manual / Test</span>
                         ) : (
                           <span className="text-[9px] font-semibold text-gray-400">Manual Entry</span>
                         )}
@@ -3293,7 +3346,7 @@ UTR Settlement Gateway Status: ONLINE
                         value={newSnf}
                         onChange={(e) => setNewSnf(e.target.value)}
                         className={`w-full p-3 rounded-xl border text-xs font-semibold transition-all ${
-                          collectionReadingMode === "iot"
+                          collectionReadingMode === "iot" && connectedHardwareType
                             ? "bg-emerald-50/50 border-emerald-300 font-mono font-bold text-emerald-950 focus:border-emerald-600 focus:bg-white"
                             : "border-border-light bg-[#FAFAFA] text-text-main"
                         }`}
