@@ -408,7 +408,7 @@ export async function refreshFromSupabase(force = false): Promise<void> {
     });
 
     const mergedRemoteFarmers = allMappedFarmers.map(rf => {
-      const lf = store.data.farmers.find(l => (l.id || '').toUpperCase() === (rf.id || '').toUpperCase());
+      const lf = store.data.farmers.find((l: Farmer) => (l.id || '').toUpperCase() === (rf.id || '').toUpperCase());
       if (!lf) return rf;
       return {
         ...rf,

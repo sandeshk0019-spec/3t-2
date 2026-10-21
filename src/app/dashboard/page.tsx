@@ -1602,6 +1602,7 @@ export default function Dashboard() {
           setCollections(prev => [json.data.collection, ...prev]);
           setPayments(prev => [json.data.payment, ...prev]);
           if (json.data.farmer) {
+            recordFarmerUpdateInLocalStore(json.data.farmer);
             setFarmers(prev => prev.map(f => f.id === json.data.farmer.id ? json.data.farmer : f));
           }
           setNewWeight("12.0");
