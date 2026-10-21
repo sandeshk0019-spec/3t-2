@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     if (updates.phone) safeUpdates.phone = sanitize(updates.phone);
     if (updates.village) safeUpdates.village = sanitize(updates.village);
     if (updates.animals !== undefined) safeUpdates.animals = Math.max(1, Number(updates.animals) || 1);
-    if (updates.upiId) safeUpdates.upiId = sanitize(updates.upiId);
+    if (updates.upiId !== undefined) safeUpdates.upiId = sanitize(String(updates.upiId).trim());
 
     // Banking overrides
     if (updates.bankAccount && !updates.bankAccount.includes('•') && updates.bankAccount.trim().length >= 6) {

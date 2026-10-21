@@ -186,6 +186,10 @@ export async function PUT(request: Request) {
     }
 
     // Zero-Knowledge Write-Only: only update sensitive fields if a genuine new value is provided
+    if (updates.upiId !== undefined) {
+      safeUpdates.upiId = sanitize(String(updates.upiId).trim());
+    }
+
     if (updates.bankAccount !== undefined) {
       const raw = String(updates.bankAccount).trim();
       if (raw && !raw.includes('•') && !raw.includes('X') && raw.length >= 6) {

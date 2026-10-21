@@ -385,8 +385,11 @@ export async function refreshFromSupabase(force = false): Promise<void> {
       });
     }
 
-    // Active Deleted Farmers filter (only currently deleted farmers in dispute window are hidden)
-    const deletedSet = new Set((store.data.deletedFarmers || []).map((d: any) => (d.farmer?.id || '').trim().toUpperCase()));
+    // Active Deleted Farmers filter (only currently deleted farmers in dispute window or retired are hidden)
+    const deletedSet = new Set([
+      ...(store.data.deletedFarmers || []).map((d: any) => (d.farmer?.id || '').trim().toUpperCase()),
+      ...(store.data.retiredIds || []).map((rid: string) => (rid || '').trim().toUpperCase())
+    ]);
 
     // Clean retiredIds: if an ID is present in active farmers, it is NOT retired
     if (store.data.retiredIds && store.data.retiredIds.length > 0) {
@@ -395,7 +398,7 @@ export async function refreshFromSupabase(force = false): Promise<void> {
       store.data.retiredIds = store.data.retiredIds.filter((rid: string) => !activeIds.has((rid || '').trim().toUpperCase()));
     }
 
-    // Merge remote farmers with local farmers (ensures zero data loss)
+    // Merge remote farmers with local farmers (ensures zero data loss and local updates like UPI are preserved)
     const remoteFarmerMap = new Map(allMappedFarmers.map((f: Farmer) => [(f.id || '').toUpperCase(), f]));
     const localOnlyFarmers = (store.data.farmers || []).filter((f: Farmer) => {
       if (!f.id) return false;
@@ -404,12 +407,28 @@ export async function refreshFromSupabase(force = false): Promise<void> {
       return !deletedSet.has(idUpper) && !remoteFarmerMap.has(idUpper);
     });
 
+    const mergedRemoteFarmers = allMappedFarmers.map(rf => {
+      const lf = store.data.farmers.find(l => (l.id || '').toUpperCase() === (rf.id || '').toUpperCase());
+      if (!lf) return rf;
+      return {
+        ...rf,
+        upiId: lf.upiId || rf.upiId,
+        bankAccount: lf.bankAccount || rf.bankAccount,
+        ifsc: lf.ifsc || rf.ifsc,
+        phone: lf.phone || rf.phone,
+        village: lf.village || rf.village,
+        animals: lf.animals || rf.animals,
+        milkHistory: (lf.milkHistory && lf.milkHistory.length > 0) ? lf.milkHistory : rf.milkHistory,
+        paymentHistory: (lf.paymentHistory && lf.paymentHistory.length > 0) ? lf.paymentHistory : rf.paymentHistory
+      };
+    });
+
     // Only inject default mock farmers if the database is 100% brand new and empty
     const defaultOnlyFarmers = (allMappedFarmers.length === 0 && localOnlyFarmers.length === 0)
       ? mockFarmers.filter((f: Farmer) => !deletedSet.has((f.id || '').trim().toUpperCase()))
       : [];
 
-    store.data.farmers = [...allMappedFarmers, ...localOnlyFarmers, ...defaultOnlyFarmers].filter((f: Farmer) => {
+    store.data.farmers = [...mergedRemoteFarmers, ...localOnlyFarmers, ...defaultOnlyFarmers].filter((f: Farmer) => {
       if (!f.id) return false;
       const idUpper = f.id.toUpperCase();
       if (idUpper.startsWith('NOTIF-') || idUpper.startsWith('CONFIG-') || idUpper.startsWith('DELNOTIF-') || idUpper.startsWith('COL-') || idUpper.startsWith('PAY-')) return false;
@@ -502,7 +521,7 @@ export async function getDb(): Promise<DbObject> {
 export async function syncFarmerToSupabase(farmer: Farmer): Promise<{ success: boolean; error?: string }> {
   try {
     // 1. Direct upsert into farmers table
-    const p1 = supabase.from('farmers').upsert({
+    const { error: fErr } = await supabase.from('farmers').upsert({
       id: farmer.id,
       name: farmer.name,
       phone: farmer.phone,
@@ -511,7 +530,7 @@ export async function syncFarmerToSupabase(farmer: Farmer): Promise<{ success: b
       avg_fat: farmer.avgFat,
       avg_snf: farmer.avgSnf,
       monthly_earnings: farmer.monthlyEarnings,
-      branch_id: farmer.branchId,
+      branch_id: farmer.branchId || 'B-01',
       aadhaar: farmer.aadhaar,
       bank_account: farmer.bankAccount,
       ifsc: farmer.ifsc,
@@ -519,40 +538,57 @@ export async function syncFarmerToSupabase(farmer: Farmer): Promise<{ success: b
       qr_code: farmer.qrCode
     }, { onConflict: 'id' });
 
-    // 2. Cloud persistence backup record (guarantees persistence even if RLS is on)
-    const cloudRecord = {
-      id: `FARMER-${farmer.id}`,
-      name: farmer.name,
-      manager: farmer.phone,
-      capacity: 0,
-      today_collection: 0,
-      payments: 0,
-      status: JSON.stringify({
-        id: farmer.id,
-        name: farmer.name,
-        phone: farmer.phone,
-        village: farmer.village,
-        animals: farmer.animals,
-        avgFat: farmer.avgFat,
-        avgSnf: farmer.avgSnf,
-        monthlyEarnings: farmer.monthlyEarnings,
-        branchId: farmer.branchId,
-        aadhaar: farmer.aadhaar,
-        bankAccount: farmer.bankAccount,
-        ifsc: farmer.ifsc,
-        upiId: farmer.upiId,
-        qrCode: farmer.qrCode,
-        createdAt: farmer.createdAt || farmer.joinedDate || new Date().toISOString(),
-        joinedDate: farmer.joinedDate || farmer.createdAt || new Date().toISOString()
-      })
-    };
-    const p2 = supabase.from('branches').upsert(cloudRecord, { onConflict: 'id' });
+    if (fErr) {
+      console.error('[Supabase Sync Farmer REJECTED]:', fErr.message, `(Code: ${fErr.code})`);
+      // Attempt cloud backup record in branches table if available
+      try {
+        await supabase.from('branches').upsert({
+          id: `FARMER-${farmer.id}`,
+          name: farmer.name,
+          manager: farmer.phone,
+          capacity: 0,
+          today_collection: 0,
+          payments: 0,
+          status: JSON.stringify(farmer)
+        }, { onConflict: 'id' });
+      } catch {}
+      return { success: false, error: fErr.message };
+    }
 
-    await Promise.all([p1, p2]);
+    // 2. Cloud persistence backup record (if branches table exists)
+    try {
+      await supabase.from('branches').upsert({
+        id: `FARMER-${farmer.id}`,
+        name: farmer.name,
+        manager: farmer.phone,
+        capacity: 0,
+        today_collection: 0,
+        payments: 0,
+        status: JSON.stringify({
+          id: farmer.id,
+          name: farmer.name,
+          phone: farmer.phone,
+          village: farmer.village,
+          animals: farmer.animals,
+          avgFat: farmer.avgFat,
+          avgSnf: farmer.avgSnf,
+          monthlyEarnings: farmer.monthlyEarnings,
+          branchId: farmer.branchId || 'B-01',
+          aadhaar: farmer.aadhaar,
+          bankAccount: farmer.bankAccount,
+          ifsc: farmer.ifsc,
+          upiId: farmer.upiId,
+          qrCode: farmer.qrCode,
+          createdAt: farmer.createdAt || farmer.joinedDate || new Date().toISOString(),
+          joinedDate: farmer.joinedDate || farmer.createdAt || new Date().toISOString()
+        })
+      }, { onConflict: 'id' });
+    } catch {}
+
     return { success: true };
   } catch (err: any) {
-    console.warn('[Supabase Sync Farmer Error]', err);
-    return { success: true }; // Cloud backup ensures data is saved
+    console.error('[Supabase Sync Farmer Exception]:', err);
+    return { success: false, error: err?.message };
   }
 }
 
@@ -565,7 +601,7 @@ export async function syncCollectionToSupabase(
     // ── Ensure the parent farmer exists in Supabase BEFORE inserting the
     //    collection, preventing the foreign key violation error. ──────────────
     if (farmer) {
-      await supabase.from('farmers').upsert({
+      const { error: farmUpsertErr } = await supabase.from('farmers').upsert({
         id: farmer.id,
         name: farmer.name,
         phone: farmer.phone,
@@ -574,68 +610,81 @@ export async function syncCollectionToSupabase(
         avg_fat: farmer.avgFat,
         avg_snf: farmer.avgSnf,
         monthly_earnings: farmer.monthlyEarnings,
-        branch_id: farmer.branchId,
+        branch_id: farmer.branchId || 'B-01',
         aadhaar: farmer.aadhaar,
         bank_account: farmer.bankAccount,
         ifsc: farmer.ifsc,
         upi_id: farmer.upiId,
         qr_code: farmer.qrCode
       }, { onConflict: 'id' });
+      if (farmUpsertErr) {
+        console.error('[Supabase Parent Farmer Upsert REJECTED]:', farmUpsertErr.message, `(Code: ${farmUpsertErr.code})`);
+      }
     }
 
-    const p1 = supabase.from('collections').upsert({
-      id: collection.id,
-      farmer_id: collection.farmerId,
-      farmer_name: collection.farmerName,
-      village: collection.village,
-      date: collection.date,
-      time: collection.time,
-      weight: collection.weight,
-      fat: collection.fat,
-      snf: collection.snf,
-      rate: collection.rate,
-      total: collection.total,
-      status: collection.status,
-      branch_id: collection.branchId || 'B-01'
-    }, { onConflict: 'id' });
+    const [colResult, payResult] = await Promise.all([
+      supabase.from('collections').upsert({
+        id: collection.id,
+        farmer_id: collection.farmerId,
+        farmer_name: collection.farmerName,
+        village: collection.village,
+        date: collection.date,
+        time: collection.time,
+        weight: collection.weight,
+        fat: collection.fat,
+        snf: collection.snf,
+        rate: collection.rate,
+        total: collection.total,
+        status: collection.status,
+        branch_id: collection.branchId || 'B-01'
+      }, { onConflict: 'id' }),
 
-    const p2 = supabase.from('payments').upsert({
-      id: payment.id,
-      farmer_id: payment.farmerId,
-      farmer_name: payment.farmerName,
-      date: payment.date,
-      time: payment.time,
-      amount: payment.amount,
-      status: payment.status,
-      timeline: payment.timeline || []
-    }, { onConflict: 'id' });
+      supabase.from('payments').upsert({
+        id: payment.id,
+        farmer_id: payment.farmerId,
+        farmer_name: payment.farmerName,
+        date: payment.date,
+        time: payment.time,
+        amount: payment.amount,
+        status: payment.status,
+        timeline: payment.timeline || []
+      }, { onConflict: 'id' })
+    ]);
 
-    // Cloud backup persistence (guarantees persistence across serverless cold starts)
-    const colCloudRecord = {
-      id: `COL-${collection.id}`,
-      name: collection.farmerName || collection.farmerId,
-      manager: collection.farmerId,
-      capacity: 0,
-      today_collection: 0,
-      payments: 0,
-      status: JSON.stringify(collection)
-    };
-    const payCloudRecord = {
-      id: `PAY-${payment.id}`,
-      name: payment.farmerName || payment.farmerId,
-      manager: payment.farmerId,
-      capacity: 0,
-      today_collection: 0,
-      payments: 0,
-      status: JSON.stringify(payment)
-    };
+    if (colResult.error) {
+      console.error('[Supabase Collection Upsert REJECTED]:', colResult.error.message, `(Code: ${colResult.error.code})`);
+    }
+    if (payResult.error) {
+      console.error('[Supabase Payment Upsert REJECTED]:', payResult.error.message, `(Code: ${payResult.error.code})`);
+    }
 
-    const p3 = supabase.from('branches').upsert(colCloudRecord, { onConflict: 'id' });
-    const p4 = supabase.from('branches').upsert(payCloudRecord, { onConflict: 'id' });
-
-    await Promise.all([p1, p2, p3, p4]);
+    // Cloud backup persistence in branches table (graceful)
+    try {
+      const colCloudRecord = {
+        id: `COL-${collection.id}`,
+        name: collection.farmerName || collection.farmerId,
+        manager: collection.farmerId,
+        capacity: 0,
+        today_collection: 0,
+        payments: 0,
+        status: JSON.stringify(collection)
+      };
+      const payCloudRecord = {
+        id: `PAY-${payment.id}`,
+        name: payment.farmerName || payment.farmerId,
+        manager: payment.farmerId,
+        capacity: 0,
+        today_collection: 0,
+        payments: 0,
+        status: JSON.stringify(payment)
+      };
+      await Promise.all([
+        supabase.from('branches').upsert(colCloudRecord, { onConflict: 'id' }),
+        supabase.from('branches').upsert(payCloudRecord, { onConflict: 'id' })
+      ]);
+    } catch {}
   } catch (err) {
-    console.warn('[Supabase Sync Error]', err);
+    console.warn('[Supabase Sync Exception]', err);
   }
 }
 

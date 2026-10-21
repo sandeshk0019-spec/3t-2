@@ -30,13 +30,22 @@ export async function GET() {
       qr_code: f.qrCode
     }));
 
-    await supabase.from('farmers').upsert(farmerRows);
+    const resFarmers = await supabase.from('farmers').upsert(farmerRows, { onConflict: 'id' });
+    if (resFarmers.error) {
+      return NextResponse.json({
+        success: false,
+        error: `Supabase 'farmers' table rejected insert: ${resFarmers.error.message} (Code: ${resFarmers.error.code})`,
+        details: resFarmers.error,
+        instruction: "Row-Level Security (RLS) is active in Supabase. Please run 'data/supabase_schema.sql' in your Supabase SQL Editor or set SUPABASE_SERVICE_ROLE_KEY."
+      }, { status: 403 });
+    }
 
     // 2. Sync all collections into collections table
     const colRows = collections.map(c => ({
       id: c.id,
       farmer_id: c.farmerId,
       farmer_name: c.farmerName,
+      village: c.village,
       date: c.date,
       time: c.time,
       weight: c.weight,
@@ -48,7 +57,14 @@ export async function GET() {
       branch_id: c.branchId
     }));
 
-    await supabase.from('collections').upsert(colRows);
+    const resCols = await supabase.from('collections').upsert(colRows, { onConflict: 'id' });
+    if (resCols.error) {
+      return NextResponse.json({
+        success: false,
+        error: `Supabase 'collections' table rejected insert: ${resCols.error.message} (Code: ${resCols.error.code})`,
+        details: resCols.error
+      }, { status: 403 });
+    }
 
     // 3. Sync all payments into payments table
     const payRows = payments.map(p => ({
@@ -62,11 +78,18 @@ export async function GET() {
       timeline: p.timeline
     }));
 
-    await supabase.from('payments').upsert(payRows);
+    const resPays = await supabase.from('payments').upsert(payRows, { onConflict: 'id' });
+    if (resPays.error) {
+      return NextResponse.json({
+        success: false,
+        error: `Supabase 'payments' table rejected insert: ${resPays.error.message} (Code: ${resPays.error.code})`,
+        details: resPays.error
+      }, { status: 403 });
+    }
 
     return NextResponse.json({
       success: true,
-      message: `Successfully synced ${farmers.length} farmers, ${collections.length} collections, and ${payments.length} payments to Supabase Cloud!`,
+      message: `Successfully seeded ${farmers.length} farmers, ${collections.length} collections, and ${payments.length} payments to Supabase Cloud!`,
       farmersCount: farmers.length,
       collectionsCount: collections.length,
       paymentsCount: payments.length
