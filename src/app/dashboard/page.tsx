@@ -214,7 +214,23 @@ export default function Dashboard() {
   const [confirmPricingModal, setConfirmPricingModal] = useState<FormulaConfig | null>(null);
   const [isSavingPricing, setIsSavingPricing] = useState(false);
   const [pricingSuccessMsg, setPricingSuccessMsg] = useState("");
-  const [farmers, setFarmers] = useState<Farmer[]>(initialFarmers);
+  const STORAGE_FARMERS_CACHE = "3t_farmers_cache";
+  const STORAGE_FARMER_OVERRIDES = "3t_farmer_overrides";
+  const STORAGE_ADDED_FARMERS = "3t_added_farmers";
+  const STORAGE_DELETED_FARMER_IDS = "3t_deleted_farmer_ids";
+
+  const [farmers, setFarmers] = useState<Farmer[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const cached = localStorage.getItem("3t_farmers_cache");
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch {}
+    }
+    return initialFarmers;
+  });
   const [collections, setCollections] = useState<CollectionItem[]>(initialCollections);
   const [payments, setPayments] = useState<PaymentItem[]>(initialPayments);
   const [branches, setBranches] = useState<Branch[]>(initialBranches);
@@ -267,6 +283,139 @@ export default function Dashboard() {
     }
   };
 
+  // ── Local Storage Resilience & Dual-Sync Engine ───────────────────────────
+  const applyLocalPersistenceToFarmers = (serverFarmers: Farmer[]): Farmer[] => {
+    try {
+      if (typeof window === "undefined") return serverFarmers;
+
+      const deletedRaw = localStorage.getItem(STORAGE_DELETED_FARMER_IDS);
+      const deletedIds: string[] = deletedRaw ? JSON.parse(deletedRaw) : [];
+      const deletedSet = new Set(deletedIds.map(id => (id || "").toUpperCase()));
+
+      const overridesRaw = localStorage.getItem(STORAGE_FARMER_OVERRIDES);
+      const overrides: Record<string, Partial<Farmer>> = overridesRaw ? JSON.parse(overridesRaw) : {};
+
+      const addedRaw = localStorage.getItem(STORAGE_ADDED_FARMERS);
+      const addedFarmers: Farmer[] = addedRaw ? JSON.parse(addedRaw) : [];
+
+      // 1. Filter out deleted farmers
+      let list = serverFarmers.filter(f => !deletedSet.has((f.id || "").toUpperCase()));
+
+      // 2. Apply field overrides (e.g. updated UPI ID, phone, etc.)
+      list = list.map(f => {
+        const ov = overrides[f.id] || overrides[(f.id || "").toUpperCase()];
+        return ov ? { ...f, ...ov } : f;
+      });
+
+      // 3. Prepend any added farmers that the server doesn't have yet
+      const existingIds = new Set(list.map(f => (f.id || "").toUpperCase()));
+      const pendingAdded = addedFarmers.filter(f => !existingIds.has((f.id || "").toUpperCase()) && !deletedSet.has((f.id || "").toUpperCase()));
+
+      const merged = [...pendingAdded, ...list];
+      localStorage.setItem(STORAGE_FARMERS_CACHE, JSON.stringify(merged));
+      return merged;
+    } catch {
+      return serverFarmers;
+    }
+  };
+
+  const recordFarmerUpdateInLocalStore = (updatedFarmer: Farmer) => {
+    try {
+      if (typeof window === "undefined") return;
+      const overridesRaw = localStorage.getItem(STORAGE_FARMER_OVERRIDES);
+      const overrides: Record<string, Partial<Farmer>> = overridesRaw ? JSON.parse(overridesRaw) : {};
+      overrides[updatedFarmer.id] = {
+        name: updatedFarmer.name,
+        phone: updatedFarmer.phone,
+        village: updatedFarmer.village,
+        animals: updatedFarmer.animals,
+        upiId: updatedFarmer.upiId,
+        bankAccount: updatedFarmer.bankAccount,
+        ifsc: updatedFarmer.ifsc,
+        aadhaar: updatedFarmer.aadhaar
+      };
+      localStorage.setItem(STORAGE_FARMER_OVERRIDES, JSON.stringify(overrides));
+
+      // Also update addedFarmers if this farmer was locally added
+      const addedRaw = localStorage.getItem(STORAGE_ADDED_FARMERS);
+      if (addedRaw) {
+        const addedList: Farmer[] = JSON.parse(addedRaw);
+        const idx = addedList.findIndex(f => (f.id || "").toUpperCase() === (updatedFarmer.id || "").toUpperCase());
+        if (idx !== -1) {
+          addedList[idx] = { ...addedList[idx], ...updatedFarmer };
+          localStorage.setItem(STORAGE_ADDED_FARMERS, JSON.stringify(addedList));
+        }
+      }
+
+      // Update farmers cache
+      const cached = localStorage.getItem(STORAGE_FARMERS_CACHE);
+      if (cached) {
+        const parsed: Farmer[] = JSON.parse(cached);
+        const updated = parsed.map(f => f.id === updatedFarmer.id ? { ...f, ...updatedFarmer } : f);
+        localStorage.setItem(STORAGE_FARMERS_CACHE, JSON.stringify(updated));
+      }
+    } catch {}
+  };
+
+  const recordFarmerAdditionInLocalStore = (newFarmer: Farmer) => {
+    try {
+      if (typeof window === "undefined") return;
+      const addedRaw = localStorage.getItem(STORAGE_ADDED_FARMERS);
+      const addedList: Farmer[] = addedRaw ? JSON.parse(addedRaw) : [];
+      if (!addedList.some(f => (f.id || "").toUpperCase() === (newFarmer.id || "").toUpperCase())) {
+        addedList.unshift(newFarmer);
+        localStorage.setItem(STORAGE_ADDED_FARMERS, JSON.stringify(addedList));
+      }
+      // Remove from deleted list if previously deleted
+      const deletedRaw = localStorage.getItem(STORAGE_DELETED_FARMER_IDS);
+      if (deletedRaw) {
+        let deletedList: string[] = JSON.parse(deletedRaw);
+        deletedList = deletedList.filter(id => id.toUpperCase() !== (newFarmer.id || "").toUpperCase());
+        localStorage.setItem(STORAGE_DELETED_FARMER_IDS, JSON.stringify(deletedList));
+      }
+      // Update cache
+      const cached = localStorage.getItem(STORAGE_FARMERS_CACHE);
+      const parsed: Farmer[] = cached ? JSON.parse(cached) : [];
+      const updated = [newFarmer, ...parsed.filter(f => (f.id || "").toUpperCase() !== (newFarmer.id || "").toUpperCase())];
+      localStorage.setItem(STORAGE_FARMERS_CACHE, JSON.stringify(updated));
+    } catch {}
+  };
+
+  const recordFarmerDeletionInLocalStore = (farmerId: string) => {
+    try {
+      if (typeof window === "undefined") return;
+      const upperId = (farmerId || "").toUpperCase();
+      const deletedRaw = localStorage.getItem(STORAGE_DELETED_FARMER_IDS);
+      const deletedList: string[] = deletedRaw ? JSON.parse(deletedRaw) : [];
+      if (!deletedList.some(id => id.toUpperCase() === upperId)) {
+        deletedList.push(farmerId);
+        localStorage.setItem(STORAGE_DELETED_FARMER_IDS, JSON.stringify(deletedList));
+      }
+      // Remove from addedFarmers
+      const addedRaw = localStorage.getItem(STORAGE_ADDED_FARMERS);
+      if (addedRaw) {
+        const addedList: Farmer[] = JSON.parse(addedRaw);
+        const filtered = addedList.filter(f => (f.id || "").toUpperCase() !== upperId);
+        localStorage.setItem(STORAGE_ADDED_FARMERS, JSON.stringify(filtered));
+      }
+      // Remove from overrides
+      const overridesRaw = localStorage.getItem(STORAGE_FARMER_OVERRIDES);
+      if (overridesRaw) {
+        const overrides: Record<string, Partial<Farmer>> = JSON.parse(overridesRaw);
+        delete overrides[farmerId];
+        delete overrides[upperId];
+        localStorage.setItem(STORAGE_FARMER_OVERRIDES, JSON.stringify(overrides));
+      }
+      // Update cache
+      const cached = localStorage.getItem(STORAGE_FARMERS_CACHE);
+      if (cached) {
+        const parsed: Farmer[] = JSON.parse(cached);
+        const filtered = parsed.filter(f => (f.id || "").toUpperCase() !== upperId);
+        localStorage.setItem(STORAGE_FARMERS_CACHE, JSON.stringify(filtered));
+      }
+    } catch {}
+  };
+
   const triggerRealtimeBroadcast = () => {
     try {
       if (typeof window !== "undefined") {
@@ -296,7 +445,9 @@ export default function Dashboard() {
               return prev;
             });
           }
-          if (json.data.farmers) setFarmers(json.data.farmers);
+          if (json.data.farmers && Array.isArray(json.data.farmers)) {
+            setFarmers(() => applyLocalPersistenceToFarmers(json.data.farmers));
+          }
           if (json.data.collections) {
             setCollections(prev => {
               const serverIds = new Set(json.data.collections.map((c: any) => c.id));
@@ -447,7 +598,9 @@ export default function Dashboard() {
     })
       .then(json => {
         if (json.success && json.data) {
+          recordFarmerAdditionInLocalStore(json.data);
           setFarmers(prev => [json.data, ...prev]);
+          triggerRealtimeBroadcast();
           setIsOtpModalOpen(false);
           setIsKycOpen(false);
           setPendingKycData(null);
@@ -602,7 +755,9 @@ export default function Dashboard() {
     })
       .then(json => {
         if (json.success && json.data) {
-          setFarmers(prev => prev.map(f => f.id === editingFarmer.id ? { ...f, ...json.data } : f));
+          const updated = { ...editingFarmer, ...json.data };
+          recordFarmerUpdateInLocalStore(updated);
+          setFarmers(prev => prev.map(f => f.id === editingFarmer.id ? updated : f));
           setEditingFarmer(null);
           triggerRealtimeBroadcast();
         } else {
@@ -650,7 +805,9 @@ export default function Dashboard() {
 
       const json = await res.json();
       if (json.success && json.data) {
-        setFarmers(prev => prev.map(f => f.id === editingFarmer.id ? { ...f, ...json.data } : f));
+        const updated = { ...editingFarmer, ...json.data };
+        recordFarmerUpdateInLocalStore(updated);
+        setFarmers(prev => prev.map(f => f.id === editingFarmer.id ? updated : f));
         setEditingFarmer(null);
         setEditStep("form");
         triggerRealtimeBroadcast();
@@ -672,14 +829,11 @@ export default function Dashboard() {
     safeJsonFetch(`/api/farmers?id=${farmerId}`, { method: "DELETE" })
       .then(json => {
         if (json.success) {
+          recordFarmerDeletionInLocalStore(farmerId);
           setFarmers(prev => prev.filter(f => f.id !== farmerId));
           if (selectedFarmer?.id === farmerId) setSelectedFarmer(null);
           if (editingFarmer?.id === farmerId) setEditingFarmer(null);
-          try {
-            if (typeof window !== "undefined") {
-              localStorage.setItem("3t_last_sync", Date.now().toString());
-            }
-          } catch {}
+          triggerRealtimeBroadcast();
         } else {
           alert(json.error || "Failed to delete farmer.");
         }
