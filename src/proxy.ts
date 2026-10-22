@@ -24,6 +24,10 @@ const PUBLIC_ROUTES = new Set([
   '/api/auth/farmer-otp/send',
   '/api/auth/farmer-otp/verify',
   '/api/auth/farmer-otp/logout',
+  '/api/auth/bank-update-otp/send',
+  '/api/auth/bank-update-otp/verify',
+  '/api/display-sync',
+  '/api/admin/broadcast',
   '/api/manifest',
   '/api/data',
   '/api/branches',
@@ -42,6 +46,7 @@ const PUBLIC_PREFIXES = [
   '/api/ai-mitra',
   '/api/notifications',
   '/api/payments/',
+  '/api/auth/bank-update-otp/',
   '/solutions/',
   '/legal/',
 ];

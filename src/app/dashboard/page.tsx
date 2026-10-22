@@ -5905,6 +5905,7 @@ UTR Settlement Gateway Status: ONLINE
                     {editBankAccount && <div><span className="text-gray-600 font-bold">New Bank A/C:</span> <span className="font-mono font-bold text-primary">••••••••{editBankAccount.slice(-4)}</span></div>}
                     {editIfsc && <div><span className="text-gray-600 font-bold">New IFSC:</span> <span className="font-mono font-bold text-primary">{editIfsc}</span></div>}
                     {editAadhaar && <div><span className="text-gray-600 font-bold">New Aadhaar:</span> <span className="font-mono font-bold text-primary">XXXX-XXXX-{editAadhaar.slice(-4)}</span></div>}
+                    {editUpi && editUpi !== (editingFarmer.upiId || "") && <div><span className="text-gray-600 font-bold">New UPI ID:</span> <span className="font-mono font-bold text-primary">{editUpi}</span></div>}
                   </div>
 
                   {/* Demo OTP Banner for Demonstration & Evaluation */}
