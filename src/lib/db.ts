@@ -153,19 +153,19 @@ export async function refreshFromSupabase(force = false): Promise<void> {
       const fallbackRes: any = { data: null, error: null };
       const [colRes, payRes, farmRes, cloudFarmersRes, cloudColsRes, cloudPaysRes, configRes, retiredFarmRes, retiredBranchRes] = await withTimeout(
         Promise.all([
-          supabase.from('collections').select('*').order('created_at', { ascending: false }).limit(300),
-          supabase.from('payments').select('*').order('created_at', { ascending: false }).limit(300),
-          supabase.from('farmers').select('*').like('id', 'F-%').limit(100),
-        supabase.from('branches').select('*').like('id', 'FARMER-%').limit(200),
-        supabase.from('branches').select('*').like('id', 'COL-%').limit(500),
-        supabase.from('branches').select('*').like('id', 'PAY-%').limit(500),
-        supabase.from('settings').select('*').eq('id', 1).single(),
-        supabase.from('farmers').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single(),
-        supabase.from('branches').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single()
-      ]),
-      2000,
-      [fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes]
-    );
+          supabase.from('collections').select('*').order('created_at', { ascending: false }).limit(500),
+          supabase.from('payments').select('*').order('created_at', { ascending: false }).limit(500),
+          supabase.from('farmers').select('*').order('created_at', { ascending: false }).limit(300),
+          supabase.from('branches').select('*').like('id', 'FARMER-%').limit(200),
+          supabase.from('branches').select('*').like('id', 'COL-%').limit(500),
+          supabase.from('branches').select('*').like('id', 'PAY-%').limit(500),
+          supabase.from('settings').select('*').eq('id', 1).single(),
+          supabase.from('farmers').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single(),
+          supabase.from('branches').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single()
+        ]),
+        8000,
+        [fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes]
+      );
 
     if (configRes?.data && typeof configRes.data.base_price === 'number') {
       store.data.formulaConfig = {
@@ -321,25 +321,55 @@ export async function refreshFromSupabase(force = false): Promise<void> {
         if (idUpper.startsWith('NOTIF-') || idUpper.startsWith('CONFIG-') || idUpper.startsWith('DELNOTIF-') || idUpper.startsWith('COL-') || idUpper.startsWith('PAY-')) return;
 
         const local = store.data.farmers.find((lf: any) => lf.id === f.id);
+        const farmerCols = allMappedCollections.filter(c => (c.farmerId || '').toUpperCase() === idUpper);
+        const farmerPays = allMappedPayments.filter(p => (p.farmerId || '').toUpperCase() === idUpper);
+
+        const dynMilkHistory = farmerCols.map(c => ({
+          date: c.date,
+          volume: c.weight,
+          fat: c.fat,
+          snf: c.snf,
+          total: c.total
+        }));
+
+        const dynPaymentHistory = farmerPays.map(p => ({
+          date: p.date,
+          amount: p.amount,
+          status: (p.status || 'Success') as any,
+          transactionId: p.id
+        }));
+
+        const computedEarnings = dynPaymentHistory.length > 0
+          ? Math.round(dynPaymentHistory.reduce((sum, p) => sum + (Number(p.amount) || 0), 0) * 100) / 100
+          : (typeof f.monthly_earnings === 'number' ? f.monthly_earnings : (local?.monthlyEarnings ?? 0));
+
+        const computedFat = dynMilkHistory.length > 0
+          ? Math.round((dynMilkHistory.reduce((sum, m) => sum + m.fat, 0) / dynMilkHistory.length) * 10) / 10
+          : (typeof f.avg_fat === 'number' ? f.avg_fat : (local?.avgFat ?? 4.2));
+
+        const computedSnf = dynMilkHistory.length > 0
+          ? Math.round((dynMilkHistory.reduce((sum, m) => sum + m.snf, 0) / dynMilkHistory.length) * 10) / 10
+          : (typeof f.avg_snf === 'number' ? f.avg_snf : (local?.avgSnf ?? 8.5));
+
         allMappedFarmers.push({
           id: f.id,
           name: f.name || local?.name || '',
           phone: f.phone || local?.phone || '',
           village: f.village || local?.village || 'Sangamner, Maharashtra',
           animals: typeof f.animals === 'number' && f.animals > 0 ? f.animals : (local?.animals ?? 5),
-          avgFat: typeof f.avg_fat === 'number' ? f.avg_fat : (local?.avgFat ?? 0),
-          avgSnf: typeof f.avg_snf === 'number' ? f.avg_snf : (local?.avgSnf ?? 0),
+          avgFat: computedFat,
+          avgSnf: computedSnf,
           aadhaar: f.aadhaar || local?.aadhaar || '',
           bankAccount: f.bank_account || local?.bankAccount || '',
           ifsc: f.ifsc || local?.ifsc || '',
           upiId: f.upi_id || local?.upiId || '',
           qrCode: f.qr_code || local?.qrCode || `3T-${f.id}`,
           branchId: f.branch_id || local?.branchId || 'B-01',
-          monthlyEarnings: typeof f.monthly_earnings === 'number' ? f.monthly_earnings : (local?.monthlyEarnings ?? 0),
+          monthlyEarnings: computedEarnings,
           createdAt: f.created_at || local?.createdAt || local?.joinedDate,
           joinedDate: f.created_at || local?.joinedDate || local?.createdAt,
-          milkHistory: local?.milkHistory || [],
-          paymentHistory: local?.paymentHistory || []
+          milkHistory: dynMilkHistory.length > 0 ? dynMilkHistory : (local?.milkHistory || []),
+          paymentHistory: dynPaymentHistory.length > 0 ? dynPaymentHistory : (local?.paymentHistory || [])
         });
       });
     }
@@ -410,16 +440,21 @@ export async function refreshFromSupabase(force = false): Promise<void> {
     const mergedRemoteFarmers = allMappedFarmers.map(rf => {
       const lf = store.data.farmers.find((l: Farmer) => (l.id || '').toUpperCase() === (rf.id || '').toUpperCase());
       if (!lf) return rf;
+      // Remote Supabase cloud data is the master source of truth and overrides local cache!
       return {
+        ...lf,
         ...rf,
-        upiId: lf.upiId || rf.upiId,
-        bankAccount: lf.bankAccount || rf.bankAccount,
-        ifsc: lf.ifsc || rf.ifsc,
-        phone: lf.phone || rf.phone,
-        village: lf.village || rf.village,
-        animals: lf.animals || rf.animals,
-        milkHistory: (lf.milkHistory && lf.milkHistory.length > 0) ? lf.milkHistory : rf.milkHistory,
-        paymentHistory: (lf.paymentHistory && lf.paymentHistory.length > 0) ? lf.paymentHistory : rf.paymentHistory
+        name: rf.name || lf.name,
+        phone: rf.phone || lf.phone,
+        village: rf.village || lf.village,
+        animals: typeof rf.animals === 'number' && rf.animals > 0 ? rf.animals : (lf.animals ?? 5),
+        upiId: rf.upiId !== undefined && rf.upiId !== null ? rf.upiId : (lf.upiId || ''),
+        bankAccount: rf.bankAccount || lf.bankAccount || '',
+        ifsc: rf.ifsc || lf.ifsc || '',
+        aadhaar: rf.aadhaar || lf.aadhaar || '',
+        monthlyEarnings: typeof rf.monthlyEarnings === 'number' && rf.monthlyEarnings > 0 ? rf.monthlyEarnings : (lf.monthlyEarnings ?? 0),
+        milkHistory: rf.milkHistory && rf.milkHistory.length > 0 ? rf.milkHistory : (lf.milkHistory || []),
+        paymentHistory: rf.paymentHistory && rf.paymentHistory.length > 0 ? rf.paymentHistory : (lf.paymentHistory || [])
       };
     });
 
