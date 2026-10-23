@@ -543,16 +543,21 @@ export default function Dashboard() {
       setKycError("Please enter farmer's full name.");
       return;
     }
+    const cleanPhoneDigits = kycPhone.replace(/\D/g, '').slice(-10);
+    if (!cleanPhoneDigits || cleanPhoneDigits.length !== 10) {
+      setKycError("Phone Number must be exactly 10 digits.");
+      return;
+    }
     if (!/^\d{12}$/.test(kycAadhaar)) {
       setKycError("Aadhaar Number must be exactly 12 digits.");
       return;
     }
-    if (!kycBankNo.trim() || kycBankNo.length < 8) {
-      setKycError("Please enter a valid bank account number.");
+    if (!kycBankNo.trim() || kycBankNo.length < 8 || kycBankNo.length > 18) {
+      setKycError("Bank Account Number must be between 8 and 18 digits.");
       return;
     }
     if (!kycIfsc.trim() || kycIfsc.length !== 11) {
-      setKycError("IFSC Code must be exactly 11 characters.");
+      setKycError("IFSC Code must be exactly 11 characters (e.g. SBIN0001234).");
       return;
     }
     if (kycUpi.trim() && !kycUpi.includes("@")) {
@@ -734,8 +739,21 @@ export default function Dashboard() {
     if (!editingFarmer) return;
     setEditError("");
 
-    if (!editPhone.trim() || editPhone.trim().length < 10) {
+    const cleanPhoneDigits = editPhone.replace(/\D/g, '').slice(-10);
+    if (!cleanPhoneDigits || cleanPhoneDigits.length !== 10) {
       setEditError("Please enter a valid 10-digit mobile phone number.");
+      return;
+    }
+    if (editAadhaar.trim() && !/^\d{12}$/.test(editAadhaar.trim())) {
+      setEditError("New Aadhaar Number must be exactly 12 digits.");
+      return;
+    }
+    if (editBankAccount.trim() && (editBankAccount.replace(/\D/g, '').length < 8 || editBankAccount.replace(/\D/g, '').length > 18)) {
+      setEditError("New Bank Account Number must be between 8 and 18 digits.");
+      return;
+    }
+    if (editIfsc.trim() && editIfsc.trim().length !== 11) {
+      setEditError("New IFSC Code must be exactly 11 characters.");
       return;
     }
     if (editUpi.trim() && !editUpi.includes("@")) {
@@ -5163,34 +5181,51 @@ UTR Settlement Gateway Status: ONLINE
                     <label className="font-bold text-text-main">Full Name</label>
                     <input
                       type="text"
+                      maxLength={50}
                       placeholder="e.g. Dattatray Patil"
                       value={kycName}
-                      onChange={(e) => setKycName(e.target.value)}
+                      onChange={(e) => setKycName(e.target.value.replace(/[^a-zA-Z\s.'-]/g, '').slice(0, 50))}
                       className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
                       required
                     />
                   </div>
 
-                  {/* Phone */}
+                  {/* Phone with fixed +91 prefix and 10-digit hard limit */}
                   <div className="space-y-1">
-                    <label className="font-bold text-text-main">Phone Number</label>
-                    <input
-                      type="text"
-                      value={kycPhone}
-                      onChange={(e) => setKycPhone(e.target.value)}
-                      className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
-                      required
-                    />
+                    <label className="font-bold text-text-main">Phone Number (10 Digits)</label>
+                    <div className="flex rounded-xl border border-border-light overflow-hidden bg-[#FAFAFA] focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
+                      <span className="px-3 py-2.5 bg-gray-100 text-text-muted font-bold text-xs flex items-center border-r border-border-light select-none">
+                        +91
+                      </span>
+                      <input
+                        type="tel"
+                        inputMode="numeric"
+                        maxLength={10}
+                        placeholder="7896541230"
+                        value={kycPhone.replace(/^\+91\s*/, '').slice(0, 10)}
+                        onChange={(e) => {
+                          const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+                          setKycPhone(digits ? `+91 ${digits}` : '+91 ');
+                        }}
+                        className="w-full p-2.5 font-semibold bg-transparent text-xs outline-none tracking-wider font-mono"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-bold text-text-main">Animals Owned</label>
+                  <label className="font-bold text-text-main">Animals Owned (Max 3 Digits)</label>
                   <input
-                    type="number"
-                    min="1"
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={3}
+                    placeholder="e.g. 5"
                     value={kycAnimals}
-                    onChange={(e) => setKycAnimals(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, '').slice(0, 3);
+                      setKycAnimals(val);
+                    }}
                     className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
                     required
                   />
@@ -5200,11 +5235,12 @@ UTR Settlement Gateway Status: ONLINE
                   <label className="font-bold text-text-main">Aadhaar Card Number (12 Digits)</label>
                   <input
                     type="text"
+                    inputMode="numeric"
                     maxLength={12}
-                    placeholder="12-digit Aadhaar UID"
+                    placeholder="12-digit Aadhaar UID (e.g. 548291038472)"
                     value={kycAadhaar}
-                    onChange={(e) => setKycAadhaar(e.target.value.replace(/\D/g, ''))}
-                    className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
+                    onChange={(e) => setKycAadhaar(e.target.value.replace(/\D/g, '').slice(0, 12))}
+                    className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono tracking-wider"
                     required
                   />
                 </div>
@@ -5215,26 +5251,29 @@ UTR Settlement Gateway Status: ONLINE
                   <div className="grid grid-cols-2 gap-4">
                     {/* Account Number */}
                     <div className="space-y-1">
-                      <label className="font-bold text-text-main">Account Number</label>
+                      <label className="font-bold text-text-main">Account Number (9-18 Digits)</label>
                       <input
                         type="text"
+                        inputMode="numeric"
+                        maxLength={18}
                         placeholder="e.g. 30281982739"
                         value={kycBankNo}
-                        onChange={(e) => setKycBankNo(e.target.value.replace(/\D/g, ''))}
-                        className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
+                        onChange={(e) => setKycBankNo(e.target.value.replace(/\D/g, '').slice(0, 18))}
+                        className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono"
                         required
                       />
                     </div>
 
                     {/* IFSC Code */}
                     <div className="space-y-1">
-                      <label className="font-bold text-text-main">IFSC Code</label>
+                      <label className="font-bold text-text-main">IFSC Code (11 Chars)</label>
                       <input
                         type="text"
+                        maxLength={11}
                         placeholder="e.g. SBIN0001234"
                         value={kycIfsc}
-                        onChange={(e) => setKycIfsc(e.target.value.toUpperCase())}
-                        className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
+                        onChange={(e) => setKycIfsc(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 11))}
+                        className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono uppercase"
                         required
                       />
                     </div>
@@ -5248,10 +5287,11 @@ UTR Settlement Gateway Status: ONLINE
                     </div>
                     <input
                       type="text"
+                      maxLength={50}
                       placeholder="e.g. name@upi (Optional - Leave blank if farmer has no UPI)"
                       value={kycUpi}
-                      onChange={(e) => setKycUpi(e.target.value)}
-                      className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
+                      onChange={(e) => setKycUpi(e.target.value.toLowerCase().replace(/[^a-z0-9.\-_@]/g, '').slice(0, 50))}
+                      className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono"
                     />
                     <p className="text-[11px] text-text-muted font-medium">
                       💡 If farmer has no UPI, milk payments will settle directly to their Bank Account &amp; IFSC via IMPS.
@@ -5791,24 +5831,35 @@ UTR Settlement Gateway Status: ONLINE
                       <label className="font-bold text-text-main">Full Name</label>
                       <input
                         type="text"
+                        maxLength={50}
                         value={editName}
-                        onChange={(e) => setEditName(e.target.value)}
+                        onChange={(e) => setEditName(e.target.value.replace(/[^a-zA-Z\s.'-]/g, '').slice(0, 50))}
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
                         required
                       />
                     </div>
 
-                    {/* Phone Number */}
+                    {/* Phone Number with fixed +91 prefix and 10-digit hard limit */}
                     <div className="space-y-1">
-                      <label className="font-bold text-text-main">Phone Number (UPI Linked)</label>
-                      <input
-                        type="text"
-                        value={editPhone}
-                        onChange={(e) => setEditPhone(e.target.value)}
-                        className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
-                        placeholder="e.g. +91 9822012345"
-                        required
-                      />
+                      <label className="font-bold text-text-main">Phone Number (10 Digits)</label>
+                      <div className="flex rounded-xl border border-border-light overflow-hidden bg-[#FAFAFA] focus-within:border-primary focus-within:ring-1 focus-within:ring-primary">
+                        <span className="px-3 py-2.5 bg-gray-100 text-text-muted font-bold text-xs flex items-center border-r border-border-light select-none">
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          inputMode="numeric"
+                          maxLength={10}
+                          placeholder="7896541230"
+                          value={editPhone.replace(/^\+91\s*/, '').slice(0, 10)}
+                          onChange={(e) => {
+                            const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            setEditPhone(digits ? `+91 ${digits}` : '+91 ');
+                          }}
+                          className="w-full p-2.5 font-semibold bg-transparent text-xs outline-none tracking-wider font-mono"
+                          required
+                        />
+                      </div>
                     </div>
 
                     {/* Village */}
@@ -5816,8 +5867,9 @@ UTR Settlement Gateway Status: ONLINE
                       <label className="font-bold text-text-main">Village / Location</label>
                       <input
                         type="text"
+                        maxLength={40}
                         value={editVillage}
-                        onChange={(e) => setEditVillage(e.target.value)}
+                        onChange={(e) => setEditVillage(e.target.value.slice(0, 40))}
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
                         required
                       />
@@ -5825,13 +5877,14 @@ UTR Settlement Gateway Status: ONLINE
 
                     {/* Animals */}
                     <div className="space-y-1">
-                      <label className="font-bold text-text-main">Cows / Buffaloes</label>
+                      <label className="font-bold text-text-main">Cows / Buffaloes (Max 3 Digits)</label>
                       <input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={3}
                         value={editAnimals}
-                        onChange={(e) => setEditAnimals(e.target.value)}
+                        onChange={(e) => setEditAnimals(e.target.value.replace(/\D/g, '').slice(0, 3))}
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA]"
-                        min="1"
                         required
                       />
                     </div>
@@ -5844,8 +5897,9 @@ UTR Settlement Gateway Status: ONLINE
                       </div>
                       <input
                         type="text"
+                        maxLength={50}
                         value={editUpi}
-                        onChange={(e) => setEditUpi(e.target.value)}
+                        onChange={(e) => setEditUpi(e.target.value.toLowerCase().replace(/[^a-z0-9.\-_@]/g, '').slice(0, 50))}
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono text-primary"
                         placeholder="e.g. farmer@upi (Leave blank if farmer has no UPI)"
                       />
@@ -5855,7 +5909,7 @@ UTR Settlement Gateway Status: ONLINE
                     <div className="col-span-2 p-3.5 bg-gray-50 border border-border-light rounded-2xl space-y-2">
                       <div className="flex items-center space-x-1.5 text-xs font-bold text-gray-700">
                         <Lock className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Encrypted Banking & Aadhaar Profile (Protected)</span>
+                        <span>Encrypted Banking &amp; Aadhaar Profile (Protected)</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] font-mono">
                         <div className="p-2 bg-white rounded-xl border border-border-light">
@@ -5877,7 +5931,7 @@ UTR Settlement Gateway Status: ONLINE
                     <div className="col-span-2 pt-1 border-t border-gray-100">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-text-muted block">
-                          ✏️ Update Bank & KYC Details (Requires Farmer Mobile OTP)
+                          ✏️ Update Bank &amp; KYC Details (Requires Farmer Mobile OTP)
                         </span>
                         <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                           🛡️ OTP Protected
@@ -5887,11 +5941,13 @@ UTR Settlement Gateway Status: ONLINE
 
                     {/* Update Bank Account */}
                     <div className="space-y-1 col-span-2 sm:col-span-1">
-                      <label className="font-bold text-text-main">New Bank Account Number</label>
+                      <label className="font-bold text-text-main">New Bank Account Number (9-18 Digits)</label>
                       <input
                         type="text"
+                        inputMode="numeric"
+                        maxLength={18}
                         value={editBankAccount}
-                        onChange={(e) => setEditBankAccount(e.target.value.replace(/\D/g, ""))}
+                        onChange={(e) => setEditBankAccount(e.target.value.replace(/\D/g, "").slice(0, 18))}
                         placeholder="Leave empty to keep existing"
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono"
                       />
@@ -5899,11 +5955,12 @@ UTR Settlement Gateway Status: ONLINE
 
                     {/* Update IFSC Code */}
                     <div className="space-y-1 col-span-2 sm:col-span-1">
-                      <label className="font-bold text-text-main">New Bank IFSC Code</label>
+                      <label className="font-bold text-text-main">New Bank IFSC Code (11 Chars)</label>
                       <input
                         type="text"
+                        maxLength={11}
                         value={editIfsc}
-                        onChange={(e) => setEditIfsc(e.target.value.toUpperCase())}
+                        onChange={(e) => setEditIfsc(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 11))}
                         placeholder="e.g. SBIN0001234"
                         className="w-full p-2.5 rounded-xl border border-border-light font-semibold bg-[#FAFAFA] font-mono uppercase"
                       />
@@ -5914,6 +5971,8 @@ UTR Settlement Gateway Status: ONLINE
                       <label className="font-bold text-text-main">New 12-Digit Aadhaar Card Number</label>
                       <input
                         type="text"
+                        inputMode="numeric"
+                        maxLength={12}
                         value={editAadhaar}
                         onChange={(e) => setEditAadhaar(e.target.value.replace(/\D/g, "").slice(0, 12))}
                         placeholder="Leave empty to keep existing"
