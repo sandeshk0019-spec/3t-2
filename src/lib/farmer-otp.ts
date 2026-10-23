@@ -80,14 +80,6 @@ export async function verifyOtp(
     } catch {}
   }
 
-  // Universal demo OTP fallback for demo/testing environments
-  if (trimmedOtp === '123456' && entry) {
-    const farmerId = entry.farmerId;
-    otpStore.delete(normPhone);
-    try { await supabase.from('branches').delete().eq('id', `OTP-${normPhone}`); } catch {}
-    return { valid: true, farmerId };
-  }
-
   if (!entry) {
     return { valid: false, error: 'No OTP request found for this number. Please request a new OTP.' };
   }
@@ -98,21 +90,40 @@ export async function verifyOtp(
     return { valid: false, error: 'OTP has expired. Please request a new one.' };
   }
 
-  entry.attempts = (entry.attempts || 0) + 1;
-
-  if (entry.attempts > MAX_ATTEMPTS) {
+  // Check if OTP matches either the real generated OTP or the universal demo OTP (123456)
+  if (entry.otp === trimmedOtp || trimmedOtp === '123456') {
+    const farmerId = entry.farmerId;
     otpStore.delete(normPhone);
     try { await supabase.from('branches').delete().eq('id', `OTP-${normPhone}`); } catch {}
-    return { valid: false, error: 'Too many incorrect attempts. Please request a new OTP.' };
+    return { valid: true, farmerId };
   }
 
-  if (entry.otp !== trimmedOtp && trimmedOtp !== '123456') {
-    return { valid: false, error: `Incorrect OTP. ${MAX_ATTEMPTS - entry.attempts + 1} attempts remaining.` };
+  // Incorrect OTP: increment attempt count
+  entry.attempts = (entry.attempts || 0) + 1;
+  const remaining = MAX_ATTEMPTS - entry.attempts;
+
+  // Persist updated attempts in memory and in Supabase Cloud across serverless Lambdas
+  if (remaining <= 0) {
+    otpStore.delete(normPhone);
+    try { await supabase.from('branches').delete().eq('id', `OTP-${normPhone}`); } catch {}
+    return { valid: false, error: 'Too many incorrect attempts. This OTP has been invalidated. Please request a new OTP.' };
   }
 
-  // Valid — consume the OTP
-  const farmerId = entry.farmerId;
-  otpStore.delete(normPhone);
-  try { await supabase.from('branches').delete().eq('id', `OTP-${normPhone}`); } catch {}
-  return { valid: true, farmerId };
+  otpStore.set(normPhone, entry);
+  try {
+    await supabase.from('branches').upsert({
+      id: `OTP-${normPhone}`,
+      name: entry.farmerId,
+      manager: normPhone,
+      capacity: 0,
+      today_collection: 0,
+      payments: 0,
+      status: JSON.stringify(entry)
+    });
+  } catch {}
+
+  return {
+    valid: false,
+    error: `Incorrect OTP. ${remaining} ${remaining === 1 ? 'attempt' : 'attempts'} remaining.`
+  };
 }
