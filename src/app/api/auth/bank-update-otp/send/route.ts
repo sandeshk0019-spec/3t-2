@@ -26,9 +26,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Rate limit: max 5 bank change OTPs per farmer per 10 minutes
+    // Rate limit: max 20 bank change OTPs per farmer per 10 minutes (generous for demo & testing)
     const rateKey = `bank-otp-send:${farmer.id}`;
-    const rate = checkRateLimit(rateKey, 5, 10 * 60_000);
+    const rate = checkRateLimit(rateKey, 20, 10 * 60_000);
     if (!rate.allowed) {
       return NextResponse.json(
         { success: false, error: 'Too many OTP requests for this farmer. Please wait 10 minutes.' },

@@ -671,6 +671,46 @@ export default function Dashboard() {
   const [editError, setEditError] = useState("");
   const [isSavingEdit, setIsSavingEdit] = useState(false);
   const [isVerifyingBankOtp, setIsVerifyingBankOtp] = useState(false);
+  const [isResendingBankOtp, setIsResendingBankOtp] = useState(false);
+  const [resendSuccessMsg, setResendSuccessMsg] = useState("");
+
+  const handleResendBankOtp = async () => {
+    if (!editingFarmer || isResendingBankOtp) return;
+    setIsResendingBankOtp(true);
+    setEditError("");
+    setResendSuccessMsg("");
+
+    try {
+      const res = await fetch("/api/auth/bank-update-otp/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          farmerId: editingFarmer.id,
+          newBankAccount: editBankAccount,
+          newIfsc: editIfsc,
+          newUpi: editUpi,
+          newAadhaar: editAadhaar
+        })
+      });
+      const json = await res.json();
+      if (json.success) {
+        setEditMaskedPhone(json.maskedPhone || editingFarmer.phone);
+        if (json._demo_otp) {
+          setDemoBankOtp(json._demo_otp);
+        }
+        setEditOtp("");
+        setEditError("");
+        setResendSuccessMsg("✓ New security OTP sent to farmer mobile!");
+        setTimeout(() => setResendSuccessMsg(""), 5000);
+      } else {
+        setEditError(json.error || "Failed to resend authorization code.");
+      }
+    } catch {
+      setEditError("Network error while requesting new OTP.");
+    } finally {
+      setIsResendingBankOtp(false);
+    }
+  };
 
   const openEditFarmer = (farmer: Farmer) => {
     setEditingFarmer(farmer);
@@ -5708,9 +5748,38 @@ UTR Settlement Gateway Status: ONLINE
               </div>
 
               {editError && (
-                <div className="p-3 bg-red-50 text-red-600 rounded-xl border border-red-200 text-xs font-bold flex items-center space-x-2">
-                  <AlertTriangle className="w-4 h-4 shrink-0" />
-                  <span>{editError}</span>
+                <div className="p-3 bg-red-50 text-red-600 rounded-xl border border-red-200 text-xs font-bold flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                    <span>{editError}</span>
+                  </div>
+                  {editStep === "otp" && (
+                    <button
+                      type="button"
+                      onClick={handleResendBankOtp}
+                      disabled={isResendingBankOtp}
+                      className="ml-2 px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg text-[11px] font-extrabold shrink-0 transition-all shadow-xs disabled:opacity-50 flex items-center space-x-1"
+                    >
+                      {isResendingBankOtp ? (
+                        <>
+                          <span className="w-2.5 h-2.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="w-2.5 h-2.5" />
+                          <span>Resend OTP</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {resendSuccessMsg && (
+                <div className="p-3 bg-emerald-50 text-emerald-800 rounded-xl border border-emerald-200 text-xs font-bold flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>{resendSuccessMsg}</span>
                 </div>
               )}
 
@@ -5938,6 +6007,29 @@ UTR Settlement Gateway Status: ONLINE
                       className="w-48 mx-auto p-3 text-center font-mono font-black text-2xl tracking-[0.4em] rounded-2xl border-2 border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-100 bg-white"
                       required
                     />
+                  </div>
+
+                  {/* Resend OTP Bar */}
+                  <div className="flex items-center justify-between text-xs px-2 pt-1 pb-1">
+                    <span className="text-gray-500 font-medium">Didn&apos;t receive code or expired?</span>
+                    <button
+                      type="button"
+                      disabled={isResendingBankOtp}
+                      onClick={handleResendBankOtp}
+                      className="text-primary hover:text-emerald-800 font-extrabold hover:underline flex items-center space-x-1 disabled:opacity-50"
+                    >
+                      {isResendingBankOtp ? (
+                        <>
+                          <span className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                          <span>Resending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="w-3 h-3" />
+                          <span>Resend OTP</span>
+                        </>
+                      )}
+                    </button>
                   </div>
 
                   <div className="pt-2 flex items-center space-x-3">
