@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -26,6 +26,46 @@ import { calculateRate, defaultFormulaConfig, FormulaConfig } from "./data";
 import ProcessVideoPlayer from "@/app/components/ProcessVideoPlayer";
 
 export default function LandingPage() {
+  // Hackathon Suite Mode Toggle (5 Clicks on 3T Logo)
+  const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
+  const [modeToast, setModeToast] = useState<string | null>(null);
+  const logoClickCountRef = useRef<number>(0);
+  const logoClickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const checkMode = () => {
+      try {
+        const saved = localStorage.getItem('3t_hackathon_unlocked');
+        setShowAllOptions(saved === 'true');
+      } catch {}
+    };
+    checkMode();
+    window.addEventListener('storage', checkMode);
+    return () => window.removeEventListener('storage', checkMode);
+  }, []);
+
+  const handleLogoClick = () => {
+    if (logoClickTimeoutRef.current) clearTimeout(logoClickTimeoutRef.current);
+    logoClickTimeoutRef.current = setTimeout(() => {
+      logoClickCountRef.current = 0;
+    }, 2500);
+
+    logoClickCountRef.current += 1;
+    if (logoClickCountRef.current >= 5) {
+      logoClickCountRef.current = 0;
+      setShowAllOptions(prev => {
+        const next = !prev;
+        try {
+          localStorage.setItem('3t_hackathon_unlocked', next ? 'true' : 'false');
+          window.dispatchEvent(new Event('storage'));
+        } catch {}
+        setModeToast(next ? '⚡ Full Suite Unlocked' : '🔒 Core Mode Active');
+        setTimeout(() => setModeToast(null), 3000);
+        return next;
+      });
+    }
+  };
+
   // Workflow step state
   const [activeStep, setActiveStep] = useState(0);
   const steps = [
@@ -127,7 +167,7 @@ export default function LandingPage() {
       {/* Header */}
       <header className="sticky top-0 z-50 glass-panel border-b border-border-light">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div onClick={handleLogoClick} className="flex items-center space-x-3 cursor-pointer select-none transition-transform active:scale-95 group" title="3T (Click 5 times to toggle)">
             <img src="/3t-logo.png" alt="3T Logo" className="h-10 w-auto max-w-[140px] object-contain drop-shadow-xs" />
             <div>
               <span className="font-bold text-xl tracking-tight text-text-main">3T</span>
@@ -143,12 +183,14 @@ export default function LandingPage() {
           </nav>
           
           <div className="flex items-center space-x-3">
-            <Link
-              href="/farmer/login"
-              className="px-5 py-2.5 rounded-xl border border-primary text-primary font-semibold text-sm hover:bg-primary-light transition-all duration-200"
-            >
-              🌾 Farmer Login
-            </Link>
+            {showAllOptions && (
+              <Link
+                href="/farmer/login"
+                className="px-5 py-2.5 rounded-xl border border-primary text-primary font-semibold text-sm hover:bg-primary-light transition-all duration-200"
+              >
+                🌾 Farmer Login
+              </Link>
+            )}
             <Link 
               href="/login" 
               className="px-5 py-2.5 rounded-xl bg-primary text-white font-medium text-sm hover:bg-[#0b6b49] transition-all duration-200 shadow-premium-sm hover:shadow-premium-md hover:-translate-y-0.5"
@@ -179,14 +221,16 @@ export default function LandingPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+              {showAllOptions && (
+                <Link
+                  href="/farmer/login"
+                  className="px-8 py-4 rounded-xl bg-primary text-white font-semibold text-center hover:bg-[#0b6b49] transition-all shadow-premium-md hover:shadow-premium-lg hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
+                >
+                  <span>🌾 View My Catalog</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              )}
               <Link
-                href="/farmer/login"
-                className="px-8 py-4 rounded-xl bg-primary text-white font-semibold text-center hover:bg-[#0b6b49] transition-all shadow-premium-md hover:shadow-premium-lg hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
-              >
-                <span>🌾 View My Catalog</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link 
                 href="/login"
                 className="px-8 py-4 rounded-xl border border-border-light bg-white text-text-main font-semibold text-center hover:bg-[#FAFAFA] transition-all hover:border-gray-300 flex items-center justify-center space-x-2 shadow-premium-sm"
               >
@@ -743,6 +787,19 @@ export default function LandingPage() {
         </div>
         </div>
       </footer>
+      {/* Discreet Mode Toggle Toast (5 Clicks on 3T Logo) */}
+      <AnimatePresence>
+        {modeToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-gray-900/95 backdrop-blur-md text-white text-xs font-bold shadow-2xl border border-gray-700/80 flex items-center space-x-2 pointer-events-none"
+          >
+            <span>{modeToast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

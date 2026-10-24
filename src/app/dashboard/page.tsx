@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import QRCode from "qrcode";
@@ -218,6 +218,61 @@ export default function Dashboard() {
   const STORAGE_FARMER_OVERRIDES = "3t_farmer_overrides";
   const STORAGE_ADDED_FARMERS = "3t_added_farmers";
   const STORAGE_DELETED_FARMER_IDS = "3t_deleted_farmer_ids";
+
+  // ── Hackathon Dynamic Suite Toggle (5 Clicks on 3T Logo) ─────────────────
+  const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
+  const [modeToast, setModeToast] = useState<string | null>(null);
+  const logoClickCountRef = useRef<number>(0);
+  const logoClickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("3t_hackathon_unlocked");
+      if (saved === "true") {
+        setShowAllOptions(true);
+      }
+    } catch {}
+
+    const handleStorageChange = () => {
+      try {
+        const saved = localStorage.getItem("3t_hackathon_unlocked");
+        setShowAllOptions(saved === "true");
+      } catch {}
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  const handleLogoClick = () => {
+    if (logoClickTimeoutRef.current) clearTimeout(logoClickTimeoutRef.current);
+    logoClickTimeoutRef.current = setTimeout(() => {
+      logoClickCountRef.current = 0;
+    }, 2500);
+
+    logoClickCountRef.current += 1;
+    if (logoClickCountRef.current >= 5) {
+      logoClickCountRef.current = 0;
+      setShowAllOptions(prev => {
+        const next = !prev;
+        try {
+          localStorage.setItem("3t_hackathon_unlocked", next ? "true" : "false");
+          window.dispatchEvent(new Event("storage"));
+        } catch {}
+        setModeToast(next ? "⚡ Full Suite Unlocked (9 Options)" : "🔒 Core Mode Active (4 Options)");
+        setTimeout(() => setModeToast(null), 3000);
+        return next;
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!showAllOptions) {
+      const advancedTabs = ["branches", "analytics", "reports", "broadcast", "settings"];
+      if (advancedTabs.includes(activeTab)) {
+        setActiveTab("overview");
+      }
+    }
+  }, [showAllOptions, activeTab]);
 
   const [farmers, setFarmers] = useState<Farmer[]>(() => {
     if (typeof window !== "undefined") {
@@ -1927,9 +1982,13 @@ UTR Settlement Gateway Status: ONLINE
       
       {/* SIDEBAR NAVIGATION */}
       <aside className="w-64 bg-white border-r border-border-light flex flex-col shrink-0">
-        {/* Sidebar Header */}
-        <div className="h-20 border-b border-border-light flex items-center px-6 space-x-3">
-          <img src="/3t-logo.png" alt="3T Logo" className="h-9 w-auto max-w-[120px] object-contain drop-shadow-xs" />
+        {/* Sidebar Header — 5 Clicks Toggles Hackathon 4-Option Mode */}
+        <div 
+          onClick={handleLogoClick}
+          className="h-20 border-b border-border-light flex items-center px-6 space-x-3 cursor-pointer select-none transition-transform active:scale-95 group"
+          title="Click 5 times to toggle Hackathon Mode"
+        >
+          <img src="/3t-logo.png" alt="3T Logo" className="h-9 w-auto max-w-[120px] object-contain drop-shadow-xs group-hover:opacity-90" />
           <div>
             <span className="font-bold text-xl tracking-tight text-text-main">3T</span>
             <span className="text-[10px] block text-text-muted font-bold tracking-widest uppercase -mt-0.5">Time To Time</span>
@@ -1943,13 +2002,13 @@ UTR Settlement Gateway Status: ONLINE
             { id: "collections", label: "Milk Collections", icon: Milk, adminOnly: false },
             { id: "farmers", label: "Farmers Directory", icon: Users, adminOnly: false },
             { id: "payments", label: "Payment Pipeline", icon: CreditCard, adminOnly: true },
-            { id: "branches", label: "Collection Center", icon: GitBranch, adminOnly: true },
-            { id: "analytics", label: "Analytics Hub", icon: BarChart3, adminOnly: true },
-            { id: "reports", label: "Exports & Reports", icon: FileSpreadsheet, adminOnly: true },
-            { id: "broadcast", label: "Farmer Messages", icon: Megaphone, adminOnly: true },
-            { id: "settings", label: "Pricing settings", icon: SettingsIcon, adminOnly: true }
+            { id: "branches", label: "Collection Center", icon: GitBranch, adminOnly: true, advanced: true },
+            { id: "analytics", label: "Analytics Hub", icon: BarChart3, adminOnly: true, advanced: true },
+            { id: "reports", label: "Exports & Reports", icon: FileSpreadsheet, adminOnly: true, advanced: true },
+            { id: "broadcast", label: "Farmer Messages", icon: Megaphone, adminOnly: true, advanced: true },
+            { id: "settings", label: "Pricing settings", icon: SettingsIcon, adminOnly: true, advanced: true }
           ]
-            .filter((item) => userRole === "admin" || !item.adminOnly)
+            .filter((item) => (userRole === "admin" || !item.adminOnly) && (showAllOptions || !item.advanced))
             .map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -2637,14 +2696,16 @@ UTR Settlement Gateway Status: ONLINE
 
                           {/* Action Buttons */}
                           <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-gray-100 text-xs font-bold">
-                            <a
-                              href={`/farmer/${farmer.id}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex-1 py-1.5 px-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-center text-[11px] shadow-2xs transition-all"
-                            >
-                              📲 Passbook
-                            </a>
+                            {showAllOptions && (
+                              <a
+                                href={`/farmer/${farmer.id}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex-1 py-1.5 px-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-center text-[11px] shadow-2xs transition-all"
+                              >
+                                📲 Passbook
+                              </a>
+                            )}
                             {userRole === "admin" && (
                               <>
                                 <button
@@ -2774,15 +2835,17 @@ UTR Settlement Gateway Status: ONLINE
                             {userRole === "admin" && (
                               <td className="px-5 py-3.5 text-center">
                                 <div className="flex items-center justify-center space-x-2">
-                                  <a
-                                    href={`/farmer/${farmer.id}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white transition-all text-xs font-bold shadow-2xs"
-                                    title="Open Farmer Live Digital Passbook"
-                                  >
-                                    Passbook
-                                  </a>
+                                  {showAllOptions && (
+                                    <a
+                                      href={`/farmer/${farmer.id}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white transition-all text-xs font-bold shadow-2xs"
+                                      title="Open Farmer Live Digital Passbook"
+                                    >
+                                      Passbook
+                                    </a>
+                                  )}
 
                                   <button
                                     onClick={() => openEditFarmer(farmer)}
@@ -6122,6 +6185,20 @@ UTR Settlement Gateway Status: ONLINE
               )}
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+
+      {/* Discreet Mode Toggle Toast (5 Clicks on 3T Logo) */}
+      <AnimatePresence>
+        {modeToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-gray-900/95 backdrop-blur-md text-white text-xs font-bold shadow-2xl border border-gray-700/80 flex items-center space-x-2 pointer-events-none"
+          >
+            <span>{modeToast}</span>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
