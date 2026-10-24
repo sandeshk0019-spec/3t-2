@@ -9,10 +9,7 @@ export default function InfoLayout({ children }: { children: React.ReactNode }) 
   const [showAllOptions, setShowAllOptions] = useState(false);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("3t_hackathon_unlocked");
-      setShowAllOptions(saved === "true");
-    } catch {}
+    setShowAllOptions(false);
   }, []);
 
   return (

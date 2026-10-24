@@ -226,21 +226,11 @@ export default function Dashboard() {
   const logoClickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Always reset to normal state (4 core options only) on refresh / new session
     try {
-      const saved = localStorage.getItem("3t_hackathon_unlocked");
-      if (saved === "true") {
-        setShowAllOptions(true);
-      }
+      localStorage.removeItem("3t_hackathon_unlocked");
     } catch {}
-
-    const handleStorageChange = () => {
-      try {
-        const saved = localStorage.getItem("3t_hackathon_unlocked");
-        setShowAllOptions(saved === "true");
-      } catch {}
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    setShowAllOptions(false);
   }, []);
 
   const handleLogoClick = () => {
@@ -254,10 +244,6 @@ export default function Dashboard() {
       logoClickCountRef.current = 0;
       setShowAllOptions(prev => {
         const next = !prev;
-        try {
-          localStorage.setItem("3t_hackathon_unlocked", next ? "true" : "false");
-          window.dispatchEvent(new Event("storage"));
-        } catch {}
         setModeToast(next ? "⚡ Full Suite Unlocked (9 Options)" : "🔒 Core Mode Active (4 Options)");
         setTimeout(() => setModeToast(null), 3000);
         return next;

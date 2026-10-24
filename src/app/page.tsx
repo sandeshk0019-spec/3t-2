@@ -33,15 +33,11 @@ export default function LandingPage() {
   const logoClickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const checkMode = () => {
-      try {
-        const saved = localStorage.getItem('3t_hackathon_unlocked');
-        setShowAllOptions(saved === 'true');
-      } catch {}
-    };
-    checkMode();
-    window.addEventListener('storage', checkMode);
-    return () => window.removeEventListener('storage', checkMode);
+    // Always reset to normal state (Farmer Login hidden) on refresh / new session
+    try {
+      localStorage.removeItem('3t_hackathon_unlocked');
+    } catch {}
+    setShowAllOptions(false);
   }, []);
 
   const handleLogoClick = () => {
@@ -55,10 +51,6 @@ export default function LandingPage() {
       logoClickCountRef.current = 0;
       setShowAllOptions(prev => {
         const next = !prev;
-        try {
-          localStorage.setItem('3t_hackathon_unlocked', next ? 'true' : 'false');
-          window.dispatchEvent(new Event('storage'));
-        } catch {}
         setModeToast(next ? '⚡ Full Suite Unlocked' : '🔒 Core Mode Active');
         setTimeout(() => setModeToast(null), 3000);
         return next;
