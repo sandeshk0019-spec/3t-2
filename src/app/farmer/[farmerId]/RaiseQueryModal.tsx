@@ -21,6 +21,7 @@ import {
   Check
 } from "lucide-react";
 import { FarmerQuery, QueryCategory, QueryStatus } from "@/app/data";
+import { usePassbookLanguage } from "./PassbookLanguageContext";
 
 export type Language = "marathi" | "english" | "hindi";
 
@@ -257,7 +258,14 @@ export function RaiseQueryModal({
   isOpen,
   onClose
 }: RaiseQueryModalProps) {
-  const [language, setLanguage] = useState<Language>("marathi");
+  const { lang: globalLang } = usePassbookLanguage();
+  const getMappedLang = (l: string): Language =>
+    l === "mr" ? "marathi" : l === "hi" ? "hindi" : "english";
+  const [language, setLanguage] = useState<Language>(() => getMappedLang(globalLang));
+
+  useEffect(() => {
+    setLanguage(getMappedLang(globalLang));
+  }, [globalLang]);
   const [activeTab, setActiveTab] = useState<"new" | "history">("new");
   const [category, setCategory] = useState<QueryCategory>("payment");
   const [subject, setSubject] = useState("");
