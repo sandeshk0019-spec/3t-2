@@ -537,42 +537,19 @@ export function AIMitra({ farmerId, farmerName, avgFat, avgSnf, totalEarnings, t
   };
 
   // ── 7-Day LocalStorage Persistence ──
+  // Always start with a fresh session — do NOT load or display unrequested answers by default.
+  // Farmer will click a suggestion chip or ask a question only when needed.
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(`3t_ai_chat_v1_${farmerId}`);
-      if (saved) {
-        const parsed: Array<{ id: string; role: "user" | "ai"; text: string; timestamp: string }> = JSON.parse(saved);
-        const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-        const valid = parsed
-          .map((m) => ({ ...m, timestamp: new Date(m.timestamp) }))
-          .filter((m) => m.timestamp.getTime() > sevenDaysAgo);
-
-        if (valid.length > 0) {
-          setMessages(valid);
-          setGreeted(true);
-        }
-      }
-    } catch (e) {
-      console.warn("[AI Mitra] Failed to load chat history:", e);
-    }
+      localStorage.removeItem(`3t_ai_chat_v1_${farmerId}`);
+    } catch (e) {}
   }, [farmerId]);
 
-  // Save messages to LocalStorage with 7-day expiry
+  // Show clean greeting whenever chat is opened, with zero unsolicited answers
   useEffect(() => {
-    if (messages.length > 0) {
-      try {
-        const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-        const toSave = messages.filter((m) => m.timestamp.getTime() > sevenDaysAgo);
-        localStorage.setItem(`3t_ai_chat_v1_${farmerId}`, JSON.stringify(toSave));
-      } catch (e) {}
-    }
-  }, [messages, farmerId]);
-
-  // Show greeting when chat opens if no history exists
-  useEffect(() => {
-    if (isOpen && !greeted && messages.length === 0) {
+    if (isOpen && (!greeted || messages.length === 0 || (messages.length === 1 && messages[0].id.startsWith("greeting")))) {
       const greeting: Message = {
-        id: "greeting",
+        id: "greeting-" + language,
         role: "ai",
         text: lang.greeting(farmerName.split(" ")[0], avgFat, avgSnf),
         timestamp: new Date(),
@@ -581,7 +558,7 @@ export function AIMitra({ farmerId, farmerName, avgFat, avgSnf, totalEarnings, t
       setGreeted(true);
       setTimeout(() => inputRef.current?.focus(), 400);
     }
-  }, [isOpen, greeted, messages.length]);
+  }, [isOpen, greeted, messages.length, language]);
 
   // Clear chat history manually
   const clearChatHistory = () => {
@@ -590,7 +567,7 @@ export function AIMitra({ farmerId, farmerName, avgFat, avgSnf, totalEarnings, t
       localStorage.removeItem(`3t_ai_chat_v1_${farmerId}`);
     } catch (e) {}
     const greeting: Message = {
-      id: "greeting-" + Date.now(),
+      id: "greeting-" + language + "-" + Date.now(),
       role: "ai",
       text: lang.greeting(farmerName.split(" ")[0], avgFat, avgSnf),
       timestamp: new Date(),
@@ -598,10 +575,21 @@ export function AIMitra({ farmerId, farmerName, avgFat, avgSnf, totalEarnings, t
     setMessages([greeting]);
   };
 
-  // Switch language without wiping out conversation history
+  // Switch language without showing stale unrequested answers
   const handleLanguageChange = (l: Language) => {
     stopSpeaking();
     setLanguage(l);
+    // If only greeting is showing, update greeting immediately to the selected language
+    if (messages.length <= 1) {
+      const newLang = LANG_CONFIG[l];
+      const greeting: Message = {
+        id: "greeting-" + l,
+        role: "ai",
+        text: newLang.greeting(farmerName.split(" ")[0], avgFat, avgSnf),
+        timestamp: new Date(),
+      };
+      setMessages([greeting]);
+    }
   };
 
   const sendMessage = async (question: string) => {
