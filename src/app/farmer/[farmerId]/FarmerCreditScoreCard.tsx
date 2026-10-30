@@ -5,9 +5,12 @@ import {
   FileText,
   Printer,
   ChevronDown,
+  ChevronUp,
   X,
   Landmark,
   BadgeCheck,
+  ShieldCheck,
+  ArrowRight,
 } from "lucide-react";
 import { usePassbookLanguage } from "./PassbookLanguageContext";
 
@@ -59,11 +62,12 @@ export function FarmerCreditScoreCard({
   const [isFetching, setIsFetching] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
-  // UI state - Collapsed by default for mobile-first experience
+  // UI state - Collapsed by default for mobile-first speed
   const [isExpanded, setIsExpanded] = useState(false);
   const { lang: globalLang, setLang: setGlobalLang, t } = usePassbookLanguage();
   const lang = globalLang;
   const [isCertificateOpen, setIsCertificateOpen] = useState(false);
+  const [isSchemesOpen, setIsSchemesOpen] = useState(false);
 
   // Live polling for auto-sync with 3T dairy collection desk
   const fetchLatestData = useCallback(async () => {
@@ -105,7 +109,7 @@ export function FarmerCreditScoreCard({
     };
   }, [fetchLatestData]);
 
-  // Underwriting Computations based on official RBI & NABARD priority lending metrics
+  // Underwriting Computations
   const metrics = useMemo(() => {
     const totalDeliveries = collections.length;
     const totalEarnings = collections.reduce((acc, c) => acc + (c.total || 0), 0);
@@ -158,7 +162,7 @@ export function FarmerCreditScoreCard({
     };
   }, [collections, farmer.animals]);
 
-  // Accurate needle position on 300 to 900 scale
+  // Needle position on 300 to 900 scale
   const scorePosition = Math.min(98, Math.max(2, Math.round(((metrics.creditScore - 300) / 600) * 100)));
 
   const maskedAadhaar = farmer.aadhaar ? `XXXX-XXXX-${farmer.aadhaar.slice(-4)}` : "XXXX-XXXX-8921";
@@ -166,7 +170,7 @@ export function FarmerCreditScoreCard({
   const ifscCode = farmer.ifsc || "MAHB0001234";
 
   // ───────────────────────────────────────────────────────────────────────────
-  // 1. OPT-IN ACCESS BAR (Collapsed by default — farmer clicks only when needed)
+  // 1. COMPACT ROW WIDGET (COLLAPSED DEFAULT — IN SINGLE LINE WITH QUERY BANNER)
   // ───────────────────────────────────────────────────────────────────────────
   if (!isExpanded) {
     return (
@@ -177,62 +181,63 @@ export function FarmerCreditScoreCard({
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") setIsExpanded(true);
         }}
-        className="w-full bg-white hover:bg-emerald-50/40 border border-slate-200/90 hover:border-emerald-300 rounded-2xl p-3.5 sm:p-4 shadow-xs transition-all cursor-pointer group no-print select-none"
+        className="w-full h-full min-h-[76px] bg-white hover:bg-slate-50/90 border border-slate-200/90 hover:border-slate-300 rounded-2xl p-3.5 sm:p-4 shadow-xs transition-all cursor-pointer group no-print select-none flex items-center justify-between gap-3"
       >
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center space-x-3.5 min-w-0">
-            <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-              <FileText className="w-5 h-5" />
-            </div>
-
-            <div className="min-w-0">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-                  {t.creditScoreTitle}
-                </span>
-                <span className="inline-flex items-center text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                  {t.newFeature}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                {t.creditScoreSubtitle}
-              </p>
-            </div>
+        <div className="flex items-center space-x-3 sm:space-x-3.5 min-w-0">
+          {/* Dark Monospace 880 PRIME Badge */}
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-slate-950 text-white flex flex-col items-center justify-center shrink-0 shadow-xs border border-slate-800">
+            <span className="text-sm font-black font-mono tracking-tight leading-none text-emerald-400">
+              {metrics.creditScore}
+            </span>
+            <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-1 leading-none">
+              PRIME
+            </span>
           </div>
 
-          <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 group-hover:bg-emerald-600 text-emerald-700 group-hover:text-white text-xs font-bold transition-all shrink-0 border border-emerald-200 group-hover:border-transparent">
-            <span>{isExpanded ? t.closeBtn : t.checkBtn}</span>
-            <ChevronDown className="w-3.5 h-3.5" />
+          <div className="min-w-0">
+            <div className="flex items-center space-x-2">
+              <span className="text-xs sm:text-sm font-bold text-slate-900 truncate">
+                {t.creditScoreTitle || "३T दुग्ध क्रेडिट स्कोअर"}
+              </span>
+              <span className="inline-flex items-center text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 shrink-0">
+                {lang === "mr" ? "शासकीय कर्ज पात्र" : (lang === "hi" ? "सरकारी ऋण पात्र" : "Pre-Approved")}
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
+              {lang === "mr" ? "पूर्व-मंजूर KCC मर्यादा:" : (lang === "hi" ? "पूर्व-स्वीकृत KCC सीमा:" : "Pre-approved limit:")}{" "}
+              <span className="font-extrabold text-slate-900 font-mono">
+                ₹{metrics.loanLimit.toLocaleString("en-IN")}
+              </span>{" "}
+              · ४% सवलतीचे व्याज
+            </p>
           </div>
+        </div>
+
+        <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-100 group-hover:bg-slate-900 group-hover:text-white text-slate-700 text-xs font-semibold transition-all shrink-0">
+          <span className="hidden xs:inline">
+            {lang === "mr" ? "तपशील पहा" : (lang === "hi" ? "विवरण देखें" : "View Breakdown")}
+          </span>
+          <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
         </div>
       </div>
     );
   }
 
   // ───────────────────────────────────────────────────────────────────────────
-  // 2. EXPANDED VIEW — ARCHITECTURAL, BESPOKE FINTECH INTERFACE
+  // 2. EXPANDED VIEW — STREAMLINED ARCHITECTURAL FINTECH (NO TEXT-HEAVY CLUTTER)
   // ───────────────────────────────────────────────────────────────────────────
   return (
-    <div className="w-full bg-white border border-slate-200 rounded-3xl p-4 sm:p-7 shadow-sm space-y-6 print:hidden">
+    <div className="w-full bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-sm space-y-5 print:hidden sm:col-span-2 animate-in fade-in-50 duration-200">
       {/* ── Header Bar ─────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4 gap-3">
-        <div>
-          <div className="flex items-center space-x-2">
-            <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
-              {lang === "hi" ? "3T किसान दुग्ध क्रेडिट स्कोर" : (lang === "mr" ? "३T किसान दुग्ध क्रेडिट स्कोअर" : "3T Kisan Dairy Credit Score")}
-            </h3>
-            <span className="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Live UTR</span>
-            </span>
-          </div>
-          <p className="text-xs text-slate-500 mt-0.5">
-            {lang === "hi"
-              ? "दैनिक दूध संकलन और सीधे बैंक खाते में UTR लेनदेन पर आधारित आधिकारिक मूल्यांकन"
-              : (lang === "mr"
-                ? "दैनिक दूध संकलन व थेट बँक खात्यातील UTR व्यवहारांवर आधारित अधिकृत मूल्यांकन"
-                : "Institutional credit assessment derived from automated milk testing & direct bank UTR transfers")}
-          </p>
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3 gap-3">
+        <div className="flex items-center space-x-2.5">
+          <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
+            {lang === "hi" ? "3T किसान दुग्ध क्रेडिट स्कोर" : (lang === "mr" ? "३T किसान दुग्ध क्रेडिट स्कोअर" : "3T Kisan Dairy Credit Score")}
+          </h3>
+          <span className="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Live UTR</span>
+          </span>
         </div>
 
         <div className="flex items-center space-x-2 shrink-0">
@@ -241,7 +246,7 @@ export function FarmerCreditScoreCard({
             <button
               type="button"
               onClick={() => setGlobalLang("en")}
-              className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
                 globalLang === "en" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -250,7 +255,7 @@ export function FarmerCreditScoreCard({
             <button
               type="button"
               onClick={() => setGlobalLang("mr")}
-              className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
                 globalLang === "mr" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -259,7 +264,7 @@ export function FarmerCreditScoreCard({
             <button
               type="button"
               onClick={() => setGlobalLang("hi")}
-              className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-md transition-all cursor-pointer ${
                 globalLang === "hi" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
               }`}
             >
@@ -280,119 +285,136 @@ export function FarmerCreditScoreCard({
       </div>
 
       {/* ── Main Section: Score & Underwriting ──────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left: Score Number & Continuous Scale Bar (5 cols) */}
-        <div className="lg:col-span-5 bg-slate-50/70 border border-slate-200/80 rounded-2xl p-5 space-y-5">
-          <div>
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-              {lang === "mr" ? "सध्याचा क्रेडिट स्कोअर" : "Current Credit Score"}
-            </span>
-
-            <div className="flex items-baseline space-x-2 mt-1">
-              <span className="text-5xl font-black text-slate-950 font-mono tracking-tight">
-                {metrics.creditScore}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* Left: Score Number, Scale Bar & Scheme Button (5 cols) */}
+        <div className="lg:col-span-5 bg-slate-50/70 border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-4">
+          <div className="flex items-start justify-between">
+            <div>
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                {lang === "hi" ? "वर्तमान क्रेडिट स्कोर" : (lang === "mr" ? "सध्याचा क्रेडिट स्कोअर" : "Current Credit Score")}
               </span>
-              <span className="text-xs font-bold text-slate-400">/ ९००</span>
+              <div className="flex items-baseline space-x-1.5 mt-0.5">
+                <span className="text-4xl sm:text-5xl font-black text-slate-950 font-mono tracking-tight">
+                  {metrics.creditScore}
+                </span>
+                <span className="text-xs font-bold text-slate-400">/ ९००</span>
+              </div>
             </div>
 
-            <div className="mt-2.5 inline-flex items-center space-x-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-bold rounded-lg">
+            <div className="inline-flex items-center space-x-1 px-2 py-1 bg-emerald-50 text-emerald-900 border border-emerald-200 text-[11px] font-bold rounded-lg">
               <BadgeCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Grade A+ · {lang === "mr" ? "उत्कृष्ट पतपात्रता (Prime)" : "Prime Borrower"}</span>
+              <span>Grade A+ · {lang === "hi" ? "उत्कृष्ट" : (lang === "mr" ? "उत्कृष्ट" : "Prime")}</span>
             </div>
           </div>
 
           {/* ── Continuous Score Scale Bar (300 to 900) ────────────────── */}
-          <div className="space-y-2 pt-1 border-t border-slate-200/80">
-            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600">
-              <span>{lang === "mr" ? "स्कोअर श्रेणी (Score Range):" : "Score Scale Range:"}</span>
-              <span className="font-mono font-bold text-slate-900">300 ── 900</span>
+          <div className="space-y-1.5 pt-1 border-t border-slate-200/80">
+            <div className="flex items-center justify-between text-[10px] font-semibold text-slate-500">
+              <span>{lang === "hi" ? "स्कोर रेंज:" : (lang === "mr" ? "स्कोअर श्रेणी:" : "Score Range:")}</span>
+              <span className="font-mono font-bold text-slate-800">300 ── 900</span>
             </div>
 
             {/* 4 Multi-tier Linear Spectrum */}
-            <div className="relative h-2.5 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner">
-              <div className="h-full w-[25%] bg-rose-400" title="300-549: सुधारणा आवश्यक (Poor)" />
+            <div className="relative h-2 w-full rounded-full bg-slate-200 overflow-hidden flex shadow-inner">
+              <div className="h-full w-[25%] bg-rose-400" title="300-549: कमी (Poor)" />
               <div className="h-full w-[20%] bg-amber-400" title="550-649: मध्यम (Fair)" />
               <div className="h-full w-[25%] bg-sky-400" title="650-749: चांगला (Good)" />
               <div className="h-full w-[30%] bg-emerald-500" title="750-900: उत्कृष्ट (Prime)" />
             </div>
 
             {/* Dynamic Pointer / Needle */}
-            <div className="relative w-full h-5">
+            <div className="relative w-full h-4">
               <div
                 className="absolute top-0 -translate-x-1/2 flex flex-col items-center transition-all duration-500 pointer-events-none"
                 style={{ left: `${scorePosition}%` }}
               >
-                <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[6px] border-b-slate-950" />
-                <span className="text-[10px] font-black text-slate-950 font-mono tracking-tight bg-white px-1 rounded shadow-2xs border border-slate-200">
+                <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-slate-950" />
+                <span className="text-[9px] font-black text-slate-950 font-mono tracking-tight bg-white px-1 rounded shadow-2xs border border-slate-200">
                   {metrics.creditScore}
                 </span>
               </div>
             </div>
 
             {/* Tier Ranges Breakdown */}
-            <div className="grid grid-cols-4 gap-1 text-[10px] text-center pt-0.5">
-              <div className="py-1 px-0.5 rounded">
+            <div className="grid grid-cols-4 gap-1 text-[9px] text-center">
+              <div className="py-0.5 rounded">
                 <span className="block font-bold text-slate-700 font-mono">300-549</span>
-                <span className="text-[9px] text-slate-400">{lang === "mr" ? "कमी" : "Poor"}</span>
+                <span className="text-slate-400">{lang === "hi" ? "कम" : (lang === "mr" ? "कमी" : "Poor")}</span>
               </div>
-              <div className="py-1 px-0.5 rounded">
+              <div className="py-0.5 rounded">
                 <span className="block font-bold text-slate-700 font-mono">550-649</span>
-                <span className="text-[9px] text-slate-400">{lang === "mr" ? "मध्यम" : "Fair"}</span>
+                <span className="text-slate-400">{lang === "hi" ? "मध्यम" : (lang === "mr" ? "मध्यम" : "Fair")}</span>
               </div>
-              <div className="py-1 px-0.5 rounded">
+              <div className="py-0.5 rounded">
                 <span className="block font-bold text-slate-700 font-mono">650-749</span>
-                <span className="text-[9px] text-slate-400">{lang === "mr" ? "चांगला" : "Good"}</span>
+                <span className="text-slate-400">{lang === "hi" ? "अच्छा" : (lang === "mr" ? "चांगला" : "Good")}</span>
               </div>
-              <div className="py-1 px-0.5 rounded bg-emerald-50 border border-emerald-300">
+              <div className="py-0.5 rounded bg-emerald-50 border border-emerald-200">
                 <span className="block font-black text-emerald-950 font-mono">750-900</span>
-                <span className="text-[9px] font-bold text-emerald-800">{lang === "mr" ? "उत्कृष्ट" : "Prime"}</span>
+                <span className="font-bold text-emerald-800">{lang === "hi" ? "उत्कृष्ट" : (lang === "mr" ? "उत्कृष्ट" : "Prime")}</span>
               </div>
             </div>
-
-            <p className="text-[10px] text-slate-500 leading-normal pt-1">
-              {lang === "mr"
-                ? "💡 ७५० वरील स्कोअर शासकीय बँकांकडून तातडीने विनातारण कर्जासाठी ग्राह्य धरला जातो."
-                : "Institutional scores >= 750 qualify for automated collateral-free loan sanction."}
-            </p>
           </div>
+
+          {/* ── USER REQUEST: "make this as button in score" ──────────── */}
+          <button
+            type="button"
+            onClick={() => setIsSchemesOpen(true)}
+            className="w-full mt-2.5 py-2.5 px-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-between transition-all cursor-pointer shadow-xs group"
+          >
+            <div className="flex items-center space-x-2">
+              <Landmark className="w-4 h-4 text-emerald-400" />
+              <span>
+                {lang === "hi"
+                  ? "उपलब्ध सरकारी योजनाएं (३)"
+                  : lang === "mr"
+                  ? "या स्कोअरवर उपलब्ध शासकीय योजना (३)"
+                  : "Applicable Govt Schemes (3)"}
+              </span>
+            </div>
+            <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+          </button>
         </div>
 
-        {/* Right: Pre-Approved Loan & 4 Key Underwriting Metrics (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          {/* Clean Obsidian Pre-Approved Card */}
-          <div className="bg-slate-950 text-white rounded-2xl p-5 shadow-xs border border-slate-800 space-y-2.5">
+        {/* Right: Pre-Approved Limit & 4 Fast Metrics (7 cols) */}
+        <div className="lg:col-span-7 space-y-3.5">
+          {/* Streamlined Pre-Approved Card */}
+          <div className="bg-slate-950 text-white rounded-2xl p-4 sm:p-5 shadow-xs border border-slate-800 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-400 font-semibold">
               <span className="uppercase tracking-wider">
-                {lang === "mr" ? "पूर्व-मंजूर शासकीय किसान क्रेडिट कार्ड (KCC)" : "Pre-approved Kisan Credit Card limit"}
+                {lang === "hi" ? "पूर्व-स्वीकृत किसान क्रेडिट कार्ड सीमा" : (lang === "mr" ? "पूर्व-मंजूर किसान क्रेडिट कार्ड मर्यादा" : "Pre-approved Kisan Credit Card limit")}
               </span>
-              <span className="text-emerald-400 font-mono font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800/80">
-                KCC @ ४% व्याजदर
+              <span className="text-emerald-400 font-mono font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800/80 text-[11px]">
+                KCC @ ४% व्याज
               </span>
             </div>
 
-            <div className="flex items-baseline space-x-2 pt-0.5">
+            <div className="flex items-baseline space-x-2">
               <span className="text-3xl sm:text-4xl font-black font-mono tracking-tight text-white">
                 ₹{metrics.loanLimit.toLocaleString("en-IN")}
               </span>
               <span className="text-xs text-slate-400">
-                {lang === "mr" ? "विनातारण पात्र" : "collateral-free"}
+                {lang === "mr" ? "विनातारण पात्र" : (lang === "hi" ? "बिना गारंटी पात्र" : "collateral-free")}
               </span>
             </div>
 
-            <p className="text-xs text-slate-300 font-normal leading-relaxed">
-              {lang === "mr"
-                ? "३T च्या डिजिटल पासबुकमधील दररोजच्या दूध नोंदी व बँक UTR स्टेटमेंटच्या आधारे बँक ऑफ महाराष्ट्र, SBI व जिल्हा मध्यवर्ती बँकांसाठी १००% वैध."
-                : "Pre-qualified for fast-track sanction at Bank of Maharashtra, SBI, and District Co-operative Banks based on direct dairy UTR records."}
-            </p>
+            <div className="flex items-center space-x-2 text-[11px] text-slate-300 pt-0.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>
+                {lang === "mr"
+                  ? "बँक ऑफ महाराष्ट्र, SBI व जिल्हा मध्यवर्ती बँकांसाठी १००% वैध"
+                  : "Verified for Bank of Maharashtra, SBI & District Co-op Banks"}
+              </span>
+            </div>
           </div>
 
-          {/* 4 Core Underwriting Factors (Compact 2x2 Grid) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/90">
+          {/* 4 Core Metrics (Compact Grid) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/90">
               <span className="text-[10px] text-slate-500 font-semibold uppercase block truncate">
-                {lang === "mr" ? "पुरवठा सातत्य" : "Consistency"}
+                {lang === "mr" ? "पुरवठा सातत्य" : (lang === "hi" ? "आपूर्ति निरंतरता" : "Consistency")}
               </span>
-              <span className="text-base font-extrabold text-slate-900 font-mono mt-0.5 block">
+              <span className="text-sm font-extrabold text-slate-900 font-mono mt-0.5 block">
                 {metrics.regularityPercent}%
               </span>
               <span className="text-[10px] text-slate-500 mt-0.5 block truncate">
@@ -400,11 +422,11 @@ export function FarmerCreditScoreCard({
               </span>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/90">
+            <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/90">
               <span className="text-[10px] text-slate-500 font-semibold uppercase block truncate">
-                {lang === "mr" ? "मासिक आवक" : "Monthly Cashflow"}
+                {lang === "mr" ? "मासिक आवक" : (lang === "hi" ? "मासिक आय" : "Monthly Cashflow")}
               </span>
-              <span className="text-base font-extrabold text-slate-900 font-mono mt-0.5 block">
+              <span className="text-sm font-extrabold text-slate-900 font-mono mt-0.5 block">
                 ₹{metrics.estimatedMonthlyIncome.toLocaleString("en-IN")}
               </span>
               <span className="text-[10px] text-emerald-700 font-semibold mt-0.5 block truncate">
@@ -412,23 +434,23 @@ export function FarmerCreditScoreCard({
               </span>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/90">
+            <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/90">
               <span className="text-[10px] text-slate-500 font-semibold uppercase block truncate">
-                {lang === "mr" ? "सरासरी प्रत" : "Quality Grade"}
+                {lang === "mr" ? "सरासरी प्रत" : (lang === "hi" ? "गुणवत्ता ग्रेड" : "Quality")}
               </span>
-              <span className="text-base font-extrabold text-slate-900 font-mono mt-0.5 block">
+              <span className="text-sm font-extrabold text-slate-900 font-mono mt-0.5 block">
                 {metrics.avgFatStr}
               </span>
               <span className="text-[10px] text-slate-500 mt-0.5 block truncate">
-                SNF: {metrics.avgSnfStr}
+                SNF {metrics.avgSnfStr}
               </span>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/90">
+            <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/90">
               <span className="text-[10px] text-slate-500 font-semibold uppercase block truncate">
                 {lang === "mr" ? "बँक KYC" : "KYC Status"}
               </span>
-              <span className="text-base font-extrabold text-emerald-700 font-mono mt-0.5 block">
+              <span className="text-sm font-extrabold text-emerald-700 font-mono mt-0.5 block">
                 १००%
               </span>
               <span className="text-[10px] text-slate-500 mt-0.5 block truncate">
@@ -437,77 +459,112 @@ export function FarmerCreditScoreCard({
             </div>
           </div>
 
-          {/* Primary Action Button */}
+          {/* Action Button */}
           <button
             type="button"
             onClick={() => setIsCertificateOpen(true)}
-            className="w-full py-3 px-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs transition-colors shadow-xs flex items-center justify-center space-x-2 cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors shadow-xs flex items-center justify-center space-x-2 cursor-pointer"
           >
             <FileText className="w-4 h-4 text-emerald-400" />
             <span>
               {lang === "mr"
                 ? "शासकीय कर्ज पात्रता प्रमाणपत्र पहा व डाउनलोड करा (PDF)"
-                : "View & Download Official Bank Certificate (PDF)"}
+                : (lang === "hi" ? "सरकारी ऋण पात्रता प्रमाण पत्र डाउनलोड करें (PDF)" : "View & Download Official Bank Certificate (PDF)")}
             </span>
           </button>
         </div>
       </div>
 
-      {/* ── Eligible Government Schemes Breakdown ──────────────────── */}
-      <div className="border-t border-slate-100 pt-5 space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
-            <Landmark className="w-3.5 h-3.5 text-slate-600" />
-            <span>
-              {lang === "mr" ? "या स्कोअरवर उपलब्ध शासकीय योजना" : "Applicable Government Schemes"}
-            </span>
-          </span>
-          <span className="text-[11px] text-slate-500 font-medium">३ योजना उपलब्ध</span>
+      {/* ── MODAL 1: SCHEMES POPUP (Opens on button click inside Score box) ── */}
+      {isSchemesOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl border border-slate-200 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl p-5 sm:p-6 space-y-4 relative">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center space-x-2">
+                <Landmark className="w-5 h-5 text-emerald-700" />
+                <h4 className="text-sm sm:text-base font-bold text-slate-900">
+                  {lang === "hi" ? "उपलब्ध सरकारी योजनाएं" : (lang === "mr" ? "या स्कोअरवर उपलब्ध शासकीय योजना" : "Applicable Government Schemes")}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsSchemesOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-500">
+              {lang === "mr"
+                ? "तुमचा ३T क्रेडिट स्कोअर ८८० (Prime) असल्याने खालील योजनांसाठी थेट विनातारण पात्रता आहे:"
+                : "With your 880 Prime Score, you pre-qualify for the following government credit initiatives:"}
+            </p>
+
+            <div className="space-y-3">
+              {/* Scheme 1: KCC */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-900">१. किसान क्रेडिट कार्ड (पशुसंवर्धन KCC)</span>
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    ४% सवलतीचे व्याज
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  दुभत्या जनावरांच्या दैनंदिन खाद्यासाठी ₹२,००,००० ते ₹३,००,००० पर्यंत विनातारण खेळते भांडवल.
+                </p>
+                <div className="text-[10px] text-slate-400 font-medium pt-0.5">
+                  पात्र बँका: बँक ऑफ महाराष्ट्र, SBI व जिल्हा मध्यवर्ती बँका
+                </div>
+              </div>
+
+              {/* Scheme 2: NABARD / AHIDF */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-900">२. नाबार्ड / AHIDF योजना</span>
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    ३३% थेट सबसिडी
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  नवीन गाय/म्हैस खरेदी, आधुनिक गोठा बांधकाम व मिल्किंग मशिनसाठी २५% ते ३३% थेट शासकीय अनुदान.
+                </p>
+                <div className="text-[10px] text-slate-400 font-medium pt-0.5">
+                  योजना: Animal Husbandry Infrastructure Development Fund (AHIDF)
+                </div>
+              </div>
+
+              {/* Scheme 3: Direct Nationalized Bank */}
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-900">३. राष्ट्रीयीकृत बँक थेट कृषी कर्ज</span>
+                  <span className="text-[10px] font-bold text-slate-700 bg-white px-2 py-0.5 rounded border border-slate-200">
+                    BoM / SBI
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  ३T डिजिटल पासबुक व UTR स्टेटमेंट दाखवून कागदपत्रांच्या त्रासाशिवाय जलद कर्ज मंजुरी.
+                </p>
+                <div className="text-[10px] text-slate-400 font-medium pt-0.5">
+                  वैशिष्ट्य: कोणतेही छुपे शुल्क नाही, दूध बिलातून सुलभ हप्ते
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsSchemesOpen(false)}
+                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
+              >
+                {lang === "mr" ? "समजले (Close)" : "Done"}
+              </button>
+            </div>
+          </div>
         </div>
+      )}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {/* Scheme 1: KCC */}
-          <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-xl space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">१. किसान क्रेडिट कार्ड (KCC)</span>
-              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                ४% व्याजदर
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-600 leading-relaxed">
-              दुभत्या जनावरांच्या दैनंदिन खाद्यासाठी ₹२,००,००० ते ₹३,००,००० पर्यंत विनातारण खेळते भांडवल.
-            </p>
-          </div>
-
-          {/* Scheme 2: NABARD / AHIDF */}
-          <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-xl space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">२. नाबार्ड / AHIDF योजना</span>
-              <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-                ३३% सबसिडी
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-600 leading-relaxed">
-              नवीन गाय/म्हैस खरेदी, आधुनिक गोठा बांधकाम व मिल्किंग मशिनसाठी २५% ते ३३% शासकीय थेट अनुदान.
-            </p>
-          </div>
-
-          {/* Scheme 3: Nationalized Bank */}
-          <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-xl space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">३. राष्ट्रीयीकृत बँक थेट कर्ज</span>
-              <span className="text-[10px] font-bold text-slate-700 bg-white px-1.5 py-0.5 rounded border border-slate-200">
-                BoM / SBI
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-600 leading-relaxed">
-              ३T डिजिटल पासबुक दाखवून बँक ऑफ महाराष्ट्र व SBI मध्ये कागदपत्रांशिवाय सुलभ व जलद मंजुरी.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Official Printable Bank Certificate Modal ──────────────── */}
+      {/* ── MODAL 2: OFFICIAL PRINTABLE BANK CERTIFICATE ─────────────── */}
       {isCertificateOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl border border-slate-200 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 space-y-6 relative">
@@ -521,7 +578,6 @@ export function FarmerCreditScoreCard({
 
             {/* Official Bank Document */}
             <div id="printable-credit-certificate" className="space-y-6 border border-slate-300 rounded-xl p-6 sm:p-8 bg-white text-slate-900">
-              {/* Document Header */}
               <div className="border-b border-slate-200 pb-4 text-center space-y-1">
                 <div className="flex items-center justify-center space-x-2">
                   <img src="/3t-logo.png" alt="3T Logo" className="h-8 w-auto object-contain" />

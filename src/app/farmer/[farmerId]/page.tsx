@@ -144,19 +144,21 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
           {/* 1. Official Passbook Header with Language Switcher & Logout */}
           <PassbookHeader />
 
-          {/* Support & Queries Banner */}
-          <FarmerQueryBanner
-            farmerId={farmer.id}
-            farmerName={farmer.name}
-            farmerPhone={farmer.phone}
-          />
+          {/* Support & Queries Banner + 3T Credit Score Card in a Single Line */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-stretch no-print">
+            <FarmerQueryBanner
+              farmerId={farmer.id}
+              farmerName={farmer.name}
+              farmerPhone={farmer.phone}
+            />
 
-          {/* 3T Credit Score Card (Opt-in: only checks when farmer clicks) */}
-          <FarmerCreditScoreCard
-            farmer={farmer}
-            collections={collections}
-            payments={payments}
-          />
+            {/* 3T Credit Score Card (Opt-in: only checks when farmer clicks) */}
+            <FarmerCreditScoreCard
+              farmer={farmer}
+              collections={collections}
+              payments={payments}
+            />
+          </div>
 
         {/* 3. Farmer Account Profile Card & Live Daily Ledger */}
         <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-sm space-y-5 sm:space-y-6 print:border-black print:rounded-none">
