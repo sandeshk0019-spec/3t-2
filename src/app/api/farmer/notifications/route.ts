@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession } from '@/lib/auth';
+import { verifySession, FARMER_COOKIE_NAME, ADMIN_COOKIE_NAME } from '@/lib/auth';
 import { getDb } from '@/lib/db';
 import {
   getNotificationsForFarmer,
@@ -15,8 +15,8 @@ export const revalidate = 0;
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const farmerToken = cookieStore.get('3t_farmer_token')?.value;
-    const adminToken = cookieStore.get('3t_session_token')?.value;
+    const farmerToken = cookieStore.get(FARMER_COOKIE_NAME)?.value || cookieStore.get('3t_farmer_token')?.value;
+    const adminToken = cookieStore.get(ADMIN_COOKIE_NAME)?.value || cookieStore.get('3t_session_token')?.value;
 
     const paramFarmerId = request.nextUrl.searchParams.get('farmerId');
     let farmerId = paramFarmerId?.trim() || null;
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const farmerToken = cookieStore.get('3t_farmer_token')?.value;
+    const farmerToken = cookieStore.get(FARMER_COOKIE_NAME)?.value || cookieStore.get('3t_farmer_token')?.value;
 
     let farmerId: string | null = request.nextUrl.searchParams.get('farmerId')?.trim() || null;
     if (!farmerId) {

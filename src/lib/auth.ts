@@ -1,4 +1,9 @@
-const SESSION_SECRET = process.env.SESSION_SECRET || 'fallback-dev-secret-change-in-production';
+const SESSION_SECRET = process.env.SESSION_SECRET || '3t-production-secret-auth-v2-secure';
+
+export const ADMIN_COOKIE_NAME = '3t_session_auth_v2';
+export const FARMER_COOKIE_NAME = '3t_farmer_auth_v2';
+export const LEGACY_ADMIN_COOKIE = '3t_session_token';
+export const LEGACY_FARMER_COOKIE = '3t_farmer_token';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HMAC-SHA256 using WebCrypto API (works in both Edge Runtime and Node.js)

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyOtp } from '@/lib/farmer-otp';
-import { signSession } from '@/lib/auth';
+import { signSession, FARMER_COOKIE_NAME, LEGACY_FARMER_COOKIE } from '@/lib/auth';
 
 const FARMER_SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12 Hours (shift-based secure session)
 
@@ -48,13 +48,14 @@ export async function POST(request: NextRequest) {
     });
 
     // Set farmer session cookie (separate from admin session)
-    response.cookies.set('3t_farmer_token', token, {
+    response.cookies.set(FARMER_COOKIE_NAME, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: FARMER_SESSION_TTL_MS / 1000,
       path: '/',
     });
+    response.cookies.delete(LEGACY_FARMER_COOKIE);
 
     return response;
   } catch (error: any) {

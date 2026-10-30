@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession } from '@/lib/auth';
+import { verifySession, FARMER_COOKIE_NAME, ADMIN_COOKIE_NAME } from '@/lib/auth';
 import { getDb } from '@/lib/db';
 import { checkAIRateLimit } from '@/lib/ai-rate-limit';
 
@@ -176,8 +176,8 @@ export async function POST(request: NextRequest) {
 
     // ── 2. Auth check ──
     const cookieStore = await cookies();
-    const farmerToken = cookieStore.get('3t_farmer_token')?.value;
-    const adminToken = cookieStore.get('3t_session_token')?.value;
+    const farmerToken = cookieStore.get(FARMER_COOKIE_NAME)?.value || cookieStore.get('3t_farmer_token')?.value;
+    const adminToken = cookieStore.get(ADMIN_COOKIE_NAME)?.value || cookieStore.get('3t_session_token')?.value;
 
     let farmerId: string | null = null;
 

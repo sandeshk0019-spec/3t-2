@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FileSpreadsheet, Smartphone, Monitor, CheckCircle2 } from "lucide-react";
+import { FileSpreadsheet, Smartphone, Monitor, CheckCircle2, HelpCircle } from "lucide-react";
+import { RaiseQueryModal } from "./RaiseQueryModal";
 
 interface HeaderActionsProps {
   farmerName?: string;
   farmerId?: string;
+  farmerPhone?: string;
 }
 
-export function PassbookHeaderActions({ farmerName, farmerId }: HeaderActionsProps) {
+export function PassbookHeaderActions({ farmerName, farmerId, farmerPhone }: HeaderActionsProps) {
+  const [showQueryModal, setShowQueryModal] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showGuideModal, setShowGuideModal] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -207,6 +210,15 @@ export function PassbookHeaderActions({ farmerName, farmerId }: HeaderActionsPro
           </div>
         </div>
       )}
+    
+      <RaiseQueryModal
+        farmerId={farmerId || ""}
+        farmerName={farmerName || ""}
+        farmerPhone={farmerPhone}
+        isOpen={showQueryModal}
+        onClose={() => setShowQueryModal(false)}
+      />
+
     </div>
   );
 }

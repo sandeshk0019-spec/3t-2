@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifySession } from '@/lib/auth';
+import {
+  verifySession,
+  ADMIN_COOKIE_NAME,
+  FARMER_COOKIE_NAME,
+  LEGACY_ADMIN_COOKIE,
+  LEGACY_FARMER_COOKIE
+} from '@/lib/auth';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ROUTE PROTECTION CONFIG
@@ -109,12 +115,14 @@ export async function proxy(request: NextRequest) {
     const parts = pathname.split('/').filter(Boolean);
     const requestedFarmerId = parts[1]?.toUpperCase();
 
-    const farmerToken = request.cookies.get('3t_farmer_token')?.value;
+    const farmerToken = request.cookies.get(FARMER_COOKIE_NAME)?.value;
 
     if (!farmerToken) {
       const loginUrl = new URL('/farmer/login', request.url);
       loginUrl.searchParams.set('next', pathname);
       const res = NextResponse.redirect(loginUrl);
+      res.cookies.delete(LEGACY_FARMER_COOKIE);
+      res.cookies.delete(LEGACY_ADMIN_COOKIE);
       return addSecurityHeaders(res);
     }
 
@@ -124,7 +132,8 @@ export async function proxy(request: NextRequest) {
       const loginUrl = new URL('/farmer/login', request.url);
       loginUrl.searchParams.set('next', pathname);
       const res = NextResponse.redirect(loginUrl);
-      res.cookies.delete('3t_farmer_token');
+      res.cookies.delete(FARMER_COOKIE_NAME);
+      res.cookies.delete(LEGACY_FARMER_COOKIE);
       return addSecurityHeaders(res);
     }
 
@@ -146,8 +155,8 @@ export async function proxy(request: NextRequest) {
     const parts = pathname.split('/').filter(Boolean);
     const requestedFarmerId = parts[2]?.toUpperCase();
 
-    const farmerToken = request.cookies.get('3t_farmer_token')?.value;
-    const adminToken = request.cookies.get('3t_session_token')?.value;
+    const farmerToken = request.cookies.get(FARMER_COOKIE_NAME)?.value;
+    const adminToken = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
 
     let authorized = false;
 
@@ -188,7 +197,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // ── 4. Admin & Protected Routes (e.g. /dashboard, /dashboard/*) ──
-  const token = request.cookies.get('3t_session_token')?.value;
+  const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
 
   if (!token) {
     if (pathname.startsWith('/api/')) {
@@ -201,6 +210,8 @@ export async function proxy(request: NextRequest) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     const res = NextResponse.redirect(loginUrl);
+    res.cookies.delete(LEGACY_ADMIN_COOKIE);
+    res.cookies.delete(LEGACY_FARMER_COOKIE);
     return addSecurityHeaders(res);
   }
 
@@ -212,13 +223,15 @@ export async function proxy(request: NextRequest) {
         { success: false, error: 'Session expired or unauthorized. Please log in again.' },
         { status: 401 }
       );
-      res.cookies.delete('3t_session_token');
+      res.cookies.delete(ADMIN_COOKIE_NAME);
+      res.cookies.delete(LEGACY_ADMIN_COOKIE);
       return addSecurityHeaders(res);
     }
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname);
     const res = NextResponse.redirect(loginUrl);
-    res.cookies.delete('3t_session_token');
+    res.cookies.delete(ADMIN_COOKIE_NAME);
+    res.cookies.delete(LEGACY_ADMIN_COOKIE);
     return addSecurityHeaders(res);
   }
 

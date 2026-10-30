@@ -13381,5 +13381,19 @@
       "sentBy": "3t@adminlogin"
     }
   ],
-  "deletedNotifications": []
+  "deletedNotifications": [],
+  "queries": [
+    {
+      "id": "QRY-DEMO-3666",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "farmerPhone": "7896541231",
+      "category": "payment",
+      "subject": "दूध बिल खात्यात जमा झाले नाही (Payment not credited)",
+      "description": "२४ ऑक्टोबरच्या सकाळच्या शिफ्टचे १४५० रुपये बँक खात्यात जमा झालेले नाहीत. कृपया तपासावे.",
+      "language": "marathi",
+      "createdAt": "2026-10-30T07:42:13.666Z",
+      "status": "pending"
+    }
+  ]
 }

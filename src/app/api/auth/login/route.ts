@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
-import { signSession, checkRateLimit } from "@/lib/auth";
+import {
+  signSession,
+  checkRateLimit,
+  ADMIN_COOKIE_NAME,
+  LEGACY_ADMIN_COOKIE,
+  LEGACY_FARMER_COOKIE,
+  FARMER_COOKIE_NAME
+} from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
@@ -135,16 +142,19 @@ export async function POST(request: Request) {
       redirectTo: matchedUser.redirectTo
     });
 
-    response.cookies.set("3t_session_token", sessionToken, {
-      httpOnly: true,                                        // JS cannot read it
-      secure: process.env.NODE_ENV === "production",         // HTTPS only in prod
-      sameSite: "lax",                                       // CSRF protection
-      maxAge: rememberMe ? 7 * 24 * 60 * 60 : 8 * 60 * 60, // 7 days or 8 hours
+    // Set the new v2 admin session cookie
+    response.cookies.set(ADMIN_COOKIE_NAME, sessionToken, {
+      httpOnly: true,                                // JS cannot read it
+      secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+      sameSite: "lax",                               // CSRF protection
+      ...(rememberMe ? { maxAge: 8 * 60 * 60 } : {}), // Session cookie by default; 8h if rememberMe
       path: "/"
     });
 
-    // Clear any conflicting farmer token so admin has full dashboard access
-    response.cookies.delete("3t_farmer_token");
+    // Wipe all legacy cookies and farmer tokens
+    response.cookies.delete(LEGACY_ADMIN_COOKIE);
+    response.cookies.delete(LEGACY_FARMER_COOKIE);
+    response.cookies.delete(FARMER_COOKIE_NAME);
 
     return response;
   } catch (err) {

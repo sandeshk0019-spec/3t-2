@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getDb } from "@/lib/db";
-import { verifySession } from "@/lib/auth";
+import { verifySession, FARMER_COOKIE_NAME } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { CheckCircle2, Phone, MapPin, ArrowLeft, LogOut } from "lucide-react";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { AIMitra } from "./AIMitra";
 import { NotificationPanel } from "./NotificationPanel";
 import { LivePassbookLedger } from "./LivePassbookLedger";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
+import { FarmerQueryBanner } from "./FarmerQueryBanner";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -39,7 +40,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
   // Strict 2FA protection: Viewing a farmer passbook strictly requires an active
   // farmer OTP verification session matching this specific farmer ID.
   const cookieStore = await cookies();
-  const farmerToken = cookieStore.get("3t_farmer_token")?.value;
+  const farmerToken = cookieStore.get(FARMER_COOKIE_NAME)?.value;
 
   let isAuthorizedFarmer = false;
 
@@ -131,7 +132,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
 
         {/* Client Interactive Header Actions & Notifications */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} />
+          <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} farmerPhone={farmer.phone} />
           <NotificationPanel farmerId={farmer.id} />
         </div>
 
@@ -157,6 +158,14 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
             <FarmerLogoutButton />
           </div>
         </div>
+
+        
+        {/* Support & Issue Query Banner */}
+        <FarmerQueryBanner
+          farmerId={farmer.id}
+          farmerName={farmer.name}
+          farmerPhone={farmer.phone}
+        />
 
         {/* 2. Farmer Account Profile Card */}
         <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-sm space-y-5 sm:space-y-6 print:border-black print:rounded-none">

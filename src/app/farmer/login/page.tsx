@@ -105,12 +105,11 @@ export default function FarmerLoginPage() {
   useEffect(() => {
     try {
       if (typeof window !== "undefined") {
-        const savedPhone = localStorage.getItem("3t_farmer_phone");
-        if (savedPhone) {
-          setPhone(savedPhone);
-        }
+        localStorage.removeItem("3t_farmer_phone");
+        localStorage.removeItem("3t_saved_farmer_id");
       }
     } catch {}
+    setPhone("");
     phoneRef.current?.focus();
   }, []);
 
@@ -176,13 +175,6 @@ export default function FarmerLoginPage() {
         setOtp("      ");
       } else {
         setStep("success");
-        // Save persistent farmer session on this device
-        try {
-          if (typeof window !== "undefined") {
-            localStorage.setItem("3t_saved_farmer_id", data.farmerId);
-            localStorage.setItem("3t_farmer_phone", digits);
-          }
-        } catch {}
         setTimeout(() => {
           router.push(`/farmer/${data.farmerId}`);
         }, 1200);

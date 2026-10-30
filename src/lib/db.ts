@@ -13,7 +13,8 @@ import {
   mockFarmers,
   mockCollections,
   mockPayments,
-  parseDateTimeToEpoch
+  parseDateTimeToEpoch,
+  FarmerQuery
 } from '../app/data';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -35,6 +36,7 @@ export interface DatabaseSchema {
   retiredIds: string[];
   notifications?: any[];
   deletedNotifications?: string[];
+  queries?: FarmerQuery[];
 }
 
 export interface DbObject {
@@ -75,7 +77,8 @@ const defaultData: DatabaseSchema = {
   deletedFarmers: [],
   retiredIds: [],
   notifications: [],
-  deletedNotifications: []
+  deletedNotifications: [],
+  queries: []
 };
 
 let storePromise: Promise<any> | null = null;
@@ -98,6 +101,7 @@ async function getStore() {
       if (!store.data.retiredIds) store.data.retiredIds = [];
       if (!store.data.notifications) store.data.notifications = [];
       if (!store.data.deletedNotifications) store.data.deletedNotifications = [];
+      if (!store.data.queries) store.data.queries = [];
       return store;
     })();
   }
@@ -151,7 +155,7 @@ export async function refreshFromSupabase(force = false): Promise<void> {
     try {
       const store = await getStore();
       const fallbackRes: any = { data: null, error: null };
-      const [colRes, payRes, farmRes, cloudFarmersRes, cloudColsRes, cloudPaysRes, configRes, retiredFarmRes, retiredBranchRes] = await withTimeout(
+      const [colRes, payRes, farmRes, cloudFarmersRes, cloudColsRes, cloudPaysRes, configRes, retiredFarmRes, retiredBranchRes, queriesRes] = await withTimeout(
         Promise.all([
           supabase.from('collections').select('*').order('created_at', { ascending: false }).limit(500),
           supabase.from('payments').select('*').order('created_at', { ascending: false }).limit(500),
@@ -161,10 +165,11 @@ export async function refreshFromSupabase(force = false): Promise<void> {
           supabase.from('branches').select('*').like('id', 'PAY-%').limit(500),
           supabase.from('settings').select('*').eq('id', 1).single(),
           supabase.from('farmers').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single(),
-          supabase.from('branches').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single()
+          supabase.from('branches').select('*').eq('id', 'CONFIG-RETIRED-FARMERS').single(),
+          supabase.from('branches').select('*').eq('id', 'CONFIG-FARMER-QUERIES-STORE').single()
         ]),
         8000,
-        [fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes]
+        [fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes, fallbackRes]
       );
 
     if (configRes?.data && typeof configRes.data.base_price === 'number') {
@@ -470,6 +475,29 @@ export async function refreshFromSupabase(force = false): Promise<void> {
       return !deletedSet.has(idUpper);
     });
 
+    
+    // Load and merge cloud-persisted farmer queries
+    if (queriesRes?.data?.status) {
+      try {
+        const parsedQ = typeof queriesRes.data.status === 'string' ? JSON.parse(queriesRes.data.status) : queriesRes.data.status;
+        if (Array.isArray(parsedQ)) {
+          if (!store.data.queries) store.data.queries = [];
+          const remoteMap = new Map(parsedQ.map((q: any) => [q.id, q]));
+          // Keep local queries that may not yet be in cloud
+          store.data.queries.forEach((q: any) => {
+            if (!remoteMap.has(q.id)) {
+              remoteMap.set(q.id, q);
+            }
+          });
+          store.data.queries = Array.from(remoteMap.values()).sort((a, b) => 
+            (b.createdAt || '').localeCompare(a.createdAt || '')
+          );
+        }
+      } catch (err) {
+        console.warn('[Queries Supabase Parse Warning]', err);
+      }
+    }
+
     // Filter out transactions of genuinely deleted farmers as well as non-milk auxiliary rows
     if (store.data.collections) {
       store.data.collections = store.data.collections.filter((c: CollectionItem) => {
@@ -744,5 +772,23 @@ export async function syncPaymentStatusToSupabase(paymentId: string, status: str
     } catch {}
   } catch (err) {
     console.warn('[Supabase Sync Status Error]', err);
+  }
+}
+
+
+export async function syncQueriesToCloud(queries: FarmerQuery[]): Promise<void> {
+  try {
+    await supabase.from('branches').upsert({
+      id: 'CONFIG-FARMER-QUERIES-STORE',
+      name: '3T Farmer Queries Store',
+      manager: 'SYSTEM',
+      phone: '0000000000',
+      location: 'Cloud',
+      active_farmers: 0,
+      daily_volume: 0,
+      status: JSON.stringify(queries)
+    }, { onConflict: 'id' });
+  } catch (err) {
+    console.warn('[Queries Cloud Sync Warning]', err);
   }
 }

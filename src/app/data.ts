@@ -258,6 +258,26 @@ export interface PaymentItem {
   timeline: PaymentTimelineStep[];
 }
 
+
+export type QueryCategory = 'payment' | 'technical' | 'general';
+export type QueryStatus = 'pending' | 'in_progress' | 'resolved';
+
+export interface FarmerQuery {
+  id: string;
+  farmerId: string;
+  farmerName: string;
+  farmerPhone?: string;
+  category: QueryCategory;
+  subject: string;
+  description: string;
+  language: 'marathi' | 'english' | 'hindi';
+  createdAt: string;
+  status: QueryStatus;
+  adminNotes?: string;
+  resolvedAt?: string;
+  resolvedBy?: string;
+}
+
 export interface Branch {
   id: string;
   name: string;

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { verifySession } from '@/lib/auth';
+import { verifySession, ADMIN_COOKIE_NAME } from '@/lib/auth';
 import { getDb } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
 import { createNotification, getAllNotifications, deleteNotification, NotificationType } from '@/lib/notifications';
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     // Admin auth: support session cookie OR Authorization header
     const cookieStore = await cookies();
     const adminToken =
-      cookieStore.get('3t_session_token')?.value ||
+      cookieStore.get(ADMIN_COOKIE_NAME)?.value || cookieStore.get('3t_session_token')?.value ||
       request.headers.get('Authorization')?.replace(/^Bearer\s+/i, '');
 
     let session = adminToken ? await verifySession(adminToken) : null;
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const adminToken =
-      cookieStore.get('3t_session_token')?.value ||
+      cookieStore.get(ADMIN_COOKIE_NAME)?.value || cookieStore.get('3t_session_token')?.value ||
       request.headers.get('Authorization')?.replace(/^Bearer\s+/i, '');
 
     let session = adminToken ? await verifySession(adminToken) : null;
@@ -91,7 +91,7 @@ export async function DELETE(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const adminToken =
-      cookieStore.get('3t_session_token')?.value ||
+      cookieStore.get(ADMIN_COOKIE_NAME)?.value || cookieStore.get('3t_session_token')?.value ||
       request.headers.get('Authorization')?.replace(/^Bearer\s+/i, '');
 
     let session = adminToken ? await verifySession(adminToken) : null;

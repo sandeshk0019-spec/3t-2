@@ -15,6 +15,7 @@ export function FarmerLogoutButton() {
         localStorage.removeItem("3t_saved_farmer_id");
         localStorage.removeItem("3t_farmer_phone");
         sessionStorage.clear();
+        document.cookie = "3t_farmer_auth_v2=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
         document.cookie = "3t_farmer_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       }
       await fetch("/api/auth/farmer-otp/logout", { method: "POST" });

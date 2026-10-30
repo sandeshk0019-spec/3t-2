@@ -68,8 +68,10 @@ import {
   Bluetooth,
   Cpu,
   Radio,
+  HelpCircle,
 } from "lucide-react";
 import { BroadcastTab } from "./BroadcastTab";
+import { FarmerQueriesTab } from "./FarmerQueriesTab";
 import { connectBluetoothDevice, isWebBluetoothSupported } from "@/lib/dual-display";
 
 import {
@@ -101,8 +103,9 @@ export default function Dashboard() {
 
   // Navigation active tab
   const [activeTab, setActiveTab] = useState<
-    "overview" | "farmers" | "collections" | "payments" | "branches" | "analytics" | "reports" | "settings" | "broadcast"
+    "overview" | "farmers" | "collections" | "payments" | "branches" | "analytics" | "reports" | "settings" | "broadcast" | "queries"
   >("overview");
+  const [pendingQueriesCount, setPendingQueriesCount] = useState(0);
 
   // Enterprise Authentication & Session State
   const [userSession, setUserSession] = useState<{ email: string; name: string; role: string } | null>(null);
@@ -145,12 +148,19 @@ export default function Dashboard() {
   const executeLogout = async () => {
     setIsLoggingOut(true);
     try {
+      if (typeof window !== "undefined") {
+        document.cookie = "3t_session_auth_v2=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        document.cookie = "3t_session_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        document.cookie = "3t_farmer_auth_v2=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        document.cookie = "3t_farmer_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        sessionStorage.clear();
+      }
       await fetch("/api/auth/logout", { method: "POST" });
     } catch {}
     setUserSession(null);
     setShowLogoutConfirmModal(false);
     setIsLoggingOut(false);
-    router.push("/");
+    window.location.href = "/login";
   };
 
   // Check active session on mount
@@ -496,6 +506,11 @@ export default function Dashboard() {
               return [...localOnly, ...json.data.collections];
             });
           }
+          
+          if (json.data.queries && Array.isArray(json.data.queries)) {
+            setPendingQueriesCount(json.data.queries.filter((q: any) => q.status === "pending").length);
+          }
+
           if (json.data.payments) {
             setPayments(prev => {
               const serverIds = new Set(json.data.payments.map((p: any) => p.id));
@@ -1988,6 +2003,7 @@ UTR Settlement Gateway Status: ONLINE
             { id: "collections", label: "Milk Collections", icon: Milk, adminOnly: false },
             { id: "farmers", label: "Farmers Directory", icon: Users, adminOnly: false },
             { id: "payments", label: "Payment Pipeline", icon: CreditCard, adminOnly: true },
+            { id: "queries", label: "Farmer Queries", icon: HelpCircle, adminOnly: false },
             { id: "branches", label: "Collection Center", icon: GitBranch, adminOnly: true, advanced: true },
             { id: "analytics", label: "Analytics Hub", icon: BarChart3, adminOnly: true, advanced: true },
             { id: "reports", label: "Exports & Reports", icon: FileSpreadsheet, adminOnly: true, advanced: true },
@@ -2002,7 +2018,7 @@ UTR Settlement Gateway Status: ONLINE
                 <button
                   key={item.id}
                   onClick={() => {
-                    setActiveTab(item.id as "overview" | "farmers" | "collections" | "payments" | "branches" | "analytics" | "reports" | "settings" | "broadcast");
+                    setActiveTab(item.id as any);
                     setSelectedFarmer(null);
                     setSelectedPayment(null);
                   }}
@@ -4686,6 +4702,12 @@ UTR Settlement Gateway Status: ONLINE
 
           {/* Farmer Messages & Broadcast Tab */}
           {activeTab === "broadcast" && <BroadcastTab />}
+
+          {/* Farmer Queries & Support Helpdesk Tab */}
+          {activeTab === "queries" && (
+            <FarmerQueriesTab onQueriesUpdated={(count) => setPendingQueriesCount(count)} />
+          )}
+
 
         </main>
       </div>

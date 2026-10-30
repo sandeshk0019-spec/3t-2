@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
-import { verifySession } from "@/lib/auth";
+import { verifySession, ADMIN_COOKIE_NAME } from "@/lib/auth";
 
 export async function GET(request: Request) {
   try {
     const cookieHeader = request.headers.get("cookie") || "";
-    const match = cookieHeader.match(/3t_session_token=([^;]+)/);
+    const reg = new RegExp(`${ADMIN_COOKIE_NAME}=([^;]+)`);
+    const match = cookieHeader.match(reg);
 
     if (!match) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
