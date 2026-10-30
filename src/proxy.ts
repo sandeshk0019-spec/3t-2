@@ -43,6 +43,7 @@ const PUBLIC_ROUTES = new Set([
   '/api/payments/razorpay',
   '/api/settings',
   '/api/seed-supabase',
+  '/api/farmer/query',
 ]);
 
 const PUBLIC_PREFIXES = [
