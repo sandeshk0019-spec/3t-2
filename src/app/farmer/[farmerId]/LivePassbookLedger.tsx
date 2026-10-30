@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { Calendar, RefreshCw, Search, X, Filter, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { usePassbookLanguage } from "./PassbookLanguageContext";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types (mirror what the API returns)
@@ -47,6 +48,7 @@ type PeriodType = "all" | "1-10" | "11-20" | "21-31";
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function LivePassbookLedger({ farmerId, initialCollections, initialPayments }: Props) {
+  const { t, lang } = usePassbookLanguage();
   const [collections, setCollections] = useState<CollectionItem[]>(initialCollections);
   const [payments, setPayments]       = useState<PaymentItem[]>(initialPayments);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
@@ -195,39 +197,39 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-gray-50 p-3.5 sm:p-4 rounded-2xl border border-gray-200 text-center">
           <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">
-            {isFiltered ? "Filtered Milk Volume" : "Total Milk Volume"}
+            {isFiltered ? t.filteredMilkVolume : t.totalMilkVolume}
           </span>
           <span className="text-base sm:text-xl font-black text-gray-900 block mt-1">{totalVolume.toFixed(1)} L</span>
           <span className="text-[10px] font-semibold text-gray-500 block mt-0.5">
-            {hasDeliveries ? `${filteredCollections.length} ${filteredCollections.length === 1 ? "Delivery" : "Deliveries"}` : "0 Deliveries"}
+            {hasDeliveries ? `${filteredCollections.length} ${filteredCollections.length === 1 ? t.delivery : t.deliveries}` : `0 ${t.deliveries}`}
           </span>
         </div>
 
         <div className="bg-gray-50 p-3.5 sm:p-4 rounded-2xl border border-gray-200 text-center">
           <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">
-            {isFiltered ? "Period Settled" : "Total Settled Outflow"}
+            {isFiltered ? t.periodSettled : t.totalSettledOutflow}
           </span>
           <span className={`text-base sm:text-xl font-black font-mono block mt-1 ${totalEarnings > 0 ? "text-emerald-700" : "text-gray-900"}`}>
             ₹{totalEarnings.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
           </span>
           <span className={`text-[10px] font-bold block mt-0.5 ${totalEarnings > 0 ? "text-emerald-800" : "text-gray-500"}`}>
-            {totalEarnings > 0 ? "Direct UPI Credited" : "No Payouts Yet"}
+            {totalEarnings > 0 ? t.directUpiCredited : t.noPayoutsYet}
           </span>
         </div>
 
         <div className="bg-gray-50 p-3.5 sm:p-4 rounded-2xl border border-gray-200 text-center">
-          <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">Average FAT%</span>
+          <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">{t.avgFat}</span>
           <span className="text-base sm:text-xl font-black text-gray-900 block mt-1">{avgFat}</span>
           <span className="text-[10px] font-semibold text-gray-500 block mt-0.5">
-            {hasDeliveries ? "Quality Standard" : "No Milk Tested"}
+            {hasDeliveries ? t.qualityStandard : t.noMilkTested}
           </span>
         </div>
 
         <div className="bg-gray-50 p-3.5 sm:p-4 rounded-2xl border border-gray-200 text-center">
-          <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">Average SNF%</span>
+          <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider block">{t.avgSnf}</span>
           <span className="text-base sm:text-xl font-black text-gray-900 block mt-1">{avgSnf}</span>
           <span className="text-[10px] font-semibold text-gray-500 block mt-0.5">
-            {hasDeliveries ? "Live Quality Index" : "No Milk Tested"}
+            {hasDeliveries ? t.liveQualityIndex : t.noMilkTested}
           </span>
         </div>
       </div>
@@ -241,7 +243,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
             <Search className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search by date (YYYY-MM-DD), shift, FAT%, rate, or UTR..."
+              placeholder={t.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 text-xs font-semibold focus:outline-none focus:border-emerald-600 transition-colors bg-[#FAFAFA]"
@@ -267,7 +269,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
               }}
               className="px-3 py-2.5 rounded-xl border border-gray-200 text-xs font-bold bg-[#FAFAFA] text-gray-800 focus:outline-none focus:border-emerald-600 cursor-pointer"
             >
-              <option value="all">📅 All Months</option>
+              <option value="all">{t.allMonths}</option>
               {availableMonths.map((m) => (
                 <option key={m} value={m}>
                   {formatMonthName(m)}
@@ -298,7 +300,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
         <div className="flex items-center justify-between border-t border-gray-100 pt-3 flex-wrap gap-2">
           <div className="flex items-center space-x-1.5 overflow-x-auto no-scrollbar py-0.5">
             <span className="text-[11px] font-extrabold text-gray-500 uppercase tracking-wider mr-1 hidden sm:inline">
-              10-Day Cycles:
+              {t.tenDayCycles}
             </span>
 
             {/* Period 0: All Days */}
@@ -313,7 +315,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              All Days
+              {t.allDays}
             </button>
 
             {/* Period 1: Days 1 - 10 */}
@@ -328,8 +330,8 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <span>1st – 10th</span>
-              <span className="text-[10px] opacity-80">(Cycle 1)</span>
+              <span>{t.cycle1}</span>
+              <span className="text-[10px] opacity-80">{t.cycle1Sub}</span>
             </button>
 
             {/* Period 2: Days 11 - 20 */}
@@ -344,8 +346,8 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <span>11th – 20th</span>
-              <span className="text-[10px] opacity-80">(Cycle 2)</span>
+              <span>{t.cycle2}</span>
+              <span className="text-[10px] opacity-80">{t.cycle2Sub}</span>
             </button>
 
             {/* Period 3: Days 21 - End */}
@@ -360,8 +362,8 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              <span>21st – End</span>
-              <span className="text-[10px] opacity-80">(Cycle 3)</span>
+              <span>{t.cycle3}</span>
+              <span className="text-[10px] opacity-80">{t.cycle3Sub}</span>
             </button>
           </div>
 
@@ -372,7 +374,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
               className="text-[11px] font-bold text-rose-600 hover:text-rose-800 bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-200 transition-colors flex items-center space-x-1 cursor-pointer"
             >
               <X className="w-3 h-3" />
-              <span>Reset Filters</span>
+              <span>{t.resetFilters}</span>
             </button>
           )}
         </div>
@@ -384,9 +386,9 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
           <h3 className="font-extrabold text-xs sm:text-sm text-gray-900 uppercase tracking-wider flex items-center space-x-2">
             <Calendar className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>
-              Milk Intake &amp; Payout History ({filteredCollections.length}
+              {t.intakeHistory} ({filteredCollections.length}
               {filteredCollections.length !== collections.length ? ` of ${collections.length}` : ""}{" "}
-              Records)
+              {t.records})
             </span>
           </h3>
           <div className="flex items-center space-x-2 no-print self-end sm:self-auto">
@@ -394,10 +396,10 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
               <RefreshCw className="w-3 h-3 text-emerald-500 animate-spin" />
             )}
             <span className="text-[10px] text-gray-400 font-mono hidden sm:inline">
-              Updated {lastRefresh.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }).toUpperCase()}
+              {t.updated} {lastRefresh.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true }).toUpperCase()}
             </span>
             <span className="text-[10px] sm:text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-bold font-mono">
-              3T-PASSBOOK-VERIFIED
+              {t.verifiedBadge}
             </span>
           </div>
         </div>
@@ -406,13 +408,13 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
         <div className="block md:hidden divide-y divide-gray-100 p-3 space-y-3">
           {filteredCollections.length === 0 ? (
             <div className="p-8 text-center text-gray-500 font-bold text-xs bg-gray-50 rounded-xl space-y-2">
-              <p>No milk delivery records match your selected 10-day period or search.</p>
+              <p>{t.noRecordsMatch}</p>
               {isFiltered && (
                 <button
                   onClick={resetFilters}
-                  className="px-3 py-1.5 bg-emerald-700 text-white rounded-lg text-xs font-bold"
+                  className="px-3 py-1.5 bg-emerald-700 text-white rounded-lg text-xs font-bold cursor-pointer"
                 >
-                  Show All Records
+                  {t.showAllRecords}
                 </button>
               )}
             </div>
@@ -442,30 +444,30 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                             : "bg-indigo-100 text-indigo-800 border border-indigo-200"
                         }`}
                       >
-                        {col.time === "Morning" ? "☀️ Morning" : "🌙 Evening"}
+                        {col.time === "Morning" ? t.morning : t.evening}
                       </span>
                     </div>
                     <span className="inline-flex items-center text-[10px] font-extrabold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md border border-emerald-300">
-                      CREDITED
+                      {t.credited}
                     </span>
                   </div>
 
                   {/* Middle Row: Metrics Grid */}
                   <div className="grid grid-cols-4 gap-2 bg-white p-2.5 rounded-xl border border-gray-100 text-center">
                     <div>
-                      <span className="text-[9px] font-bold uppercase text-gray-400 block">Volume</span>
+                      <span className="text-[9px] font-bold uppercase text-gray-400 block">{t.thVolume.replace(/ \(.*\)/, '')}</span>
                       <span className="font-black text-xs text-gray-900 block mt-0.5">{col.weight.toFixed(1)} L</span>
                     </div>
                     <div>
-                      <span className="text-[9px] font-bold uppercase text-gray-400 block">FAT</span>
+                      <span className="text-[9px] font-bold uppercase text-gray-400 block">{t.thFat}</span>
                       <span className="font-mono font-bold text-xs text-gray-800 block mt-0.5">{col.fat.toFixed(1)}%</span>
                     </div>
                     <div>
-                      <span className="text-[9px] font-bold uppercase text-gray-400 block">SNF</span>
+                      <span className="text-[9px] font-bold uppercase text-gray-400 block">{t.thSnf}</span>
                       <span className="font-mono font-bold text-xs text-gray-800 block mt-0.5">{col.snf.toFixed(1)}%</span>
                     </div>
                     <div>
-                      <span className="text-[9px] font-bold uppercase text-gray-400 block">Rate</span>
+                      <span className="text-[9px] font-bold uppercase text-gray-400 block">{t.thRate.replace(/ \(.*\)/, '')}</span>
                       <span className="font-mono font-bold text-xs text-gray-800 block mt-0.5">₹{col.rate.toFixed(2)}</span>
                     </div>
                   </div>
@@ -474,7 +476,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                   <div className="flex items-center justify-between pt-1 border-t border-gray-100 text-xs">
                     <span className="text-[10px] text-gray-500 font-mono">UTR: {utr}</span>
                     <div className="flex items-center space-x-1.5">
-                      <span className="text-[10px] text-gray-500 font-bold">Payout:</span>
+                      <span className="text-[10px] text-gray-500 font-bold">{t.payoutLabel}</span>
                       <span className="font-mono font-black text-sm text-emerald-700">
                         ₹{col.total.toFixed(2)}
                       </span>
@@ -491,21 +493,21 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="bg-gray-100/80 text-[10px] font-bold uppercase text-gray-700 tracking-wider border-b border-gray-200">
-                <th className="px-5 py-3">Date</th>
-                <th className="px-5 py-3 text-center">Shift</th>
-                <th className="px-5 py-3 text-right">Volume (L)</th>
-                <th className="px-5 py-3 text-center">FAT%</th>
-                <th className="px-5 py-3 text-center">SNF%</th>
-                <th className="px-5 py-3 text-right">Rate (₹/L)</th>
-                <th className="px-5 py-3 text-right">Payout (₹)</th>
-                <th className="px-5 py-3 text-center">Status / UTR</th>
+                <th className="px-5 py-3">{t.thDate}</th>
+                <th className="px-5 py-3 text-center">{t.thShift}</th>
+                <th className="px-5 py-3 text-right">{t.thVolume}</th>
+                <th className="px-5 py-3 text-center">{t.thFat}</th>
+                <th className="px-5 py-3 text-center">{t.thSnf}</th>
+                <th className="px-5 py-3 text-right">{t.thRate}</th>
+                <th className="px-5 py-3 text-right">{t.thPayout}</th>
+                <th className="px-5 py-3 text-center">{t.thStatus}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 font-semibold text-gray-900">
               {filteredCollections.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="p-8 text-center text-gray-500 font-bold text-xs">
-                    No milk delivery records match your selected 10-day period or search.
+                    {t.noRecordsMatch}
                   </td>
                 </tr>
               ) : (
@@ -531,7 +533,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                               : "bg-indigo-100 text-indigo-800 border border-indigo-200"
                           }`}
                         >
-                          {col.time}
+                          {col.time === "Morning" ? t.morning : t.evening}
                         </span>
                       </td>
                       <td className="px-5 py-3.5 text-right font-bold text-gray-900">{col.weight.toFixed(1)} L</td>
@@ -544,7 +546,7 @@ export function LivePassbookLedger({ farmerId, initialCollections, initialPaymen
                       <td className="px-5 py-3.5 text-center">
                         <div className="space-y-0.5">
                           <span className="inline-block text-[10px] font-extrabold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                            CREDITED
+                            {t.credited}
                           </span>
                           <span className="block text-[9px] font-mono text-gray-500 font-normal">{utr}</span>
                         </div>

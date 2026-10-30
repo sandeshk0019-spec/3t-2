@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { HelpCircle, ChevronRight, ShieldAlert, Sparkles } from "lucide-react";
 import { RaiseQueryModal } from "./RaiseQueryModal";
+import { usePassbookLanguage } from "./PassbookLanguageContext";
 
 interface Props {
   farmerId: string;
@@ -12,6 +13,7 @@ interface Props {
 
 export function FarmerQueryBanner({ farmerId, farmerName, farmerPhone }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = usePassbookLanguage();
 
   return (
     <>
@@ -23,18 +25,18 @@ export function FarmerQueryBanner({ farmerId, farmerName, farmerPhone }: Props) 
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-[10px] font-black text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-full border border-amber-200 uppercase tracking-wider">
-                Support & Queries
+                {t.supportTag}
               </span>
               <span className="text-[10px] font-bold text-gray-400">·</span>
               <span className="text-[10px] font-bold text-emerald-700">
-                🌐 मराठी / English / हिंदी
+                🌐 English / मराठी / हिंदी
               </span>
             </div>
             <h3 className="text-xs sm:text-sm font-black text-amber-950 mt-0.5">
-              पेमेंट किंवा तांत्रिक अडचण आहे का? (Payment or Technical Issue?)
+              {t.supportQueryTitle}
             </h3>
             <p className="text-[11px] sm:text-xs text-amber-800/90 font-medium">
-              ई-मेलची गरज नाही — तक्रार थेट डेअरी मॅनेजरच्या डॅशबोर्डवर नोंदवा (Direct to dashboard)
+              {t.supportQuerySubtitle}
             </p>
           </div>
         </div>
@@ -43,7 +45,7 @@ export function FarmerQueryBanner({ farmerId, farmerName, farmerPhone }: Props) 
           onClick={() => setIsOpen(true)}
           className="w-full sm:w-auto px-4 py-2.5 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-extrabold text-xs rounded-xl transition-all shadow-sm flex items-center justify-center space-x-2 border border-amber-600 cursor-pointer shrink-0"
         >
-          <span>💬 तक्रार नोंदवा / Raise Query</span>
+          <span>💬 {t.raiseQueryBtn}</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       </div>

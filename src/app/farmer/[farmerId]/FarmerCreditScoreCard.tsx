@@ -9,6 +9,7 @@ import {
   Landmark,
   BadgeCheck,
 } from "lucide-react";
+import { usePassbookLanguage } from "./PassbookLanguageContext";
 
 interface CollectionItem {
   id: string;
@@ -60,7 +61,8 @@ export function FarmerCreditScoreCard({
 
   // UI state - Collapsed by default for mobile-first experience
   const [isExpanded, setIsExpanded] = useState(false);
-  const [lang, setLang] = useState<"mr" | "en">("mr");
+  const { lang: globalLang, setLang: setGlobalLang, t } = usePassbookLanguage();
+  const lang = globalLang;
   const [isCertificateOpen, setIsCertificateOpen] = useState(false);
 
   // Live polling for auto-sync with 3T dairy collection desk
@@ -186,22 +188,20 @@ export function FarmerCreditScoreCard({
             <div className="min-w-0">
               <div className="flex items-center space-x-2">
                 <span className="text-xs sm:text-sm font-bold text-slate-900 truncate">
-                  {lang === "mr" ? "शासकीय कर्ज पात्रता व ३T क्रेडिट स्कोअर" : "Govt Dairy Loan Eligibility & Credit Score"}
+                  {t.creditScoreTitle}
                 </span>
                 <span className="inline-flex items-center text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                  {lang === "mr" ? "नवीन सुविधा" : "Official"}
+                  {t.newFeature}
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                {lang === "mr"
-                  ? "पात्रता व स्कोअर तपासण्यासाठी येथे क्लिक करा"
-                  : "Click to assess your credit score & pre-approved loan eligibility"}
+                {t.creditScoreSubtitle}
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 group-hover:bg-emerald-600 text-emerald-700 group-hover:text-white text-xs font-bold transition-all shrink-0 border border-emerald-200 group-hover:border-transparent">
-            <span>{lang === "mr" ? "तपासा" : "Check Now"}</span>
+            <span>{isExpanded ? t.closeBtn : t.checkBtn}</span>
             <ChevronDown className="w-3.5 h-3.5" />
           </div>
         </div>
@@ -219,7 +219,7 @@ export function FarmerCreditScoreCard({
         <div>
           <div className="flex items-center space-x-2">
             <h3 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
-              {lang === "mr" ? "३T किसान दुग्ध क्रेडिट स्कोअर" : "3T Kisan Dairy Credit Score"}
+              {lang === "hi" ? "3T किसान दुग्ध क्रेडिट स्कोर" : (lang === "mr" ? "३T किसान दुग्ध क्रेडिट स्कोअर" : "3T Kisan Dairy Credit Score")}
             </h3>
             <span className="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -227,9 +227,11 @@ export function FarmerCreditScoreCard({
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            {lang === "mr"
-              ? "दैनिक दूध संकलन व थेट बँक खात्यातील UTR व्यवहारांवर आधारित अधिकृत मूल्यांकन"
-              : "Institutional credit assessment derived from automated milk testing & direct bank UTR transfers"}
+            {lang === "hi"
+              ? "दैनिक दूध संकलन और सीधे बैंक खाते में UTR लेनदेन पर आधारित आधिकारिक मूल्यांकन"
+              : (lang === "mr"
+                ? "दैनिक दूध संकलन व थेट बँक खात्यातील UTR व्यवहारांवर आधारित अधिकृत मूल्यांकन"
+                : "Institutional credit assessment derived from automated milk testing & direct bank UTR transfers")}
           </p>
         </div>
 
@@ -238,21 +240,30 @@ export function FarmerCreditScoreCard({
           <div className="flex items-center bg-slate-100 rounded-lg p-0.5 text-xs font-semibold">
             <button
               type="button"
-              onClick={() => setLang("mr")}
+              onClick={() => setGlobalLang("en")}
               className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
-                lang === "mr" ? "bg-white text-slate-900 shadow-2xs" : "text-slate-500 hover:text-slate-900"
+                globalLang === "en" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setGlobalLang("mr")}
+              className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                globalLang === "mr" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
               }`}
             >
               मराठी
             </button>
             <button
               type="button"
-              onClick={() => setLang("en")}
+              onClick={() => setGlobalLang("hi")}
               className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
-                lang === "en" ? "bg-white text-slate-900 shadow-2xs" : "text-slate-500 hover:text-slate-900"
+                globalLang === "hi" ? "bg-white text-slate-900 shadow-2xs font-bold" : "text-slate-500 hover:text-slate-900"
               }`}
             >
-              EN
+              हिंदी
             </button>
           </div>
 

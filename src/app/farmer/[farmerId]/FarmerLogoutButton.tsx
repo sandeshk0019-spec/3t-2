@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import { LogOut, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { usePassbookLanguage } from "./PassbookLanguageContext";
 
 export function FarmerLogoutButton() {
   const router = useRouter();
   const [loggingOut, setLoggingOut] = useState(false);
+  const { t } = usePassbookLanguage();
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -35,7 +37,7 @@ export function FarmerLogoutButton() {
       ) : (
         <LogOut className="w-3.5 h-3.5" />
       )}
-      <span>Logout / बाहेर पडा</span>
+      <span>{t.logout}</span>
     </button>
   );
 }

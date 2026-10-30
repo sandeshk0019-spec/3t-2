@@ -14,6 +14,10 @@ import { LivePassbookLedger } from "./LivePassbookLedger";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
 import { FarmerQueryBanner } from "./FarmerQueryBanner";
 import { FarmerCreditScoreCard } from "./FarmerCreditScoreCard";
+import { PassbookLanguageProvider } from "./PassbookLanguageContext";
+import { PassbookHeader } from "./PassbookHeader";
+import { FarmerVerificationBadge } from "./FarmerVerificationBadge";
+import { PassbookFooter } from "./PassbookFooter";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -129,52 +133,32 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
     : "0.0";
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-gray-900 font-sans p-4 sm:p-8 print:p-0 print:bg-white">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <PassbookLanguageProvider>
+      <div className="min-h-screen bg-[#F8FAFC] text-gray-900 font-sans p-4 sm:p-8 print:p-0 print:bg-white">
+        <div className="max-w-4xl mx-auto space-y-6">
 
-        {/* Client Interactive Header Actions & Notifications */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} />
-          <NotificationPanel farmerId={farmer.id} />
-        </div>
-
-        {/* 1. Official Passbook Header */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:border-black print:rounded-none print:shadow-none">
-          <div className="flex items-center space-x-3 sm:space-x-4">
-            <img src="/3t-logo.png" alt="3T Logo" className="h-9 sm:h-10 w-auto max-w-[120px] sm:max-w-[130px] object-contain drop-shadow-xs shrink-0" />
-            <div>
-              <span className="text-[9px] sm:text-[10px] font-black text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-widest block w-fit mb-1">
-                Official Digital Farmer Passbook
-              </span>
-              <h1 className="text-lg sm:text-2xl font-black text-gray-900 tracking-tight leading-tight">
-                Village Milk Co-Operative Ledger
-              </h1>
-              <p className="text-[11px] sm:text-xs text-gray-500 font-medium mt-0.5">
-                Central Collection Center B-01 · Instant UPI Settlement Network
-              </p>
-            </div>
+          {/* Client Interactive Header Actions & Notifications */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} />
+            <NotificationPanel farmerId={farmer.id} />
           </div>
 
-          {/* Logout button */}
-          <div className="no-print self-end sm:self-auto">
-            <FarmerLogoutButton />
-          </div>
-        </div>
+          {/* 1. Official Passbook Header with Language Switcher & Logout */}
+          <PassbookHeader />
 
-        
-        {/* Support & Issue Query Banner */}
-        <FarmerQueryBanner
-          farmerId={farmer.id}
-          farmerName={farmer.name}
-          farmerPhone={farmer.phone}
-        />
+          {/* Support & Queries Banner */}
+          <FarmerQueryBanner
+            farmerId={farmer.id}
+            farmerName={farmer.name}
+            farmerPhone={farmer.phone}
+          />
 
-        {/* 2. 3T Dairy Credit Score & Government Loan Eligibility Assessment */}
-        <FarmerCreditScoreCard
-          farmer={farmer}
-          collections={collections}
-          payments={payments}
-        />
+          {/* 3T Credit Score Card (Opt-in: only checks when farmer clicks) */}
+          <FarmerCreditScoreCard
+            farmer={farmer}
+            collections={collections}
+            payments={payments}
+          />
 
         {/* 3. Farmer Account Profile Card & Live Daily Ledger */}
         <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-sm space-y-5 sm:space-y-6 print:border-black print:rounded-none">
@@ -200,10 +184,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
             </div>
 
             <div className="flex items-center space-x-2 self-start sm:self-auto">
-              <span className="inline-flex items-center space-x-1.5 text-[11px] sm:text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl">
-                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
-                <span>Bank & UPI Verified</span>
-              </span>
+              <FarmerVerificationBadge />
             </div>
           </div>
 
@@ -217,10 +198,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
 
 
         {/* Footer info */}
-        <div className="text-center text-xs text-gray-500 font-medium py-4 space-y-1 no-print">
-          <p>© {new Date().getFullYear()} 3T Dairy Payment Network · Verified Digital Passbook System</p>
-          <p className="text-[10px] text-gray-400">Powered by 3T Instant UPI Settlement Gateway</p>
-        </div>
+        <PassbookFooter />
 
       </div>
 
@@ -234,5 +212,6 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
         totalCollections={collections.length}
       />
     </div>
+    </PassbookLanguageProvider>
   );
 }
