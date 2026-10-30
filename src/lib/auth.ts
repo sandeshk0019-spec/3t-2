@@ -14,6 +14,7 @@ export interface SessionPayload {
   name: string;
   role: string;
   exp: number;
+  farmerId?: string;
 }
 
 async function getKey(): Promise<CryptoKey> {

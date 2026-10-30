@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
     const token = await signSession({
       email: `farmer:${phone}`,
       name: result.farmerId,
+      farmerId: result.farmerId,
       role: 'farmer',
       exp: Date.now() + FARMER_SESSION_TTL_MS,
     });

@@ -51,7 +51,7 @@ export default function LandingPage() {
       logoClickCountRef.current = 0;
       setShowAllOptions(prev => {
         const next = !prev;
-        setModeToast(next ? '⚡ Full Suite Unlocked' : '🔒 Core Mode Active');
+        setModeToast(next ? '⚡ Farmer Login Unlocked' : '🔒 Farmer Login Hidden');
         setTimeout(() => setModeToast(null), 3000);
         return next;
       });

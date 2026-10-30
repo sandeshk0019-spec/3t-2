@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // AI Krishi Mitra — Per-Farmer Rate Limiter
-// Max 10 AI questions per farmer per 24 hours
+// Max AI questions per farmer per 24 hours
 // In-memory store (resets on server restart — acceptable for daily limits)
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -11,7 +11,7 @@ interface RateLimitEntry {
 
 const aiRateLimitStore = new Map<string, RateLimitEntry>();
 
-const MAX_QUESTIONS_PER_DAY = 10;
+const MAX_QUESTIONS_PER_DAY = 100;
 const WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 export function checkAIRateLimit(farmerId: string): {

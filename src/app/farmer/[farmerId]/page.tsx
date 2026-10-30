@@ -46,6 +46,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
 
   if (farmerToken) {
     const farmerSession = await verifySession(farmerToken);
+    const sessionFarmerId = farmerSession?.farmerId || farmerSession?.name;
     if (
       farmerSession &&
       farmerSession.role === "farmer" &&
@@ -132,7 +133,7 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
 
         {/* Client Interactive Header Actions & Notifications */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} farmerPhone={farmer.phone} />
+          <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} />
           <NotificationPanel farmerId={farmer.id} />
         </div>
 

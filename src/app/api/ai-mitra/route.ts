@@ -11,6 +11,7 @@ import { checkAIRateLimit } from '@/lib/ai-rate-limit';
 
 const FALLBACK_MODELS = [
   'gemini-3.6-flash',
+  'gemini-3.8-flash',
   'gemini-3.7-flash',
   'gemini-3.5-flash',
   'gemini-3.1-flash-lite',
@@ -157,14 +158,18 @@ function generateLocalExpertResponse(question: string, language: string, farmerC
     return `Hello Farmer Friend, advice to boost FAT% & SNF%:\n\n* **Balanced Diet:** Feed 60% dry fodder and 40% green fodder daily.\n\n* **Bypass Fat & Oil Cake:** Add 50-100g bypass fat and cottonseed cake daily.\n\n* **Mineral Mixture:** Supplement 50g chelated mineral mixture daily.`;
   }
 
-  // Default Guidance
+  // General Fallback
   if (isMarathi) {
-    return `नमस्कार शेतकरी मित्र, ३T AI मित्र आपल्या सेवेसाठी सज्ज आहे. आपण जगातील कोणताही सामान्य ज्ञानाचा प्रश्न, शेती, दूध नोंदी किंवा शासकीय योजनांबद्दल विचारू शकता.`;
+    return `मी ३T AI मित्र आहे. आपल्या प्रश्नाचे थेट उत्तर:
+
+आपण विचारलेल्या विषयावर अचूक माहिती मिळवण्यासाठी कृपया थोड्या वेळाने पुन्हा विचारा, किंवा गाईंचा आहार, फॅट व SNF वाढवणे, रोग प्रतिबंध किंवा ३T दूध नोंदी याविषयी प्रश्न विचारा.`;
   }
   if (isHindi) {
-    return `नमस्ते किसान मित्र, 3T AI मित्र आपकी सेवा में उपस्थित है। आप सामान्य ज्ञान, गणित, कृषि या अपने दूध रिकॉर्ड्स के बारे में कोई भी प्रश्न पूछ सकते हैं।`;
+    return `मैं 3T AI मित्र हूँ। आपके प्रश्न का सीधा उत्तर:
+
+सटीक जानकारी के लिए कृपया कुछ समय बाद पुनः प्रयास करें, या पशु स्वास्थ्य, संतुलित आहार, फैट/SNF वृद्धि या अपने 3T दूध रिकॉर्ड के बारे में पूछें।`;
   }
-  return `Hello Farmer Friend, 3T AI Mitra is ready to help. You can ask any question about general knowledge, mathematics, cattle farming, milk records, or government schemes anytime.`;
+  return `I am 3T AI Mitra. To get the most accurate answer, please try asking again shortly, or ask any question about dairy farming, cattle health, FAT/SNF improvement, or your 3T milk records.`;
 }
 
 export async function POST(request: NextRequest) {

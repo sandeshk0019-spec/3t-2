@@ -229,14 +229,14 @@ export default function Dashboard() {
   const STORAGE_ADDED_FARMERS = "3t_added_farmers";
   const STORAGE_DELETED_FARMER_IDS = "3t_deleted_farmer_ids";
 
-  // ── Hackathon Dynamic Suite Toggle (5 Clicks on 3T Logo) ─────────────────
+  // ── Hackathon Farmer Login Toggle (5 Clicks on 3T Logo) ─────────────────
   const [showAllOptions, setShowAllOptions] = useState<boolean>(false);
   const [modeToast, setModeToast] = useState<string | null>(null);
   const logoClickCountRef = useRef<number>(0);
   const logoClickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Always reset to normal state (4 core options only) on refresh / new session
+    // Always reset to normal state (Farmer Login hidden) on refresh / new session
     try {
       localStorage.removeItem("3t_hackathon_unlocked");
     } catch {}
@@ -254,21 +254,12 @@ export default function Dashboard() {
       logoClickCountRef.current = 0;
       setShowAllOptions(prev => {
         const next = !prev;
-        setModeToast(next ? "⚡ Full Suite Unlocked (9 Options)" : "🔒 Core Mode Active (4 Options)");
+        setModeToast(next ? "⚡ Farmer Login & Passbook Unlocked" : "🔒 Farmer Login Hidden");
         setTimeout(() => setModeToast(null), 3000);
         return next;
       });
     }
   };
-
-  useEffect(() => {
-    if (!showAllOptions) {
-      const advancedTabs = ["branches", "analytics", "reports", "broadcast", "settings"];
-      if (advancedTabs.includes(activeTab)) {
-        setActiveTab("overview");
-      }
-    }
-  }, [showAllOptions, activeTab]);
 
   const [farmers, setFarmers] = useState<Farmer[]>(() => {
     if (typeof window !== "undefined") {
@@ -1987,7 +1978,7 @@ UTR Settlement Gateway Status: ONLINE
         <div 
           onClick={handleLogoClick}
           className="h-20 border-b border-border-light flex items-center px-6 space-x-3 cursor-pointer select-none transition-transform active:scale-95 group"
-          title="Click 5 times to toggle Hackathon Mode"
+          title="Click 5 times to toggle Farmer Login & Passbook"
         >
           <img src="/3t-logo.png" alt="3T Logo" className="h-9 w-auto max-w-[120px] object-contain drop-shadow-xs group-hover:opacity-90" />
           <div>
@@ -2004,13 +1995,13 @@ UTR Settlement Gateway Status: ONLINE
             { id: "farmers", label: "Farmers Directory", icon: Users, adminOnly: false },
             { id: "payments", label: "Payment Pipeline", icon: CreditCard, adminOnly: true },
             { id: "queries", label: "Farmer Queries", icon: HelpCircle, adminOnly: false },
-            { id: "branches", label: "Collection Center", icon: GitBranch, adminOnly: true, advanced: true },
-            { id: "analytics", label: "Analytics Hub", icon: BarChart3, adminOnly: true, advanced: true },
-            { id: "reports", label: "Exports & Reports", icon: FileSpreadsheet, adminOnly: true, advanced: true },
-            { id: "broadcast", label: "Farmer Messages", icon: Megaphone, adminOnly: true, advanced: true },
-            { id: "settings", label: "Pricing settings", icon: SettingsIcon, adminOnly: true, advanced: true }
+            { id: "branches", label: "Collection Center", icon: GitBranch, adminOnly: true },
+            { id: "analytics", label: "Analytics Hub", icon: BarChart3, adminOnly: true },
+            { id: "reports", label: "Exports & Reports", icon: FileSpreadsheet, adminOnly: true },
+            { id: "broadcast", label: "Farmer Messages", icon: Megaphone, adminOnly: true },
+            { id: "settings", label: "Pricing settings", icon: SettingsIcon, adminOnly: true }
           ]
-            .filter((item) => (userRole === "admin" || !item.adminOnly) && (showAllOptions || !item.advanced))
+            .filter((item) => userRole === "admin" || !item.adminOnly)
             .map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
