@@ -2689,8 +2689,7 @@ UTR Settlement Gateway Status: ONLINE
 
                           {/* Action Buttons */}
                           <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-gray-100 text-xs font-bold">
-                            {showAllOptions && (
-                              <a
+                            <a
                                 href={`/farmer/${farmer.id}`}
                                 target="_blank"
                                 rel="noreferrer"
@@ -2698,7 +2697,6 @@ UTR Settlement Gateway Status: ONLINE
                               >
                                 📲 Passbook
                               </a>
-                            )}
                             {userRole === "admin" && (
                               <>
                                 <button
@@ -2828,8 +2826,7 @@ UTR Settlement Gateway Status: ONLINE
                             {userRole === "admin" && (
                               <td className="px-5 py-3.5 text-center">
                                 <div className="flex items-center justify-center space-x-2">
-                                  {showAllOptions && (
-                                    <a
+                                  <a
                                       href={`/farmer/${farmer.id}`}
                                       target="_blank"
                                       rel="noreferrer"
@@ -2838,7 +2835,6 @@ UTR Settlement Gateway Status: ONLINE
                                     >
                                       Passbook
                                     </a>
-                                  )}
 
                                   <button
                                     onClick={() => openEditFarmer(farmer)}

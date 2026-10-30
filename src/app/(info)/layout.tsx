@@ -37,11 +37,9 @@ export default function InfoLayout({ children }: { children: React.ReactNode }) 
               <Play className="w-3 h-3 fill-current" />
               <span>Watch Process Video</span>
             </button>
-            {showAllOptions && (
-              <Link href="/farmer/login" className="px-3.5 py-1.5 text-xs font-semibold text-[#0F8A5F] hover:bg-[#e7f6f0] rounded-lg transition-colors">
+            <Link href="/farmer/login" className="px-3.5 py-1.5 text-xs font-semibold text-[#0F8A5F] hover:bg-[#e7f6f0] rounded-lg transition-colors">
                 Farmer Login
               </Link>
-            )}
             <Link href="/login" className="px-3.5 py-1.5 text-xs font-semibold bg-[#0F8A5F] hover:bg-[#0d7450] text-white rounded-lg transition-colors shadow-xs">
               Admin
             </Link>

@@ -175,14 +175,12 @@ export default function LandingPage() {
           </nav>
           
           <div className="flex items-center space-x-3">
-            {showAllOptions && (
-              <Link
+            <Link
                 href="/farmer/login"
                 className="px-5 py-2.5 rounded-xl border border-primary text-primary font-semibold text-sm hover:bg-primary-light transition-all duration-200"
               >
                 🌾 Farmer Login
               </Link>
-            )}
             <Link 
               href="/login" 
               className="px-5 py-2.5 rounded-xl bg-primary text-white font-medium text-sm hover:bg-[#0b6b49] transition-all duration-200 shadow-premium-sm hover:shadow-premium-md hover:-translate-y-0.5"
@@ -213,15 +211,13 @@ export default function LandingPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-              {showAllOptions && (
-                <Link
+              <Link
                   href="/farmer/login"
                   className="px-8 py-4 rounded-xl bg-primary text-white font-semibold text-center hover:bg-[#0b6b49] transition-all shadow-premium-md hover:shadow-premium-lg hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
                 >
                   <span>🌾 View My Catalog</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
-              )}
               <Link
                 href="/login"
                 className="px-8 py-4 rounded-xl border border-border-light bg-white text-text-main font-semibold text-center hover:bg-[#FAFAFA] transition-all hover:border-gray-300 flex items-center justify-center space-x-2 shadow-premium-sm"
