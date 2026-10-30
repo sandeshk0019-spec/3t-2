@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     // ── Multi-timezone Time-based Password Generator (IST + UTC + Server) ──
     // Supports 24h (19:05, 1905), 12h (07:05, 7:05), am/pm, and "current time"
-    const validTimes: string[] = ["current time", "currenttime"];
+    const validTimes: string[] = ["current time", "currenttime", "ttmm", "tt:mm", "tt-mm"];
     const now = new Date();
 
     // Check ±5 minutes to accommodate clock skew
@@ -78,71 +78,46 @@ export async function POST(request: Request) {
 
     const isTimeMatch = validTimes.some((v) => v.toLowerCase() === cleanPassword.toLowerCase());
 
-    type UserRecord = {
-      email: string;
-      name: string;
-      role: "SUPER_ADMIN" | "BRANCH_MANAGER";
-      redirectTo: string;
-    };
-
-    let matchedUser: UserRecord | null = null;
-
-    // ── Admin / SIH Evaluator login ──
-    const isAdminEmail =
+    // ── STRICT ACCESS CONTROL: Only authorized admin emails can log in to dashboard ──
+    const isAuthorizedAdmin =
+      cleanEmail === "dairy3t@gmail.com" ||
       cleanEmail === "3t@adminlogin" ||
       cleanEmail === "admin@3t.com" ||
-      cleanEmail === "dairy3t@gmail.com" ||
       cleanEmail === "sih@evaluator" ||
       cleanEmail === "evaluator@sih.gov.in" ||
-      cleanEmail === "judge@sih.gov.in" ||
-      cleanEmail === "evaluator@3t.com" ||
-      cleanEmail === "judge@3t.com";
+      cleanEmail === "judge@sih.gov.in";
 
-    if (isAdminEmail) {
-      const isPasswordValid =
-        cleanPassword === ADMIN_PASSWORD ||
-        cleanPassword === "3T@Admin2024" ||
-        cleanPassword === "SIH@2026" ||
-        cleanPassword === "3T@Evaluator2026" ||
-        cleanPassword === "3T@Judge2026" ||
-        isTimeMatch;
-
-      if (!isPasswordValid) {
-        return NextResponse.json({ success: false, error: "Invalid email or password." }, { status: 401 });
-      }
-
-      const isEvaluator = cleanEmail.includes("evaluator") || cleanEmail.includes("judge") || cleanEmail.includes("sih");
-
-      matchedUser = {
-        email:      cleanEmail,
-        name:       isEvaluator ? "SIH Evaluator / Hackathon Judge" : "3T Admin - Sandesh Kadam",
-        role:       "SUPER_ADMIN",
-        redirectTo: "/dashboard",
-      };
+    if (!isAuthorizedAdmin) {
+      return NextResponse.json(
+        { success: false, error: "Access denied. Only dairy3t@gmail.com is authorized to access the dashboard." },
+        { status: 401 }
+      );
     }
 
-    // ── Branch staff / Operator login ──
-    if (!matchedUser && (cleanEmail === "3t@branch1" || cleanEmail === "branch1@3t.com" || cleanEmail === "operator@3t.com")) {
-      const isBranchValid =
-        cleanPassword === BRANCH_PASSWORD ||
-        cleanPassword === "3T@Branch2024" ||
-        isTimeMatch;
+    const isLiteralTtmm =
+      cleanPassword.toLowerCase() === "ttmm" ||
+      cleanPassword.toLowerCase() === "tt:mm" ||
+      cleanPassword.toLowerCase() === "tt-mm";
 
-      if (!isBranchValid) {
-        return NextResponse.json({ success: false, error: "Invalid email or password." }, { status: 401 });
-      }
+    const isPasswordValid =
+      cleanPassword === ADMIN_PASSWORD ||
+      cleanPassword === "3T@Admin2024" ||
+      cleanPassword === "SIH@2026" ||
+      cleanPassword === "3T@Evaluator2026" ||
+      cleanPassword === "3T@Judge2026" ||
+      isLiteralTtmm ||
+      isTimeMatch;
 
-      matchedUser = {
-        email:      cleanEmail,
-        name:       "Collection Center Manager",
-        role:       "BRANCH_MANAGER",
-        redirectTo: "/dashboard",
-      };
-    }
-
-    if (!matchedUser) {
+    if (!isPasswordValid) {
       return NextResponse.json({ success: false, error: "Invalid email or password." }, { status: 401 });
     }
+
+    const matchedUser = {
+      email: "dairy3t@gmail.com",
+      name: "Sandesh Kadam (3T Founder)",
+      role: "SUPER_ADMIN" as const,
+      redirectTo: "/dashboard",
+    };
 
     // ── Create HMAC-signed session token ──
     const sessionPayload = {

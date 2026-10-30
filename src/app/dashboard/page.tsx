@@ -2527,7 +2527,7 @@ UTR Settlement Gateway Status: ONLINE
                   <button
                     type="button"
                     onClick={() => {
-                      setLoginEmailInput("3t@adminsecure@3t.com");
+                      setLoginEmailInput("dairy3t@gmail.com");
                       setIsAuthModalOpen(true);
                     }}
                     className="px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs transition-all shrink-0 shadow-sm"
@@ -4743,7 +4743,7 @@ UTR Settlement Gateway Status: ONLINE
                       {userRole === "admin" ? (userSession?.name || "Sandesh Kadam") : (userSession?.name || "Center Operator")}
                     </p>
                     <p className="text-[11px] text-gray-500 font-mono truncate">
-                      {userSession?.email || "3t@adminlogin"}
+                      {userSession?.email || "dairy3t@gmail.com"}
                     </p>
                   </div>
                 </div>
@@ -5500,7 +5500,7 @@ UTR Settlement Gateway Status: ONLINE
                 <label className="text-xs font-bold text-text-main">Email or Username</label>
                 <input
                   type="text"
-                  placeholder="name@organization.com"
+                  placeholder="dairy3t@gmail.com"
                   value={loginEmailInput}
                   onChange={(e) => setLoginEmailInput(e.target.value)}
                   className="w-full p-3.5 rounded-xl border border-border-light text-xs font-semibold bg-[#FAFAFA] focus:bg-white focus:outline-none focus:border-primary transition-all"

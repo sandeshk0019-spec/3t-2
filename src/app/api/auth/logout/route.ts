@@ -7,5 +7,10 @@ export async function POST() {
     expires: new Date(0),
     path: "/"
   });
+  response.cookies.set("3t_farmer_token", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    path: "/"
+  });
   return response;
 }

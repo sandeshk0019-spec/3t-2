@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyOtp } from '@/lib/farmer-otp';
 import { signSession } from '@/lib/auth';
 
-const FARMER_SESSION_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 1 Year (365 days) persistent session
+const FARMER_SESSION_TTL_MS = 12 * 60 * 60 * 1000; // 12 Hours (shift-based secure session)
 
 export async function POST(request: NextRequest) {
   try {

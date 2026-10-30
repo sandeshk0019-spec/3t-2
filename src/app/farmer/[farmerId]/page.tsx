@@ -36,34 +36,28 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
   const farmerId = resolvedParams?.farmerId || "";
 
   // ── Session Check ──────────────────────────────────────────────────────────
-  // Allow access if:
-  //  (a) a valid farmer OTP session exists AND it matches this farmerId, OR
-  //  (b) a valid admin session exists (dashboard staff QR scan)
+  // Strict 2FA protection: Viewing a farmer passbook strictly requires an active
+  // farmer OTP verification session matching this specific farmer ID.
   const cookieStore = await cookies();
   const farmerToken = cookieStore.get("3t_farmer_token")?.value;
-  const adminToken = cookieStore.get("3t_session_token")?.value;
 
-  let isAdmin = false;
-  let isOwnFarmer = false;
+  let isAuthorizedFarmer = false;
 
-  if (adminToken) {
-    const adminSession = await verifySession(adminToken);
-    if (adminSession && adminSession.role !== "farmer") {
-      isAdmin = true;
-    }
-  }
-
-  if (farmerToken && !isAdmin) {
+  if (farmerToken) {
     const farmerSession = await verifySession(farmerToken);
-    // farmerSession.name stores the farmerId
-    if (farmerSession && farmerSession.role === "farmer" && farmerSession.name.toUpperCase() === farmerId.toUpperCase()) {
-      isOwnFarmer = true;
+    if (
+      farmerSession &&
+      farmerSession.role === "farmer" &&
+      farmerSession.name &&
+      farmerSession.name.toUpperCase() === farmerId.toUpperCase()
+    ) {
+      isAuthorizedFarmer = true;
     }
   }
 
-  // If neither admin nor the matching farmer — redirect to login
-  if (!isAdmin && !isOwnFarmer) {
-    redirect(`/farmer/login?next=/farmer/${farmerId}`);
+  // If not authorized as this matching farmer — redirect to farmer login
+  if (!isAuthorizedFarmer) {
+    redirect(`/farmer/login?next=/farmer/${encodeURIComponent(farmerId)}`);
   }
 
   // ── Load Data ──────────────────────────────────────────────────────────────

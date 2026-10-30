@@ -79,7 +79,7 @@ export default function LoginPage() {
 
   const handleJudgesCredentials = () => {
     const timeStr = getCurrentTimeString();
-    setEmail("3t@adminlogin");
+    setEmail("dairy3t@gmail.com");
     setPassword(timeStr);
     setShowPassword(true);
     setErrorMsg("");
@@ -149,7 +149,7 @@ export default function LoginPage() {
               <label className="text-xs font-bold text-gray-700 block">Email or Username</label>
               <input
                 type="text"
-                placeholder="name@organization.com"
+                placeholder="dairy3t@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm font-semibold text-gray-900 bg-gray-50/50 focus:bg-white focus:outline-none focus:border-[#0F8A5F] focus:ring-2 focus:ring-[#0F8A5F]/20 transition-all placeholder:text-gray-400 placeholder:font-normal"
@@ -249,7 +249,7 @@ export default function LoginPage() {
                 </span>
               </button>
               <p className="text-[10px] text-gray-400 text-center mt-1.5 font-medium">
-                Auto-fills Email: <span className="font-mono text-gray-600 font-semibold">3t@adminlogin</span> • Password: <span className="font-mono text-gray-600 font-semibold">Current Time (HH:MM)</span>
+                Auto-fills Email: <span className="font-mono text-gray-600 font-semibold">dairy3t@gmail.com</span> • Password: <span className="font-mono text-gray-600 font-semibold">Current Time (HH:MM / ttmm)</span>
               </p>
             </div>
           </form>

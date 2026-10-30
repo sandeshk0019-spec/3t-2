@@ -40,9 +40,7 @@ const PUBLIC_ROUTES = new Set([
 ]);
 
 const PUBLIC_PREFIXES = [
-  '/farmer/',
   '/branch/',
-  '/api/farmer/',
   '/api/ai-mitra',
   '/api/notifications',
   '/api/payments/',
@@ -87,10 +85,8 @@ function addSecurityHeaders(response: NextResponse): NextResponse {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if route is public
-  const isPublic =
-    PUBLIC_ROUTES.has(pathname) ||
-    PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix)) ||
+  // ── 0. Static assets and internal paths pass through ──
+  if (
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/favicon') ||
     pathname.endsWith('.png') ||
@@ -98,25 +94,100 @@ export async function proxy(request: NextRequest) {
     pathname.endsWith('.jpeg') ||
     pathname.endsWith('.webp') ||
     pathname.endsWith('.ico') ||
-    pathname.endsWith('.svg');
+    pathname.endsWith('.svg') ||
+    pathname.endsWith('.js') ||
+    pathname.endsWith('.css') ||
+    pathname === '/robots.txt' ||
+    pathname === '/sitemap.xml'
+  ) {
+    return NextResponse.next();
+  }
 
-  // ── 1. Farmer Session Check: Only auto-redirect when explicitly visiting the farmer login page ──
-  const farmerToken = request.cookies.get('3t_farmer_token')?.value;
-  if (farmerToken && pathname === '/farmer/login') {
-    const farmerSession = await verifySession(farmerToken);
-    if (farmerSession && farmerSession.role === 'farmer' && farmerSession.name) {
-      const farmerId = farmerSession.name;
-      const res = NextResponse.redirect(new URL(`/farmer/${farmerId}`, request.url));
+  // ── 1. Farmer Passbook Protection (/farmer/[farmerId]) ──
+  // Any attempt to view a farmer passbook requires valid OTP session for THAT farmer
+  if (pathname.startsWith('/farmer/') && pathname !== '/farmer/login') {
+    const parts = pathname.split('/').filter(Boolean);
+    const requestedFarmerId = parts[1]?.toUpperCase();
+
+    const farmerToken = request.cookies.get('3t_farmer_token')?.value;
+
+    if (!farmerToken) {
+      const loginUrl = new URL('/farmer/login', request.url);
+      loginUrl.searchParams.set('next', pathname);
+      const res = NextResponse.redirect(loginUrl);
       return addSecurityHeaders(res);
     }
+
+    const farmerSession = await verifySession(farmerToken);
+
+    if (!farmerSession || farmerSession.role !== 'farmer' || !farmerSession.name) {
+      const loginUrl = new URL('/farmer/login', request.url);
+      loginUrl.searchParams.set('next', pathname);
+      const res = NextResponse.redirect(loginUrl);
+      res.cookies.delete('3t_farmer_token');
+      return addSecurityHeaders(res);
+    }
+
+    // Ensure session farmer ID strictly matches the requested URL
+    if (requestedFarmerId && farmerSession.name.toUpperCase() !== requestedFarmerId) {
+      const loginUrl = new URL('/farmer/login', request.url);
+      loginUrl.searchParams.set('next', pathname);
+      loginUrl.searchParams.set('error', 'unauthorized');
+      const res = NextResponse.redirect(loginUrl);
+      return addSecurityHeaders(res);
+    }
+
+    const res = NextResponse.next();
+    return addSecurityHeaders(res);
   }
+
+  // ── 2. Farmer Ledger Data API Protection (/api/farmer/[farmerId]/data) ──
+  if (pathname.match(/^\/api\/farmer\/[^/]+\/data/)) {
+    const parts = pathname.split('/').filter(Boolean);
+    const requestedFarmerId = parts[2]?.toUpperCase();
+
+    const farmerToken = request.cookies.get('3t_farmer_token')?.value;
+    const adminToken = request.cookies.get('3t_session_token')?.value;
+
+    let authorized = false;
+
+    if (farmerToken) {
+      const session = await verifySession(farmerToken);
+      if (session && session.role === 'farmer' && session.name?.toUpperCase() === requestedFarmerId) {
+        authorized = true;
+      }
+    }
+
+    if (!authorized && adminToken) {
+      const adminSession = await verifySession(adminToken);
+      if (adminSession && (adminSession.role === 'SUPER_ADMIN' || adminSession.role === 'BRANCH_MANAGER')) {
+        authorized = true;
+      }
+    }
+
+    if (!authorized) {
+      const res = NextResponse.json(
+        { success: false, error: 'Unauthorized. Valid farmer OTP session required.' },
+        { status: 401 }
+      );
+      return addSecurityHeaders(res);
+    }
+
+    const res = NextResponse.next();
+    return addSecurityHeaders(res);
+  }
+
+  // ── 3. Check if route is public ──
+  const isPublic =
+    PUBLIC_ROUTES.has(pathname) ||
+    PUBLIC_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   if (isPublic) {
     const res = NextResponse.next();
     return addSecurityHeaders(res);
   }
 
-  // ── Verify session token ──
+  // ── 4. Admin & Protected Routes (e.g. /dashboard, /dashboard/*) ──
   const token = request.cookies.get('3t_session_token')?.value;
 
   if (!token) {
@@ -135,16 +206,17 @@ export async function proxy(request: NextRequest) {
 
   const session = await verifySession(token);
 
-  if (!session) {
+  if (!session || (session.role !== 'SUPER_ADMIN' && session.role !== 'BRANCH_MANAGER')) {
     if (pathname.startsWith('/api/')) {
       const res = NextResponse.json(
-        { success: false, error: 'Session expired. Please log in again.' },
+        { success: false, error: 'Session expired or unauthorized. Please log in again.' },
         { status: 401 }
       );
       res.cookies.delete('3t_session_token');
       return addSecurityHeaders(res);
     }
     const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('redirect', pathname);
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete('3t_session_token');
     return addSecurityHeaders(res);
