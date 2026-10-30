@@ -15,9 +15,7 @@ import { FarmerLogoutButton } from "./FarmerLogoutButton";
 import { FarmerQueryBanner } from "./FarmerQueryBanner";
 import { FarmerCreditScoreCard } from "./FarmerCreditScoreCard";
 import { PassbookLanguageProvider } from "./PassbookLanguageContext";
-import { PassbookHeader } from "./PassbookHeader";
-import { FarmerVerificationBadge } from "./FarmerVerificationBadge";
-import { PassbookFooter } from "./PassbookFooter";
+import { PassbookHeader, FarmerVerificationBadge, PassbookFooter } from "./PassbookHeader";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
