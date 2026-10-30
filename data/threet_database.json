@@ -1,6 +1,41 @@
 {
   "farmers": [
     {
+      "id": "F-118",
+      "name": "Divesh Chinchavalkar",
+      "phone": "+91 7896541238",
+      "village": "Sangamner",
+      "animals": 5,
+      "avgFat": 4.2,
+      "avgSnf": 8.5,
+      "aadhaar": "141414525263",
+      "bankAccount": "546852841986488524",
+      "ifsc": "SBIN1236548",
+      "upiId": "divesh4545@upi",
+      "qrCode": "3T-F-118-DIVESHCHINCHAVALKAR",
+      "branchId": "B-01",
+      "monthlyEarnings": 239.22,
+      "createdAt": "2026-10-23T16:14:40.672533+00:00",
+      "joinedDate": "2026-10-23T16:14:40.672533+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-10-23",
+          "volume": 4.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 239.22
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-10-23",
+          "amount": 239.22,
+          "status": "Success",
+          "transactionId": "PAY-113143"
+        }
+      ]
+    },
+    {
       "id": "F-117",
       "name": "Balasaheb Thorat",
       "village": "Sangamner",
@@ -15,8 +50,8 @@
       "ifsc": "SBIN0001234",
       "upiId": "",
       "qrCode": "3T-F-117-BALASAHEBTHORAT",
-      "createdAt": "2026-10-19T08:16:29.570Z",
-      "joinedDate": "2026-10-19T08:16:29.571Z",
+      "createdAt": "2026-10-22T10:57:12.154817+00:00",
+      "joinedDate": "2026-10-22T10:57:12.154817+00:00",
       "milkHistory": [
         {
           "date": "2026-10-19",
@@ -31,2199 +66,9 @@
           "date": "2026-10-19",
           "amount": 590.73,
           "status": "Success",
-          "transactionId": "TXN52856803"
+          "transactionId": "PAY-907737"
         }
       ]
-    },
-    {
-      "id": "F-103",
-      "name": "Mahesh Yadav",
-      "phone": "+91 7896541232",
-      "village": "Kolhapur, Maharashtra",
-      "animals": 2,
-      "avgFat": 4.1,
-      "avgSnf": 8.4,
-      "aadhaar": "1111 1111 3333",
-      "bankAccount": "7441258963",
-      "ifsc": "BIN32145698",
-      "upiId": "Mahesh@upi",
-      "qrCode": "3T-F-103-MAHESHYADAV",
-      "branchId": "B-01",
-      "monthlyEarnings": 40920.25,
-      "createdAt": "2026-08-02T14:38:44.205681+00:00",
-      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
-      "milkHistory": [
-        {
-          "date": "2026-09-06",
-          "volume": 6,
-          "fat": 4.1,
-          "snf": 8.4,
-          "total": 276.9
-        },
-        {
-          "date": "2026-08-28",
-          "volume": 0.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 27.55
-        },
-        {
-          "date": "2026-08-02",
-          "volume": 12,
-          "fat": 2.5,
-          "snf": 5,
-          "total": 525
-        },
-        {
-          "date": "2026-08-02",
-          "volume": 12,
-          "fat": 2.5,
-          "snf": 5,
-          "total": 525
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 14,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 826
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 14.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 863.47
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 11.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 691.15
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 15,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 901.5
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 11,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 667.15
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 14,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 849.1
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 11.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 684.83
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 14.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 855.5
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 11,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 661.1
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 15,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 893.25
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 11.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 697.48
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 14,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 841.4
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 14.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 879.43
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 11.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 691.15
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 15,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 885
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 11,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 667.15
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 14,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 833.7
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 11.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 684.83
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 14.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 871.45
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 11,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 661.1
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 15,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 909.75
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 11.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 697.48
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 14,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 826
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 14.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 863.47
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 11.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 691.15
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 15,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 901.5
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 11,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 667.15
-        },
-        {
-          "date": "2026-07-17",
-          "volume": 14,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 849.1
-        },
-        {
-          "date": "2026-07-16",
-          "volume": 14.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 855.5
-        },
-        {
-          "date": "2026-07-15",
-          "volume": 15,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 893.25
-        },
-        {
-          "date": "2026-07-14",
-          "volume": 14,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 841.4
-        },
-        {
-          "date": "2026-07-13",
-          "volume": 14.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 879.43
-        },
-        {
-          "date": "2026-07-12",
-          "volume": 15,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 885
-        },
-        {
-          "date": "2026-07-11",
-          "volume": 14,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 833.7
-        },
-        {
-          "date": "2026-07-10",
-          "volume": 14.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 871.45
-        },
-        {
-          "date": "2026-07-09",
-          "volume": 15,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 909.75
-        },
-        {
-          "date": "2026-07-08",
-          "volume": 14,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 826
-        },
-        {
-          "date": "2026-07-07",
-          "volume": 14.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 863.47
-        },
-        {
-          "date": "2026-07-06",
-          "volume": 15,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 901.5
-        },
-        {
-          "date": "2026-07-05",
-          "volume": 14,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 849.1
-        },
-        {
-          "date": "2026-07-04",
-          "volume": 14.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 855.5
-        },
-        {
-          "date": "2026-07-03",
-          "volume": 15,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 893.25
-        }
-      ],
-      "paymentHistory": [
-        {
-          "date": "2026-09-06",
-          "amount": 276.9,
-          "status": "Success",
-          "transactionId": "TXN93763063"
-        },
-        {
-          "date": "2026-08-28",
-          "amount": 27.55,
-          "status": "Success",
-          "transactionId": "TXN54711904"
-        },
-        {
-          "date": "2026-08-02",
-          "amount": 525,
-          "status": "Success",
-          "transactionId": "PAY-6235"
-        },
-        {
-          "date": "2026-08-02",
-          "amount": 525,
-          "status": "Success",
-          "transactionId": "PAY-9825"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 447.6,
-          "status": "Success",
-          "transactionId": "PAY-1031"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 826,
-          "status": "Success",
-          "transactionId": "PAY-1004"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-5004"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 863.47,
-          "status": "Success",
-          "transactionId": "PAY-1014"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 691.15,
-          "status": "Success",
-          "transactionId": "PAY-5014"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 901.5,
-          "status": "Success",
-          "transactionId": "PAY-1024"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 667.15,
-          "status": "Success",
-          "transactionId": "PAY-5024"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 849.1,
-          "status": "Success",
-          "transactionId": "PAY-1034"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 684.83,
-          "status": "Success",
-          "transactionId": "PAY-5034"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 855.5,
-          "status": "Success",
-          "transactionId": "PAY-1044"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 661.1,
-          "status": "Success",
-          "transactionId": "PAY-5044"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 893.25,
-          "status": "Success",
-          "transactionId": "PAY-1054"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 697.48,
-          "status": "Success",
-          "transactionId": "PAY-5054"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 841.4,
-          "status": "Success",
-          "transactionId": "PAY-1064"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-5064"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 879.43,
-          "status": "Success",
-          "transactionId": "PAY-1074"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 691.15,
-          "status": "Success",
-          "transactionId": "PAY-5074"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 885,
-          "status": "Success",
-          "transactionId": "PAY-1084"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 667.15,
-          "status": "Success",
-          "transactionId": "PAY-5084"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 833.7,
-          "status": "Success",
-          "transactionId": "PAY-1094"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 684.83,
-          "status": "Success",
-          "transactionId": "PAY-5094"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 871.45,
-          "status": "Success",
-          "transactionId": "PAY-1104"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 661.1,
-          "status": "Success",
-          "transactionId": "PAY-5104"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 909.75,
-          "status": "Success",
-          "transactionId": "PAY-1114"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 697.48,
-          "status": "Success",
-          "transactionId": "PAY-5114"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 826,
-          "status": "Success",
-          "transactionId": "PAY-1124"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-5124"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 863.47,
-          "status": "Success",
-          "transactionId": "PAY-1134"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 691.15,
-          "status": "Success",
-          "transactionId": "PAY-5134"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 901.5,
-          "status": "Success",
-          "transactionId": "PAY-1144"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 667.15,
-          "status": "Success",
-          "transactionId": "PAY-5144"
-        },
-        {
-          "date": "2026-07-17",
-          "amount": 849.1,
-          "status": "Success",
-          "transactionId": "PAY-1154"
-        },
-        {
-          "date": "2026-07-16",
-          "amount": 855.5,
-          "status": "Success",
-          "transactionId": "PAY-1164"
-        },
-        {
-          "date": "2026-07-15",
-          "amount": 893.25,
-          "status": "Success",
-          "transactionId": "PAY-1174"
-        },
-        {
-          "date": "2026-07-14",
-          "amount": 841.4,
-          "status": "Success",
-          "transactionId": "PAY-1184"
-        },
-        {
-          "date": "2026-07-13",
-          "amount": 879.43,
-          "status": "Success",
-          "transactionId": "PAY-1194"
-        },
-        {
-          "date": "2026-07-12",
-          "amount": 885,
-          "status": "Success",
-          "transactionId": "PAY-1204"
-        },
-        {
-          "date": "2026-07-11",
-          "amount": 833.7,
-          "status": "Success",
-          "transactionId": "PAY-1214"
-        },
-        {
-          "date": "2026-07-10",
-          "amount": 871.45,
-          "status": "Success",
-          "transactionId": "PAY-1224"
-        },
-        {
-          "date": "2026-07-09",
-          "amount": 909.75,
-          "status": "Success",
-          "transactionId": "PAY-1234"
-        },
-        {
-          "date": "2026-07-08",
-          "amount": 826,
-          "status": "Success",
-          "transactionId": "PAY-1244"
-        },
-        {
-          "date": "2026-07-07",
-          "amount": 863.47,
-          "status": "Success",
-          "transactionId": "PAY-1254"
-        },
-        {
-          "date": "2026-07-06",
-          "amount": 901.5,
-          "status": "Success",
-          "transactionId": "PAY-1264"
-        },
-        {
-          "date": "2026-07-05",
-          "amount": 849.1,
-          "status": "Success",
-          "transactionId": "PAY-1274"
-        },
-        {
-          "date": "2026-07-04",
-          "amount": 855.5,
-          "status": "Success",
-          "transactionId": "PAY-1284"
-        },
-        {
-          "date": "2026-07-03",
-          "amount": 893.25,
-          "status": "Success",
-          "transactionId": "PAY-1294"
-        }
-      ]
-    },
-    {
-      "id": "F-102",
-      "name": "Sandesh Kadam",
-      "phone": "+91 7896541231",
-      "village": "Kolhapur, Maharashtra",
-      "animals": 5,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "1111 1111 2222",
-      "bankAccount": "1345678978998",
-      "ifsc": "BIKS5252525",
-      "upiId": "name@upi",
-      "qrCode": "3T-F-102-SANDESHKADAM",
-      "branchId": "B-01",
-      "monthlyEarnings": 33637.28,
-      "createdAt": "2026-08-02T14:38:44.205681+00:00",
-      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
-      "milkHistory": [
-        {
-          "date": "2026-08-01",
-          "volume": 12,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 708
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 9.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 565.73
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 12.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 744.38
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 10,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 601
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 13,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 781.3
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 9.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 576.17
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 12,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 727.8
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 10,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 595.5
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 12.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 737.5
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 9.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 570.95
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 13,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 774.15
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 10,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 606.5
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 12,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 721.2
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 9.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 565.73
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 12.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 758.13
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 10,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 601
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 13,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 767
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 9.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 576.17
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 12,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 714.6
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 10,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 595.5
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 12.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 751.25
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 9.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 570.95
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 13,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 788.45
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 10,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 606.5
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 12,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 708
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 9.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 565.73
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 12.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 744.38
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 10,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 601
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 13,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 781.3
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 9.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 576.17
-        },
-        {
-          "date": "2026-07-17",
-          "volume": 12,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 727.8
-        },
-        {
-          "date": "2026-07-16",
-          "volume": 12.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 737.5
-        },
-        {
-          "date": "2026-07-15",
-          "volume": 13,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 774.15
-        },
-        {
-          "date": "2026-07-14",
-          "volume": 12,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 721.2
-        },
-        {
-          "date": "2026-07-13",
-          "volume": 12.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 758.13
-        },
-        {
-          "date": "2026-07-12",
-          "volume": 13,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 767
-        },
-        {
-          "date": "2026-07-11",
-          "volume": 12,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 714.6
-        },
-        {
-          "date": "2026-07-10",
-          "volume": 12.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 751.25
-        },
-        {
-          "date": "2026-07-09",
-          "volume": 13,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 788.45
-        },
-        {
-          "date": "2026-07-08",
-          "volume": 12,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 708
-        },
-        {
-          "date": "2026-07-07",
-          "volume": 12.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 744.38
-        },
-        {
-          "date": "2026-07-06",
-          "volume": 13,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 781.3
-        },
-        {
-          "date": "2026-07-05",
-          "volume": 12,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 727.8
-        },
-        {
-          "date": "2026-07-04",
-          "volume": 12.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 737.5
-        },
-        {
-          "date": "2026-07-03",
-          "volume": 13,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 774.15
-        }
-      ],
-      "paymentHistory": [
-        {
-          "date": "2026-08-02",
-          "amount": 559.5,
-          "status": "Success",
-          "transactionId": "PAY-1021"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 708,
-          "status": "Success",
-          "transactionId": "PAY-1002"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 565.73,
-          "status": "Success",
-          "transactionId": "PAY-5002"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 744.38,
-          "status": "Success",
-          "transactionId": "PAY-1012"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 601,
-          "status": "Success",
-          "transactionId": "PAY-5012"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 781.3,
-          "status": "Success",
-          "transactionId": "PAY-1022"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 576.17,
-          "status": "Success",
-          "transactionId": "PAY-5022"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 727.8,
-          "status": "Success",
-          "transactionId": "PAY-1032"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 595.5,
-          "status": "Success",
-          "transactionId": "PAY-5032"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 737.5,
-          "status": "Success",
-          "transactionId": "PAY-1042"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 570.95,
-          "status": "Success",
-          "transactionId": "PAY-5042"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 774.15,
-          "status": "Success",
-          "transactionId": "PAY-1052"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 606.5,
-          "status": "Success",
-          "transactionId": "PAY-5052"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 721.2,
-          "status": "Success",
-          "transactionId": "PAY-1062"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 565.73,
-          "status": "Success",
-          "transactionId": "PAY-5062"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 758.13,
-          "status": "Success",
-          "transactionId": "PAY-1072"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 601,
-          "status": "Success",
-          "transactionId": "PAY-5072"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 767,
-          "status": "Success",
-          "transactionId": "PAY-1082"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 576.17,
-          "status": "Success",
-          "transactionId": "PAY-5082"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 714.6,
-          "status": "Success",
-          "transactionId": "PAY-1092"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 595.5,
-          "status": "Success",
-          "transactionId": "PAY-5092"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 751.25,
-          "status": "Success",
-          "transactionId": "PAY-1102"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 570.95,
-          "status": "Success",
-          "transactionId": "PAY-5102"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 788.45,
-          "status": "Success",
-          "transactionId": "PAY-1112"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 606.5,
-          "status": "Success",
-          "transactionId": "PAY-5112"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 708,
-          "status": "Success",
-          "transactionId": "PAY-1122"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 565.73,
-          "status": "Success",
-          "transactionId": "PAY-5122"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 744.38,
-          "status": "Success",
-          "transactionId": "PAY-1132"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 601,
-          "status": "Success",
-          "transactionId": "PAY-5132"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 781.3,
-          "status": "Success",
-          "transactionId": "PAY-1142"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 576.17,
-          "status": "Success",
-          "transactionId": "PAY-5142"
-        },
-        {
-          "date": "2026-07-17",
-          "amount": 727.8,
-          "status": "Success",
-          "transactionId": "PAY-1152"
-        },
-        {
-          "date": "2026-07-16",
-          "amount": 737.5,
-          "status": "Success",
-          "transactionId": "PAY-1162"
-        },
-        {
-          "date": "2026-07-15",
-          "amount": 774.15,
-          "status": "Success",
-          "transactionId": "PAY-1172"
-        },
-        {
-          "date": "2026-07-14",
-          "amount": 721.2,
-          "status": "Success",
-          "transactionId": "PAY-1182"
-        },
-        {
-          "date": "2026-07-13",
-          "amount": 758.13,
-          "status": "Success",
-          "transactionId": "PAY-1192"
-        },
-        {
-          "date": "2026-07-12",
-          "amount": 767,
-          "status": "Success",
-          "transactionId": "PAY-1202"
-        },
-        {
-          "date": "2026-07-11",
-          "amount": 714.6,
-          "status": "Success",
-          "transactionId": "PAY-1212"
-        },
-        {
-          "date": "2026-07-10",
-          "amount": 751.25,
-          "status": "Success",
-          "transactionId": "PAY-1222"
-        },
-        {
-          "date": "2026-07-09",
-          "amount": 788.45,
-          "status": "Success",
-          "transactionId": "PAY-1232"
-        },
-        {
-          "date": "2026-07-08",
-          "amount": 708,
-          "status": "Success",
-          "transactionId": "PAY-1242"
-        },
-        {
-          "date": "2026-07-07",
-          "amount": 744.38,
-          "status": "Success",
-          "transactionId": "PAY-1252"
-        },
-        {
-          "date": "2026-07-06",
-          "amount": 781.3,
-          "status": "Success",
-          "transactionId": "PAY-1262"
-        },
-        {
-          "date": "2026-07-05",
-          "amount": 727.8,
-          "status": "Success",
-          "transactionId": "PAY-1272"
-        },
-        {
-          "date": "2026-07-04",
-          "amount": 737.5,
-          "status": "Success",
-          "transactionId": "PAY-1282"
-        },
-        {
-          "date": "2026-07-03",
-          "amount": 774.15,
-          "status": "Success",
-          "transactionId": "PAY-1292"
-        }
-      ]
-    },
-    {
-      "id": "F-101",
-      "name": "Aditya Chavan",
-      "phone": "+91 7896541230",
-      "village": "Kolhapur Central Hub",
-      "animals": 6,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "1111 1111 1111",
-      "bankAccount": "1111 1111 1111",
-      "ifsc": "SBIN1236547",
-      "upiId": "name@upi",
-      "qrCode": "3T-F-101-ADITYACHAVAN",
-      "branchId": "B-01",
-      "monthlyEarnings": 39455.99,
-      "createdAt": "2026-08-02T14:38:44.205681+00:00",
-      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
-      "milkHistory": [
-        {
-          "date": "2026-09-06",
-          "volume": 1,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 46.7
-        },
-        {
-          "date": "2026-08-31",
-          "volume": 12,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 648
-        },
-        {
-          "date": "2026-08-31",
-          "volume": 15.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 854.05
-        },
-        {
-          "date": "2026-08-04",
-          "volume": 12.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 732.5
-        },
-        {
-          "date": "2026-08-04",
-          "volume": 20,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 1172
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 12,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 271.8
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 12,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 22.65
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 12,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 447.6
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 10,
-          "fat": 3.5,
-          "snf": 8.5,
-          "total": 355.5
-        },
-        {
-          "date": "2026-08-02",
-          "volume": 0.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 53.85
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 10,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 590
-        },
-        {
-          "date": "2026-08-01",
-          "volume": 8,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 476.4
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 10.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 625.28
-        },
-        {
-          "date": "2026-07-31",
-          "volume": 8.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 510.85
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 11,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 661.1
-        },
-        {
-          "date": "2026-07-30",
-          "volume": 8,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 485.2
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 10,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 606.5
-        },
-        {
-          "date": "2026-07-29",
-          "volume": 8.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 506.17
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 10.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 619.5
-        },
-        {
-          "date": "2026-07-28",
-          "volume": 8,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 480.8
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        },
-        {
-          "date": "2026-07-27",
-          "volume": 8.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 515.53
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 10,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 601
-        },
-        {
-          "date": "2026-07-26",
-          "volume": 8,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 476.4
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 10.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 636.82
-        },
-        {
-          "date": "2026-07-25",
-          "volume": 8.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 510.85
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 11,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 649
-        },
-        {
-          "date": "2026-07-24",
-          "volume": 8,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 485.2
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 10,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 595.5
-        },
-        {
-          "date": "2026-07-23",
-          "volume": 8.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 506.17
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 10.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 631.05
-        },
-        {
-          "date": "2026-07-22",
-          "volume": 8,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 480.8
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 11,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 667.15
-        },
-        {
-          "date": "2026-07-21",
-          "volume": 8.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 515.53
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 10,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 590
-        },
-        {
-          "date": "2026-07-20",
-          "volume": 8,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 476.4
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 10.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 625.28
-        },
-        {
-          "date": "2026-07-19",
-          "volume": 8.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 510.85
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 11,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 661.1
-        },
-        {
-          "date": "2026-07-18",
-          "volume": 8,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 485.2
-        },
-        {
-          "date": "2026-07-17",
-          "volume": 10,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 606.5
-        },
-        {
-          "date": "2026-07-16",
-          "volume": 10.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 619.5
-        },
-        {
-          "date": "2026-07-15",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        },
-        {
-          "date": "2026-07-14",
-          "volume": 10,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 601
-        },
-        {
-          "date": "2026-07-13",
-          "volume": 10.5,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 636.82
-        },
-        {
-          "date": "2026-07-12",
-          "volume": 11,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 649
-        },
-        {
-          "date": "2026-07-11",
-          "volume": 10,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 595.5
-        },
-        {
-          "date": "2026-07-10",
-          "volume": 10.5,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 631.05
-        },
-        {
-          "date": "2026-07-09",
-          "volume": 11,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 667.15
-        },
-        {
-          "date": "2026-07-08",
-          "volume": 10,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 590
-        },
-        {
-          "date": "2026-07-07",
-          "volume": 10.5,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 625.28
-        },
-        {
-          "date": "2026-07-06",
-          "volume": 11,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 661.1
-        },
-        {
-          "date": "2026-07-05",
-          "volume": 10,
-          "fat": 4.3,
-          "snf": 8.5,
-          "total": 606.5
-        },
-        {
-          "date": "2026-07-04",
-          "volume": 10.5,
-          "fat": 4,
-          "snf": 8.5,
-          "total": 619.5
-        },
-        {
-          "date": "2026-07-03",
-          "volume": 11,
-          "fat": 4.1,
-          "snf": 8.5,
-          "total": 655.05
-        }
-      ],
-      "paymentHistory": [
-        {
-          "date": "2026-09-06",
-          "amount": 46.7,
-          "status": "Success",
-          "transactionId": "TXN14514802"
-        },
-        {
-          "date": "2026-08-31",
-          "amount": 648,
-          "status": "Success",
-          "transactionId": "TXN71046872"
-        },
-        {
-          "date": "2026-08-31",
-          "amount": 854.05,
-          "status": "Success",
-          "transactionId": "TXN42726677"
-        },
-        {
-          "date": "2026-08-04",
-          "amount": 732.5,
-          "status": "Success",
-          "transactionId": "PAY-5330"
-        },
-        {
-          "date": "2026-08-04",
-          "amount": 1172,
-          "status": "Success",
-          "transactionId": "PAY-0698"
-        },
-        {
-          "date": "2026-08-02",
-          "amount": 53.85,
-          "status": "Success",
-          "transactionId": "PAY-9955"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 355.5,
-          "status": "Success",
-          "transactionId": "PAY-5105"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 447.6,
-          "status": "Success",
-          "transactionId": "PAY-2343"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 271.8,
-          "status": "Success",
-          "transactionId": "PAY-7511"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 22.65,
-          "status": "Success",
-          "transactionId": "PAY-0801"
-        },
-        {
-          "date": "2026-08-02",
-          "amount": 447.6,
-          "status": "Success",
-          "transactionId": "PAY-1011"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 590,
-          "status": "Success",
-          "transactionId": "PAY-1000"
-        },
-        {
-          "date": "2026-08-01",
-          "amount": 476.4,
-          "status": "Success",
-          "transactionId": "PAY-5000"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 625.28,
-          "status": "Success",
-          "transactionId": "PAY-1010"
-        },
-        {
-          "date": "2026-07-31",
-          "amount": 510.85,
-          "status": "Success",
-          "transactionId": "PAY-5010"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 661.1,
-          "status": "Success",
-          "transactionId": "PAY-1020"
-        },
-        {
-          "date": "2026-07-30",
-          "amount": 485.2,
-          "status": "Success",
-          "transactionId": "PAY-5020"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 606.5,
-          "status": "Success",
-          "transactionId": "PAY-1030"
-        },
-        {
-          "date": "2026-07-29",
-          "amount": 506.17,
-          "status": "Success",
-          "transactionId": "PAY-5030"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 619.5,
-          "status": "Success",
-          "transactionId": "PAY-1040"
-        },
-        {
-          "date": "2026-07-28",
-          "amount": 480.8,
-          "status": "Success",
-          "transactionId": "PAY-5040"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-1050"
-        },
-        {
-          "date": "2026-07-27",
-          "amount": 515.53,
-          "status": "Success",
-          "transactionId": "PAY-5050"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 601,
-          "status": "Success",
-          "transactionId": "PAY-1060"
-        },
-        {
-          "date": "2026-07-26",
-          "amount": 476.4,
-          "status": "Success",
-          "transactionId": "PAY-5060"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 636.82,
-          "status": "Success",
-          "transactionId": "PAY-1070"
-        },
-        {
-          "date": "2026-07-25",
-          "amount": 510.85,
-          "status": "Success",
-          "transactionId": "PAY-5070"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 649,
-          "status": "Success",
-          "transactionId": "PAY-1080"
-        },
-        {
-          "date": "2026-07-24",
-          "amount": 485.2,
-          "status": "Success",
-          "transactionId": "PAY-5080"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 595.5,
-          "status": "Success",
-          "transactionId": "PAY-1090"
-        },
-        {
-          "date": "2026-07-23",
-          "amount": 506.17,
-          "status": "Success",
-          "transactionId": "PAY-5090"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 631.05,
-          "status": "Success",
-          "transactionId": "PAY-1100"
-        },
-        {
-          "date": "2026-07-22",
-          "amount": 480.8,
-          "status": "Success",
-          "transactionId": "PAY-5100"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 667.15,
-          "status": "Success",
-          "transactionId": "PAY-1110"
-        },
-        {
-          "date": "2026-07-21",
-          "amount": 515.53,
-          "status": "Success",
-          "transactionId": "PAY-5110"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 590,
-          "status": "Success",
-          "transactionId": "PAY-1120"
-        },
-        {
-          "date": "2026-07-20",
-          "amount": 476.4,
-          "status": "Success",
-          "transactionId": "PAY-5120"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 625.28,
-          "status": "Success",
-          "transactionId": "PAY-1130"
-        },
-        {
-          "date": "2026-07-19",
-          "amount": 510.85,
-          "status": "Success",
-          "transactionId": "PAY-5130"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 661.1,
-          "status": "Success",
-          "transactionId": "PAY-1140"
-        },
-        {
-          "date": "2026-07-18",
-          "amount": 485.2,
-          "status": "Success",
-          "transactionId": "PAY-5140"
-        },
-        {
-          "date": "2026-07-17",
-          "amount": 606.5,
-          "status": "Success",
-          "transactionId": "PAY-1150"
-        },
-        {
-          "date": "2026-07-16",
-          "amount": 619.5,
-          "status": "Success",
-          "transactionId": "PAY-1160"
-        },
-        {
-          "date": "2026-07-15",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-1170"
-        },
-        {
-          "date": "2026-07-14",
-          "amount": 601,
-          "status": "Success",
-          "transactionId": "PAY-1180"
-        },
-        {
-          "date": "2026-07-13",
-          "amount": 636.82,
-          "status": "Success",
-          "transactionId": "PAY-1190"
-        },
-        {
-          "date": "2026-07-12",
-          "amount": 649,
-          "status": "Success",
-          "transactionId": "PAY-1200"
-        },
-        {
-          "date": "2026-07-11",
-          "amount": 595.5,
-          "status": "Success",
-          "transactionId": "PAY-1210"
-        },
-        {
-          "date": "2026-07-10",
-          "amount": 631.05,
-          "status": "Success",
-          "transactionId": "PAY-1220"
-        },
-        {
-          "date": "2026-07-09",
-          "amount": 667.15,
-          "status": "Success",
-          "transactionId": "PAY-1230"
-        },
-        {
-          "date": "2026-07-08",
-          "amount": 590,
-          "status": "Success",
-          "transactionId": "PAY-1240"
-        },
-        {
-          "date": "2026-07-07",
-          "amount": 625.28,
-          "status": "Success",
-          "transactionId": "PAY-1250"
-        },
-        {
-          "date": "2026-07-06",
-          "amount": 661.1,
-          "status": "Success",
-          "transactionId": "PAY-1260"
-        },
-        {
-          "date": "2026-07-05",
-          "amount": 606.5,
-          "status": "Success",
-          "transactionId": "PAY-1270"
-        },
-        {
-          "date": "2026-07-04",
-          "amount": 619.5,
-          "status": "Success",
-          "transactionId": "PAY-1280"
-        },
-        {
-          "date": "2026-07-03",
-          "amount": 655.05,
-          "status": "Success",
-          "transactionId": "PAY-1290"
-        }
-      ]
-    },
-    {
-      "id": "F-108",
-      "name": "vivek",
-      "phone": "+91 7896541237",
-      "village": "Village Milk Collection Center, Maharashtra",
-      "animals": 5,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "789987321321",
-      "bankAccount": "7412589631",
-      "ifsc": "SBIN7098765",
-      "upiId": "vivek@upi",
-      "qrCode": "3T-F-108-VIVEK",
-      "branchId": "B-01",
-      "monthlyEarnings": 560.4,
-      "createdAt": "2026-08-27T12:37:56.211038+00:00",
-      "joinedDate": "2026-08-27T12:37:56.211038+00:00",
-      "milkHistory": [],
-      "paymentHistory": []
-    },
-    {
-      "id": "F-104",
-      "name": "Om Rudnure",
-      "phone": "+91 7896541233",
-      "village": "Kolhapur, Maharashtra",
-      "animals": 5,
-      "avgFat": 4.2,
-      "avgSnf": 8,
-      "aadhaar": "1111 1111 4444",
-      "bankAccount": "7411478520",
-      "ifsc": "BIKS7896540",
-      "upiId": "om@upi",
-      "qrCode": "3T-F-104-OMRUDNURE",
-      "branchId": "B-01",
-      "monthlyEarnings": 3492.8,
-      "createdAt": "2026-08-02T15:22:11.868098+00:00",
-      "joinedDate": "2026-08-02T15:22:11.868098+00:00",
-      "milkHistory": [
-        {
-          "date": "2026-08-02",
-          "volume": 12,
-          "fat": 6,
-          "snf": 9.5,
-          "total": 864
-        },
-        {
-          "date": "2026-08-02",
-          "volume": 12,
-          "fat": 2.5,
-          "snf": 5,
-          "total": 525
-        }
-      ],
-      "paymentHistory": [
-        {
-          "date": "2026-08-02",
-          "amount": 864,
-          "status": "Success",
-          "transactionId": "PAY-0673"
-        },
-        {
-          "date": "2026-08-02",
-          "amount": 525,
-          "status": "Success",
-          "transactionId": "PAY-3201"
-        }
-      ]
-    },
-    {
-      "id": "F-112",
-      "name": "Om Chavan",
-      "phone": "+91 8850895682",
-      "village": "Kolhapur, Maharashtra",
-      "animals": 5,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "789654789654",
-      "bankAccount": "74747474747474",
-      "ifsc": "SBIN1236541",
-      "upiId": "om@upi",
-      "qrCode": "3T-F-112-OMCHAVAN",
-      "branchId": "B-01",
-      "monthlyEarnings": 1140.57,
-      "createdAt": "2026-09-02T10:06:57.412319+00:00",
-      "joinedDate": "2026-09-02T10:06:57.412319+00:00",
-      "milkHistory": [],
-      "paymentHistory": []
-    },
-    {
-      "id": "F-105",
-      "name": "Pritesh Ahire",
-      "phone": "+91 7894561234",
-      "village": "Kolhapur, Maharashtra",
-      "animals": 4,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "111111115555",
-      "bankAccount": "1233214560",
-      "ifsc": "BIKS1236540",
-      "upiId": "pritesh@upi",
-      "qrCode": "3T-F-105-PRITESHAHIRE",
-      "branchId": "B-01",
-      "monthlyEarnings": 834.9,
-      "createdAt": "2026-08-03T07:01:40.82642+00:00",
-      "joinedDate": "2026-08-03T07:01:40.82642+00:00",
-      "milkHistory": [
-        {
-          "date": "2026-08-03",
-          "volume": 1,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 58.6
-        },
-        {
-          "date": "2026-08-03",
-          "volume": 1,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 58.6
-        },
-        {
-          "date": "2026-08-03",
-          "volume": 1,
-          "fat": 4.2,
-          "snf": 8.5,
-          "total": 60.1
-        }
-      ],
-      "paymentHistory": [
-        {
-          "date": "2026-08-03",
-          "amount": 58.6,
-          "status": "Success",
-          "transactionId": "PAY-4955"
-        },
-        {
-          "date": "2026-08-03",
-          "amount": 58.6,
-          "status": "Success",
-          "transactionId": "PAY-7335"
-        },
-        {
-          "date": "2026-08-03",
-          "amount": 60.1,
-          "status": "Success",
-          "transactionId": "PAY-2226"
-        }
-      ]
-    },
-    {
-      "id": "F-114",
-      "name": "Rishi Salunkhe",
-      "phone": "+91 1012101210",
-      "village": "Sangamner",
-      "animals": 1,
-      "avgFat": 4.2,
-      "avgSnf": 8.5,
-      "aadhaar": "100012211000",
-      "bankAccount": "10002111100211000",
-      "ifsc": "SDDDR012300",
-      "upiId": "ris@tupii",
-      "qrCode": "3T-F-114-RISHISALUNKHE",
-      "branchId": "B-01",
-      "monthlyEarnings": 109.31,
-      "createdAt": "2026-09-08T06:11:50.38421+00:00",
-      "joinedDate": "2026-09-08T06:11:50.38421+00:00",
-      "milkHistory": [],
-      "paymentHistory": []
     },
     {
       "id": "F-116",
@@ -2256,12 +101,3276 @@
           "date": "2026-09-16",
           "amount": 46.7,
           "status": "Success",
-          "transactionId": "UPI984125896321"
+          "transactionId": "PAY-517795"
+        }
+      ]
+    },
+    {
+      "id": "F-114",
+      "name": "Rishi Salunkhe",
+      "phone": "+91 1012101210",
+      "village": "Sangamner",
+      "animals": 1,
+      "avgFat": 4.2,
+      "avgSnf": 8.5,
+      "aadhaar": "100012211000",
+      "bankAccount": "10002111100211000",
+      "ifsc": "SDDDR012300",
+      "upiId": "rishi@tupi",
+      "qrCode": "3T-F-114-RISHISALUNKHE",
+      "branchId": "B-01",
+      "monthlyEarnings": 109.31,
+      "createdAt": "2026-09-08T06:11:50.38421+00:00",
+      "joinedDate": "2026-09-08T06:11:50.38421+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-09-08",
+          "volume": 1.2,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 77.16
+        },
+        {
+          "date": "2026-09-08",
+          "volume": 0.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 32.15
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-09-08",
+          "amount": 77.16,
+          "status": "Success",
+          "transactionId": "PAY-915256"
+        },
+        {
+          "date": "2026-09-08",
+          "amount": 32.15,
+          "status": "Success",
+          "transactionId": "PAY-930083"
+        }
+      ]
+    },
+    {
+      "id": "F-108",
+      "name": "vivek",
+      "phone": "+91 7896541237",
+      "village": "Village Milk Collection Center, Maharashtra",
+      "animals": 5,
+      "avgFat": 4.2,
+      "avgSnf": 8.5,
+      "aadhaar": "789987321321",
+      "bankAccount": "7412589631",
+      "ifsc": "SBIN7098765",
+      "upiId": "vivek@upi",
+      "qrCode": "3T-F-108-VIVEK",
+      "branchId": "B-01",
+      "monthlyEarnings": 1656.89,
+      "createdAt": "2026-08-27T12:37:56.211038+00:00",
+      "joinedDate": "2026-08-27T12:37:56.211038+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-09-03",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 560.4
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 55.1
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 18.9,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 1041.39
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-09-03",
+          "amount": 560.4,
+          "status": "Success",
+          "transactionId": "PAY-400691"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 55.1,
+          "status": "Success",
+          "transactionId": "PAY-7958"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 1041.39,
+          "status": "Success",
+          "transactionId": "PAY-2556"
+        }
+      ]
+    },
+    {
+      "id": "F-105",
+      "name": "Pritesh Ahire",
+      "phone": "+91 7894561234",
+      "village": "Kolhapur, Maharashtra",
+      "animals": 4,
+      "avgFat": 4.2,
+      "avgSnf": 8.5,
+      "aadhaar": "111111115555",
+      "bankAccount": "1233214560",
+      "ifsc": "BIKS1236540",
+      "upiId": "pritesh@upi",
+      "qrCode": "3T-F-105-PRITESHAHIRE",
+      "branchId": "B-01",
+      "monthlyEarnings": 1591.52,
+      "createdAt": "2026-08-03T07:01:40.82642+00:00",
+      "joinedDate": "2026-08-03T07:01:40.82642+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-10-30",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 637.92
+        },
+        {
+          "date": "2026-08-03",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 60.1
+        },
+        {
+          "date": "2026-08-03",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 58.6
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 55.1
+        },
+        {
+          "date": "2026-08-09",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-03",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 58.6
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-10-30",
+          "amount": 637.92,
+          "status": "Success",
+          "transactionId": "PAY-278833"
+        },
+        {
+          "date": "2026-08-03",
+          "amount": 58.6,
+          "status": "Success",
+          "transactionId": "PAY-7335"
+        },
+        {
+          "date": "2026-08-03",
+          "amount": 60.1,
+          "status": "Success",
+          "transactionId": "PAY-2226"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 55.1,
+          "status": "Success",
+          "transactionId": "PAY-7749"
+        },
+        {
+          "date": "2026-08-09",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-3242"
+        },
+        {
+          "date": "2026-08-03",
+          "amount": 58.6,
+          "status": "Success",
+          "transactionId": "PAY-4955"
+        }
+      ]
+    },
+    {
+      "id": "F-104",
+      "name": "Om Rudnure",
+      "phone": "+91 7896541233",
+      "village": "Kolhapur, Maharashtra",
+      "animals": 5,
+      "avgFat": 4.2,
+      "avgSnf": 8.2,
+      "aadhaar": "1111 1111 4444",
+      "bankAccount": "7411478520",
+      "ifsc": "BIKS7896540",
+      "upiId": "om@upi",
+      "qrCode": "3T-F-104-OMRUDNURE",
+      "branchId": "B-01",
+      "monthlyEarnings": 3492.8,
+      "createdAt": "2026-08-02T15:22:11.868098+00:00",
+      "joinedDate": "2026-08-02T15:22:11.868098+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-09-02",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 6,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 330.6
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 60.1
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 60.1
+        },
+        {
+          "date": "2026-08-02",
+          "volume": 12,
+          "fat": 6,
+          "snf": 9.5,
+          "total": 864
+        },
+        {
+          "date": "2026-08-02",
+          "volume": 12,
+          "fat": 2.5,
+          "snf": 5,
+          "total": 525
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-09-02",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-603594"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-603154"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-595348"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 330.6,
+          "status": "Success",
+          "transactionId": "PAY-989380"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 60.1,
+          "status": "Success",
+          "transactionId": "PAY-4023"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 60.1,
+          "status": "Success",
+          "transactionId": "PAY-1890"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 864,
+          "status": "Success",
+          "transactionId": "PAY-0673"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 525,
+          "status": "Success",
+          "transactionId": "PAY-3201"
+        }
+      ]
+    },
+    {
+      "id": "F-103",
+      "name": "Mahesh Yadav",
+      "phone": "+91 7896541232\n",
+      "village": "Kolhapur, Maharashtra",
+      "animals": 2,
+      "avgFat": 4.1,
+      "avgSnf": 8.3,
+      "aadhaar": "1111 1111 3333",
+      "bankAccount": "7441258963",
+      "ifsc": "BIN32145698",
+      "upiId": "Mahesh@upi",
+      "qrCode": "3T-F-103-MAHESHYADAV",
+      "branchId": "B-01",
+      "monthlyEarnings": 43953.23,
+      "createdAt": "2026-08-02T14:38:44.205681+00:00",
+      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-09-06",
+          "volume": 6,
+          "fat": 4.1,
+          "snf": 8.4,
+          "total": 276.9
+        },
+        {
+          "date": "2026-10-02",
+          "volume": 1,
+          "fat": 4.1,
+          "snf": 8.4,
+          "total": 52.56
+        },
+        {
+          "date": "2026-09-28",
+          "volume": 36,
+          "fat": 3.5,
+          "snf": 8.5,
+          "total": 1918.8
+        },
+        {
+          "date": "2026-09-07",
+          "volume": 7,
+          "fat": 4.1,
+          "snf": 8.4,
+          "total": 326.55
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 15.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 865.68
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 14,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 771.4
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 11.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 642.28
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 4.9,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 269.99
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-08-28",
+          "volume": 0.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 27.55
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1.5,
+          "fat": 2.5,
+          "snf": 5.5,
+          "total": 67.13
+        },
+        {
+          "date": "2026-08-02",
+          "volume": 12,
+          "fat": 2.5,
+          "snf": 5,
+          "total": 525
+        },
+        {
+          "date": "2026-08-02",
+          "volume": 12,
+          "fat": 2.5,
+          "snf": 5,
+          "total": 525
+        },
+        {
+          "date": "2026-07-14",
+          "volume": 14,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 841.4
+        },
+        {
+          "date": "2026-07-08",
+          "volume": 14,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 826
+        },
+        {
+          "date": "2026-07-07",
+          "volume": 14.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 863.47
+        },
+        {
+          "date": "2026-07-06",
+          "volume": 15,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 901.5
+        },
+        {
+          "date": "2026-07-05",
+          "volume": 14,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 849.1
+        },
+        {
+          "date": "2026-07-04",
+          "volume": 14.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 855.5
+        },
+        {
+          "date": "2026-07-03",
+          "volume": 15,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 893.25
+        },
+        {
+          "date": "2026-07-13",
+          "volume": 14.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 879.43
+        },
+        {
+          "date": "2026-07-12",
+          "volume": 15,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 885
+        },
+        {
+          "date": "2026-07-11",
+          "volume": 14,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 833.7
+        },
+        {
+          "date": "2026-07-10",
+          "volume": 14.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 871.45
+        },
+        {
+          "date": "2026-07-09",
+          "volume": 15,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 909.75
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 11.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 697.48
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 14.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 863.47
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 14,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 826
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 11,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 667.15
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 15,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 885
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 11.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 691.15
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 11.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 684.83
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 14,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 833.7
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 11,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.1
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 14.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 871.45
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 15,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 901.5
+        },
+        {
+          "date": "2026-07-17",
+          "volume": 14,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 849.1
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 15,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 909.75
+        },
+        {
+          "date": "2026-07-15",
+          "volume": 15,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 893.25
+        },
+        {
+          "date": "2026-07-16",
+          "volume": 14.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 855.5
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 11,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 667.15
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 15,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 893.25
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 11.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 697.48
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 14.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 855.5
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 11,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.1
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 14,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 849.1
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 11.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 684.83
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 14,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 826
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 11.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 691.15
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 14.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 863.47
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 11,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 667.15
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 14,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 841.4
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 11.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 691.15
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 14.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 879.43
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 15,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 901.5
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-09-06",
+          "amount": 276.9,
+          "status": "Success",
+          "transactionId": "PAY-865505"
+        },
+        {
+          "date": "2026-10-02",
+          "amount": 52.56,
+          "status": "Success",
+          "transactionId": "PAY-933475"
+        },
+        {
+          "date": "2026-09-28",
+          "amount": 1918.8,
+          "status": "Success",
+          "transactionId": "PAY-398900"
+        },
+        {
+          "date": "2026-09-07",
+          "amount": 326.55,
+          "status": "Success",
+          "transactionId": "PAY-322747"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 865.68,
+          "status": "Success",
+          "transactionId": "PAY-566711"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 771.4,
+          "status": "Success",
+          "transactionId": "PAY-566276"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 642.28,
+          "status": "Success",
+          "transactionId": "PAY-632332"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-632018"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 269.99,
+          "status": "Success",
+          "transactionId": "PAY-7220"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-0644"
+        },
+        {
+          "date": "2026-08-28",
+          "amount": 27.55,
+          "status": "Success",
+          "transactionId": "PAY-0555"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 67.13,
+          "status": "Success",
+          "transactionId": "PAY-8903"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 525,
+          "status": "Success",
+          "transactionId": "PAY-6235"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 525,
+          "status": "Success",
+          "transactionId": "PAY-9825"
+        },
+        {
+          "date": "2026-07-09",
+          "amount": 909.75,
+          "status": "Success",
+          "transactionId": "PAY-1234"
+        },
+        {
+          "date": "2026-07-04",
+          "amount": 855.5,
+          "status": "Success",
+          "transactionId": "PAY-1284"
+        },
+        {
+          "date": "2026-07-14",
+          "amount": 841.4,
+          "status": "Success",
+          "transactionId": "PAY-1184"
+        },
+        {
+          "date": "2026-07-13",
+          "amount": 879.43,
+          "status": "Success",
+          "transactionId": "PAY-1194"
+        },
+        {
+          "date": "2026-07-12",
+          "amount": 885,
+          "status": "Success",
+          "transactionId": "PAY-1204"
+        },
+        {
+          "date": "2026-07-11",
+          "amount": 833.7,
+          "status": "Success",
+          "transactionId": "PAY-1214"
+        },
+        {
+          "date": "2026-07-10",
+          "amount": 871.45,
+          "status": "Success",
+          "transactionId": "PAY-1224"
+        },
+        {
+          "date": "2026-07-08",
+          "amount": 826,
+          "status": "Success",
+          "transactionId": "PAY-1244"
+        },
+        {
+          "date": "2026-07-07",
+          "amount": 863.47,
+          "status": "Success",
+          "transactionId": "PAY-1254"
+        },
+        {
+          "date": "2026-07-06",
+          "amount": 901.5,
+          "status": "Success",
+          "transactionId": "PAY-1264"
+        },
+        {
+          "date": "2026-07-05",
+          "amount": 849.1,
+          "status": "Success",
+          "transactionId": "PAY-1274"
+        },
+        {
+          "date": "2026-07-03",
+          "amount": 893.25,
+          "status": "Success",
+          "transactionId": "PAY-1294"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-5124"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 826,
+          "status": "Success",
+          "transactionId": "PAY-1124"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 691.15,
+          "status": "Success",
+          "transactionId": "PAY-5134"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 863.47,
+          "status": "Success",
+          "transactionId": "PAY-1134"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 667.15,
+          "status": "Success",
+          "transactionId": "PAY-5144"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 901.5,
+          "status": "Success",
+          "transactionId": "PAY-1144"
+        },
+        {
+          "date": "2026-07-17",
+          "amount": 849.1,
+          "status": "Success",
+          "transactionId": "PAY-1154"
+        },
+        {
+          "date": "2026-07-16",
+          "amount": 855.5,
+          "status": "Success",
+          "transactionId": "PAY-1164"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 871.45,
+          "status": "Success",
+          "transactionId": "PAY-1104"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 697.48,
+          "status": "Success",
+          "transactionId": "PAY-5114"
+        },
+        {
+          "date": "2026-07-15",
+          "amount": 893.25,
+          "status": "Success",
+          "transactionId": "PAY-1174"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 667.15,
+          "status": "Success",
+          "transactionId": "PAY-5084"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 885,
+          "status": "Success",
+          "transactionId": "PAY-1084"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 684.83,
+          "status": "Success",
+          "transactionId": "PAY-5094"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 833.7,
+          "status": "Success",
+          "transactionId": "PAY-1094"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 661.1,
+          "status": "Success",
+          "transactionId": "PAY-5104"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 909.75,
+          "status": "Success",
+          "transactionId": "PAY-1114"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 697.48,
+          "status": "Success",
+          "transactionId": "PAY-5054"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 893.25,
+          "status": "Success",
+          "transactionId": "PAY-1054"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-5064"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 841.4,
+          "status": "Success",
+          "transactionId": "PAY-1064"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 691.15,
+          "status": "Success",
+          "transactionId": "PAY-5074"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 879.43,
+          "status": "Success",
+          "transactionId": "PAY-1074"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 661.1,
+          "status": "Success",
+          "transactionId": "PAY-5044"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-5004"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 901.5,
+          "status": "Success",
+          "transactionId": "PAY-1024"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 684.83,
+          "status": "Success",
+          "transactionId": "PAY-5034"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 667.15,
+          "status": "Success",
+          "transactionId": "PAY-5024"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 855.5,
+          "status": "Success",
+          "transactionId": "PAY-1044"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 863.47,
+          "status": "Success",
+          "transactionId": "PAY-1014"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 826,
+          "status": "Success",
+          "transactionId": "PAY-1004"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 849.1,
+          "status": "Success",
+          "transactionId": "PAY-1034"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 691.15,
+          "status": "Success",
+          "transactionId": "PAY-5014"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 447.6,
+          "status": "Success",
+          "transactionId": "PAY-1031"
+        }
+      ]
+    },
+    {
+      "id": "F-101",
+      "name": "Aditya Chavan",
+      "phone": "+91 7896541230",
+      "village": "Kolhapur Central Hub",
+      "animals": 6,
+      "avgFat": 4.1,
+      "avgSnf": 8.5,
+      "aadhaar": "1111 1111 1111",
+      "bankAccount": "1111 1111 1111",
+      "ifsc": "SBIN1236547",
+      "upiId": "name@upi",
+      "qrCode": "3T-F-101-ADITYACHAVAN",
+      "branchId": "B-01",
+      "monthlyEarnings": 46905.41,
+      "createdAt": "2026-08-02T14:38:44.205681+00:00",
+      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-10-30",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 637.92
+        },
+        {
+          "date": "2026-09-06",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 46.7
+        },
+        {
+          "date": "2026-09-28",
+          "volume": 12,
+          "fat": 3.5,
+          "snf": 8.5,
+          "total": 639.6
+        },
+        {
+          "date": "2026-09-12",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 668.16
+        },
+        {
+          "date": "2026-09-12",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 632.16
+        },
+        {
+          "date": "2026-09-04",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 668.4
+        },
+        {
+          "date": "2026-09-03",
+          "volume": 8.9,
+          "fat": 2.5,
+          "snf": 7.8,
+          "total": 430.32
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 600.05
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 11.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 642.28
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 10,
+          "fat": 4,
+          "snf": 8.4,
+          "total": 538
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 600.05
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 11.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 642.28
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 2.3,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 126.73
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.2
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 275.5
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 14.5,
+          "fat": 4.5,
+          "snf": 8.8,
+          "total": 831.58
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 14.5,
+          "fat": 4.5,
+          "snf": 8.8,
+          "total": 831.58
+        },
+        {
+          "date": "2026-08-31",
+          "volume": 12,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 648
+        },
+        {
+          "date": "2026-08-31",
+          "volume": 15.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 854.05
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 12,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 670.2
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.2
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 551
+        },
+        {
+          "date": "2026-08-22",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 470.16
+        },
+        {
+          "date": "2026-08-22",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 470.16
+        },
+        {
+          "date": "2026-08-13",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-09",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-07",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 60.1
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1,
+          "fat": 3.5,
+          "snf": 5,
+          "total": 49.25
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-04",
+          "volume": 12.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 732.5
+        },
+        {
+          "date": "2026-08-04",
+          "volume": 20,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 1172
+        },
+        {
+          "date": "2026-07-09",
+          "volume": 11,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 667.15
+        },
+        {
+          "date": "2026-07-08",
+          "volume": 10,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 590
+        },
+        {
+          "date": "2026-07-07",
+          "volume": 10.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 625.28
+        },
+        {
+          "date": "2026-07-06",
+          "volume": 11,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.1
+        },
+        {
+          "date": "2026-07-05",
+          "volume": 10,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 606.5
+        },
+        {
+          "date": "2026-07-04",
+          "volume": 10.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 619.5
+        },
+        {
+          "date": "2026-07-03",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-07-13",
+          "volume": 10.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 636.82
+        },
+        {
+          "date": "2026-07-12",
+          "volume": 11,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 649
+        },
+        {
+          "date": "2026-07-11",
+          "volume": 10,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 595.5
+        },
+        {
+          "date": "2026-07-10",
+          "volume": 10.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 631.05
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 8.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 515.53
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 10,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 590
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 10.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 631.05
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 8.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 510.85
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 8,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 476.4
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 11,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 667.15
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 8.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 506.17
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 10,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 595.5
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 8,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 480.8
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 8,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 485.2
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 11,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.1
+        },
+        {
+          "date": "2026-07-17",
+          "volume": 10,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 606.5
+        },
+        {
+          "date": "2026-07-14",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 601
+        },
+        {
+          "date": "2026-07-15",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-07-16",
+          "volume": 10.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 619.5
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 10.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 625.28
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 11,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 655.05
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 8.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 515.53
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 10.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 619.5
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 8,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 480.8
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 10,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 606.5
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 8.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 506.17
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 11,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 661.1
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 8,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 476.4
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 10,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 590
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 8.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 510.85
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 10.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 625.28
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 8,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 485.2
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 8,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 476.4
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 601
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 8.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 510.85
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 10.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 636.82
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 8,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 485.2
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 11,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 649
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 10,
+          "fat": 3.5,
+          "snf": 8.5,
+          "total": 355.5
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 447.6
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 22.65
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 271.8
+        },
+        {
+          "date": "2026-08-02",
+          "volume": 0.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 53.85
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-10-30",
+          "amount": 637.92,
+          "status": "Success",
+          "transactionId": "PAY-454366"
+        },
+        {
+          "date": "2026-09-06",
+          "amount": 46.7,
+          "status": "Success",
+          "transactionId": "PAY-584305"
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 525,
+          "status": "Success",
+          "transactionId": "PAY-TEST-CHECK"
+        },
+        {
+          "date": "2026-09-28",
+          "amount": 639.6,
+          "status": "Success",
+          "transactionId": "PAY-626856"
+        },
+        {
+          "date": "2026-09-12",
+          "amount": 668.16,
+          "status": "Success",
+          "transactionId": "PAY-421731"
+        },
+        {
+          "date": "2026-09-12",
+          "amount": 632.16,
+          "status": "Success",
+          "transactionId": "PAY-399509"
+        },
+        {
+          "date": "2026-09-04",
+          "amount": 668.4,
+          "status": "Success",
+          "transactionId": "PAY-644446"
+        },
+        {
+          "date": "2026-09-03",
+          "amount": 430.32,
+          "status": "Success",
+          "transactionId": "PAY-152916"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 600.05,
+          "status": "Success",
+          "transactionId": "PAY-413688"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 642.28,
+          "status": "Success",
+          "transactionId": "PAY-413245"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 538,
+          "status": "Success",
+          "transactionId": "PAY-412895"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 600.05,
+          "status": "Success",
+          "transactionId": "PAY-513365"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 642.28,
+          "status": "Success",
+          "transactionId": "PAY-512550"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 126.73,
+          "status": "Success",
+          "transactionId": "PAY-670905"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 661.2,
+          "status": "Success",
+          "transactionId": "PAY-081817"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 275.5,
+          "status": "Success",
+          "transactionId": "PAY-040469"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 831.58,
+          "status": "Success",
+          "transactionId": "PAY-038219"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 831.58,
+          "status": "Success",
+          "transactionId": "PAY-035813"
+        },
+        {
+          "date": "2026-08-31",
+          "amount": 648,
+          "status": "Success",
+          "transactionId": "PAY-8014"
+        },
+        {
+          "date": "2026-08-31",
+          "amount": 854.05,
+          "status": "Success",
+          "transactionId": "PAY-7703"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 670.2,
+          "status": "Success",
+          "transactionId": "PAY-0294"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-9905"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 661.2,
+          "status": "Success",
+          "transactionId": "PAY-3088"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 551,
+          "status": "Success",
+          "transactionId": "PAY-1441"
+        },
+        {
+          "date": "2026-08-22",
+          "amount": 470.16,
+          "status": "Success",
+          "transactionId": "PAY-2958"
+        },
+        {
+          "date": "2026-08-22",
+          "amount": 470.16,
+          "status": "Success",
+          "transactionId": "PAY-7924"
+        },
+        {
+          "date": "2026-08-13",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-4325"
+        },
+        {
+          "date": "2026-08-09",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-3802"
+        },
+        {
+          "date": "2026-08-07",
+          "amount": 60.1,
+          "status": "Success",
+          "transactionId": "PAY-7622"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 49.25,
+          "status": "Success",
+          "transactionId": "PAY-8541"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-6379"
+        },
+        {
+          "date": "2026-08-04",
+          "amount": 732.5,
+          "status": "Success",
+          "transactionId": "PAY-5330"
+        },
+        {
+          "date": "2026-08-04",
+          "amount": 1172,
+          "status": "Success",
+          "transactionId": "PAY-0698"
+        },
+        {
+          "date": "2026-07-03",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-1290"
+        },
+        {
+          "date": "2026-07-10",
+          "amount": 631.05,
+          "status": "Success",
+          "transactionId": "PAY-1220"
+        },
+        {
+          "date": "2026-07-05",
+          "amount": 606.5,
+          "status": "Success",
+          "transactionId": "PAY-1270"
+        },
+        {
+          "date": "2026-07-13",
+          "amount": 636.82,
+          "status": "Success",
+          "transactionId": "PAY-1190"
+        },
+        {
+          "date": "2026-07-12",
+          "amount": 649,
+          "status": "Success",
+          "transactionId": "PAY-1200"
+        },
+        {
+          "date": "2026-07-11",
+          "amount": 595.5,
+          "status": "Success",
+          "transactionId": "PAY-1210"
+        },
+        {
+          "date": "2026-07-09",
+          "amount": 667.15,
+          "status": "Success",
+          "transactionId": "PAY-1230"
+        },
+        {
+          "date": "2026-07-08",
+          "amount": 590,
+          "status": "Success",
+          "transactionId": "PAY-1240"
+        },
+        {
+          "date": "2026-07-07",
+          "amount": 625.28,
+          "status": "Success",
+          "transactionId": "PAY-1250"
+        },
+        {
+          "date": "2026-07-06",
+          "amount": 661.1,
+          "status": "Success",
+          "transactionId": "PAY-1260"
+        },
+        {
+          "date": "2026-07-04",
+          "amount": 619.5,
+          "status": "Success",
+          "transactionId": "PAY-1280"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 667.15,
+          "status": "Success",
+          "transactionId": "PAY-1110"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 476.4,
+          "status": "Success",
+          "transactionId": "PAY-5120"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 590,
+          "status": "Success",
+          "transactionId": "PAY-1120"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 510.85,
+          "status": "Success",
+          "transactionId": "PAY-5130"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 625.28,
+          "status": "Success",
+          "transactionId": "PAY-1130"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 485.2,
+          "status": "Success",
+          "transactionId": "PAY-5140"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 661.1,
+          "status": "Success",
+          "transactionId": "PAY-1140"
+        },
+        {
+          "date": "2026-07-17",
+          "amount": 606.5,
+          "status": "Success",
+          "transactionId": "PAY-1150"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 480.8,
+          "status": "Success",
+          "transactionId": "PAY-5100"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 631.05,
+          "status": "Success",
+          "transactionId": "PAY-1100"
+        },
+        {
+          "date": "2026-07-16",
+          "amount": 619.5,
+          "status": "Success",
+          "transactionId": "PAY-1160"
+        },
+        {
+          "date": "2026-07-15",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-1170"
+        },
+        {
+          "date": "2026-07-14",
+          "amount": 601,
+          "status": "Success",
+          "transactionId": "PAY-1180"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 506.17,
+          "status": "Success",
+          "transactionId": "PAY-5090"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 595.5,
+          "status": "Success",
+          "transactionId": "PAY-1090"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 515.53,
+          "status": "Success",
+          "transactionId": "PAY-5110"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 661.1,
+          "status": "Success",
+          "transactionId": "PAY-1020"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 619.5,
+          "status": "Success",
+          "transactionId": "PAY-1040"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 515.53,
+          "status": "Success",
+          "transactionId": "PAY-5050"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 655.05,
+          "status": "Success",
+          "transactionId": "PAY-1050"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 476.4,
+          "status": "Success",
+          "transactionId": "PAY-5060"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 601,
+          "status": "Success",
+          "transactionId": "PAY-1060"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 510.85,
+          "status": "Success",
+          "transactionId": "PAY-5070"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 636.82,
+          "status": "Success",
+          "transactionId": "PAY-1070"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 485.2,
+          "status": "Success",
+          "transactionId": "PAY-5080"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 649,
+          "status": "Success",
+          "transactionId": "PAY-1080"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 606.5,
+          "status": "Success",
+          "transactionId": "PAY-1030"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 485.2,
+          "status": "Success",
+          "transactionId": "PAY-5020"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 625.28,
+          "status": "Success",
+          "transactionId": "PAY-1010"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 480.8,
+          "status": "Success",
+          "transactionId": "PAY-5040"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 510.85,
+          "status": "Success",
+          "transactionId": "PAY-5010"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 590,
+          "status": "Success",
+          "transactionId": "PAY-1000"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 506.17,
+          "status": "Success",
+          "transactionId": "PAY-5030"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 476.4,
+          "status": "Success",
+          "transactionId": "PAY-5000"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 447.6,
+          "status": "Success",
+          "transactionId": "PAY-1011"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 355.5,
+          "status": "Success",
+          "transactionId": "PAY-5105"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 271.8,
+          "status": "Success",
+          "transactionId": "PAY-7511"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 53.85,
+          "status": "Success",
+          "transactionId": "PAY-9955"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 22.65,
+          "status": "Success",
+          "transactionId": "PAY-0801"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 447.6,
+          "status": "Success",
+          "transactionId": "PAY-2343"
+        }
+      ]
+    },
+    {
+      "id": "F-102",
+      "name": "Sandesh Kadam",
+      "phone": "+91 7896541231",
+      "village": "Kolhapur, Maharashtra",
+      "animals": 5,
+      "avgFat": 4.1,
+      "avgSnf": 8.5,
+      "aadhaar": "1111 1111 2222",
+      "bankAccount": "1345678978998",
+      "ifsc": "BIKS5252525",
+      "upiId": "sandesh01@upi",
+      "qrCode": "3T-F-102-SANDESHKADAM",
+      "branchId": "B-01",
+      "monthlyEarnings": 47676.57,
+      "createdAt": "2026-08-02T14:38:44.205681+00:00",
+      "joinedDate": "2026-08-02T14:38:44.205681+00:00",
+      "milkHistory": [
+        {
+          "date": "2026-10-30",
+          "volume": 12,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 633.36
+        },
+        {
+          "date": "2026-10-28",
+          "volume": 12,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 633.36
+        },
+        {
+          "date": "2026-10-27",
+          "volume": 15,
+          "fat": 3.5,
+          "snf": 8.5,
+          "total": 757.5
+        },
+        {
+          "date": "2026-10-25",
+          "volume": 20,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 1063.2
+        },
+        {
+          "date": "2026-10-23",
+          "volume": 7.7,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 409.33
+        },
+        {
+          "date": "2026-10-21",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 637.92
+        },
+        {
+          "date": "2026-10-15",
+          "volume": 19.6,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 1034.49
+        },
+        {
+          "date": "2026-09-28",
+          "volume": 19,
+          "fat": 3.5,
+          "snf": 8.5,
+          "total": 1012.7
+        },
+        {
+          "date": "2026-09-12",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 668.16
+        },
+        {
+          "date": "2026-09-04",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 55.7
+        },
+        {
+          "date": "2026-09-02",
+          "volume": 15,
+          "fat": 4.5,
+          "snf": 8.8,
+          "total": 860.25
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 55.1
+        },
+        {
+          "date": "2026-09-01",
+          "volume": 0.9,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 49.59
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 12.5,
+          "fat": 4.3,
+          "snf": 8.6,
+          "total": 698.13
+        },
+        {
+          "date": "2026-08-30",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 55.1
+        },
+        {
+          "date": "2026-08-14",
+          "volume": 99.95,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 3916.04
+        },
+        {
+          "date": "2026-08-14",
+          "volume": 0.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 19.59
+        },
+        {
+          "date": "2026-08-09",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-07",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-08-07",
+          "volume": 30,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 1803
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1,
+          "fat": 3.6,
+          "snf": 8.5,
+          "total": 56.8
+        },
+        {
+          "date": "2026-08-06",
+          "volume": 1,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 60.1
+        },
+        {
+          "date": "2026-07-07",
+          "volume": 12.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 744.38
+        },
+        {
+          "date": "2026-07-09",
+          "volume": 13,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 788.45
+        },
+        {
+          "date": "2026-07-08",
+          "volume": 12,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 708
+        },
+        {
+          "date": "2026-07-06",
+          "volume": 13,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 781.3
+        },
+        {
+          "date": "2026-07-05",
+          "volume": 12,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 727.8
+        },
+        {
+          "date": "2026-07-04",
+          "volume": 12.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 737.5
+        },
+        {
+          "date": "2026-07-03",
+          "volume": 13,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 774.15
+        },
+        {
+          "date": "2026-07-14",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-07-13",
+          "volume": 12.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 758.13
+        },
+        {
+          "date": "2026-07-12",
+          "volume": 13,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 767
+        },
+        {
+          "date": "2026-07-11",
+          "volume": 12,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 714.6
+        },
+        {
+          "date": "2026-07-10",
+          "volume": 12.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 751.25
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 12.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 744.38
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 10,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 606.5
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 12,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 708
+        },
+        {
+          "date": "2026-07-19",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 601
+        },
+        {
+          "date": "2026-07-20",
+          "volume": 9.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 565.73
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 9.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 576.17
+        },
+        {
+          "date": "2026-07-21",
+          "volume": 13,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 788.45
+        },
+        {
+          "date": "2026-07-24",
+          "volume": 13,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 767
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 10,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 595.5
+        },
+        {
+          "date": "2026-07-23",
+          "volume": 12,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 714.6
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 9.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 570.95
+        },
+        {
+          "date": "2026-07-22",
+          "volume": 12.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 751.25
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 13,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 781.3
+        },
+        {
+          "date": "2026-07-17",
+          "volume": 12,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 727.8
+        },
+        {
+          "date": "2026-07-15",
+          "volume": 13,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 774.15
+        },
+        {
+          "date": "2026-07-16",
+          "volume": 12.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 737.5
+        },
+        {
+          "date": "2026-07-18",
+          "volume": 9.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 576.17
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 13,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 774.15
+        },
+        {
+          "date": "2026-07-27",
+          "volume": 10,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 606.5
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 12.5,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 737.5
+        },
+        {
+          "date": "2026-07-28",
+          "volume": 9.5,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 570.95
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 12,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 727.8
+        },
+        {
+          "date": "2026-07-29",
+          "volume": 10,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 595.5
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 13,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 781.3
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 9.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 565.73
+        },
+        {
+          "date": "2026-08-01",
+          "volume": 12,
+          "fat": 4,
+          "snf": 8.5,
+          "total": 708
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 601
+        },
+        {
+          "date": "2026-07-31",
+          "volume": 12.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 744.38
+        },
+        {
+          "date": "2026-07-30",
+          "volume": 9.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 576.17
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 9.5,
+          "fat": 4.1,
+          "snf": 8.5,
+          "total": 565.73
+        },
+        {
+          "date": "2026-07-26",
+          "volume": 12,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 721.2
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 10,
+          "fat": 4.2,
+          "snf": 8.5,
+          "total": 601
+        },
+        {
+          "date": "2026-07-25",
+          "volume": 12.5,
+          "fat": 4.3,
+          "snf": 8.5,
+          "total": 758.13
+        }
+      ],
+      "paymentHistory": [
+        {
+          "date": "2026-10-30",
+          "amount": 633.36,
+          "status": "Success",
+          "transactionId": "PAY-882057"
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 633.36,
+          "status": "Success",
+          "transactionId": "PAY-953625"
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 757.5,
+          "status": "Success",
+          "transactionId": "PAY-987275"
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 1063.2,
+          "status": "Success",
+          "transactionId": "PAY-507838"
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 409.33,
+          "status": "Success",
+          "transactionId": "PAY-896110"
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 637.92,
+          "status": "Success",
+          "transactionId": "PAY-897135"
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 1034.49,
+          "status": "Success",
+          "transactionId": "PAY-142833"
+        },
+        {
+          "date": "2026-09-28",
+          "amount": 1012.7,
+          "status": "Success",
+          "transactionId": "PAY-968385"
+        },
+        {
+          "date": "2026-09-12",
+          "amount": 668.16,
+          "status": "Success",
+          "transactionId": "PAY-735346"
+        },
+        {
+          "date": "2026-09-04",
+          "amount": 55.7,
+          "status": "Success",
+          "transactionId": "PAY-047247"
+        },
+        {
+          "date": "2026-09-02",
+          "amount": 860.25,
+          "status": "Success",
+          "transactionId": "PAY-513787"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 55.1,
+          "status": "Success",
+          "transactionId": "PAY-045748"
+        },
+        {
+          "date": "2026-09-01",
+          "amount": 49.59,
+          "status": "Success",
+          "transactionId": "PAY-002379"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 698.13,
+          "status": "Success",
+          "transactionId": "PAY-1486"
+        },
+        {
+          "date": "2026-08-30",
+          "amount": 55.1,
+          "status": "Success",
+          "transactionId": "PAY-4607"
+        },
+        {
+          "date": "2026-08-14",
+          "amount": 3916.04,
+          "status": "Success",
+          "transactionId": "PAY-6565"
+        },
+        {
+          "date": "2026-08-14",
+          "amount": 19.59,
+          "status": "Success",
+          "transactionId": "PAY-7694"
+        },
+        {
+          "date": "2026-08-09",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-2138"
+        },
+        {
+          "date": "2026-08-07",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-4645"
+        },
+        {
+          "date": "2026-08-07",
+          "amount": 1803,
+          "status": "Success",
+          "transactionId": "PAY-7232"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 56.8,
+          "status": "Success",
+          "transactionId": "PAY-9062"
+        },
+        {
+          "date": "2026-08-06",
+          "amount": 60.1,
+          "status": "Success",
+          "transactionId": "PAY-5473"
+        },
+        {
+          "date": "2026-07-10",
+          "amount": 751.25,
+          "status": "Success",
+          "transactionId": "PAY-1222"
+        },
+        {
+          "date": "2026-07-05",
+          "amount": 727.8,
+          "status": "Success",
+          "transactionId": "PAY-1272"
+        },
+        {
+          "date": "2026-07-14",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-1182"
+        },
+        {
+          "date": "2026-07-13",
+          "amount": 758.13,
+          "status": "Success",
+          "transactionId": "PAY-1192"
+        },
+        {
+          "date": "2026-07-12",
+          "amount": 767,
+          "status": "Success",
+          "transactionId": "PAY-1202"
+        },
+        {
+          "date": "2026-07-11",
+          "amount": 714.6,
+          "status": "Success",
+          "transactionId": "PAY-1212"
+        },
+        {
+          "date": "2026-07-09",
+          "amount": 788.45,
+          "status": "Success",
+          "transactionId": "PAY-1232"
+        },
+        {
+          "date": "2026-07-08",
+          "amount": 708,
+          "status": "Success",
+          "transactionId": "PAY-1242"
+        },
+        {
+          "date": "2026-07-07",
+          "amount": 744.38,
+          "status": "Success",
+          "transactionId": "PAY-1252"
+        },
+        {
+          "date": "2026-07-06",
+          "amount": 781.3,
+          "status": "Success",
+          "transactionId": "PAY-1262"
+        },
+        {
+          "date": "2026-07-04",
+          "amount": 737.5,
+          "status": "Success",
+          "transactionId": "PAY-1282"
+        },
+        {
+          "date": "2026-07-03",
+          "amount": 774.15,
+          "status": "Success",
+          "transactionId": "PAY-1292"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 565.73,
+          "status": "Success",
+          "transactionId": "PAY-5122"
+        },
+        {
+          "date": "2026-07-20",
+          "amount": 708,
+          "status": "Success",
+          "transactionId": "PAY-1122"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 601,
+          "status": "Success",
+          "transactionId": "PAY-5132"
+        },
+        {
+          "date": "2026-07-19",
+          "amount": 744.38,
+          "status": "Success",
+          "transactionId": "PAY-1132"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 576.17,
+          "status": "Success",
+          "transactionId": "PAY-5142"
+        },
+        {
+          "date": "2026-07-18",
+          "amount": 781.3,
+          "status": "Success",
+          "transactionId": "PAY-1142"
+        },
+        {
+          "date": "2026-07-17",
+          "amount": 727.8,
+          "status": "Success",
+          "transactionId": "PAY-1152"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 751.25,
+          "status": "Success",
+          "transactionId": "PAY-1102"
+        },
+        {
+          "date": "2026-07-15",
+          "amount": 774.15,
+          "status": "Success",
+          "transactionId": "PAY-1172"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 576.17,
+          "status": "Success",
+          "transactionId": "PAY-5082"
+        },
+        {
+          "date": "2026-07-16",
+          "amount": 737.5,
+          "status": "Success",
+          "transactionId": "PAY-1162"
+        },
+        {
+          "date": "2026-07-24",
+          "amount": 767,
+          "status": "Success",
+          "transactionId": "PAY-1082"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 595.5,
+          "status": "Success",
+          "transactionId": "PAY-5092"
+        },
+        {
+          "date": "2026-07-23",
+          "amount": 714.6,
+          "status": "Success",
+          "transactionId": "PAY-1092"
+        },
+        {
+          "date": "2026-07-22",
+          "amount": 570.95,
+          "status": "Success",
+          "transactionId": "PAY-5102"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 606.5,
+          "status": "Success",
+          "transactionId": "PAY-5112"
+        },
+        {
+          "date": "2026-07-21",
+          "amount": 788.45,
+          "status": "Success",
+          "transactionId": "PAY-1112"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 570.95,
+          "status": "Success",
+          "transactionId": "PAY-5042"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 606.5,
+          "status": "Success",
+          "transactionId": "PAY-5052"
+        },
+        {
+          "date": "2026-07-27",
+          "amount": 774.15,
+          "status": "Success",
+          "transactionId": "PAY-1052"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 565.73,
+          "status": "Success",
+          "transactionId": "PAY-5062"
+        },
+        {
+          "date": "2026-07-26",
+          "amount": 721.2,
+          "status": "Success",
+          "transactionId": "PAY-1062"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 601,
+          "status": "Success",
+          "transactionId": "PAY-5072"
+        },
+        {
+          "date": "2026-07-25",
+          "amount": 758.13,
+          "status": "Success",
+          "transactionId": "PAY-1072"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 576.17,
+          "status": "Success",
+          "transactionId": "PAY-5022"
+        },
+        {
+          "date": "2026-07-30",
+          "amount": 781.3,
+          "status": "Success",
+          "transactionId": "PAY-1022"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 744.38,
+          "status": "Success",
+          "transactionId": "PAY-1012"
+        },
+        {
+          "date": "2026-07-28",
+          "amount": 737.5,
+          "status": "Success",
+          "transactionId": "PAY-1042"
+        },
+        {
+          "date": "2026-07-31",
+          "amount": 601,
+          "status": "Success",
+          "transactionId": "PAY-5012"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 595.5,
+          "status": "Success",
+          "transactionId": "PAY-5032"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 708,
+          "status": "Success",
+          "transactionId": "PAY-1002"
+        },
+        {
+          "date": "2026-08-01",
+          "amount": 565.73,
+          "status": "Success",
+          "transactionId": "PAY-5002"
+        },
+        {
+          "date": "2026-07-29",
+          "amount": 727.8,
+          "status": "Success",
+          "transactionId": "PAY-1032"
+        },
+        {
+          "date": "2026-08-02",
+          "amount": 559.5,
+          "status": "Success",
+          "transactionId": "PAY-1021"
         }
       ]
     }
   ],
   "collections": [
+    {
+      "id": "C-454366",
+      "farmerId": "F-101",
+      "farmerName": "Aditya Chavan",
+      "village": "Kolhapur Central Hub",
+      "date": "2026-10-30",
+      "time": "Evening",
+      "weight": 12,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 637.92,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-278833",
+      "farmerId": "F-105",
+      "farmerName": "Pritesh Ahire",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-30",
+      "time": "Evening",
+      "weight": 12,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 637.92,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-882057",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-30",
+      "time": "Morning",
+      "weight": 12,
+      "fat": 4.1,
+      "snf": 8.5,
+      "rate": 52.78,
+      "total": 633.36,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-953625",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-28",
+      "time": "Evening",
+      "weight": 12,
+      "fat": 4.1,
+      "snf": 8.5,
+      "rate": 52.78,
+      "total": 633.36,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-987275",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-27",
+      "time": "Morning",
+      "weight": 15,
+      "fat": 3.5,
+      "snf": 8.5,
+      "rate": 50.5,
+      "total": 757.5,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-507838",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-25",
+      "time": "Evening",
+      "weight": 20,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 1063.2,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-896110",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-23",
+      "time": "Evening",
+      "weight": 7.7,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 409.33,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-113143",
+      "farmerId": "F-118",
+      "farmerName": "Divesh Chinchavalkar",
+      "village": "Sangamner",
+      "date": "2026-10-23",
+      "time": "Evening",
+      "weight": 4.5,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 239.22,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-897135",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-21",
+      "time": "Evening",
+      "weight": 12,
+      "fat": 4.2,
+      "snf": 8.5,
+      "rate": 53.16,
+      "total": 637.92,
+      "status": "Success",
+      "branchId": "B-01"
+    },
     {
       "id": "C-907737",
       "farmerId": "F-117",
@@ -2269,12 +3378,86 @@
       "village": "Sangamner",
       "date": "2026-10-19",
       "time": "Evening",
-      "shift": "Evening",
       "weight": 10.5,
       "fat": 4.3,
       "snf": 8.6,
       "rate": 56.26,
       "total": 590.73,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-142833",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-15",
+      "time": "Evening",
+      "weight": 19.6,
+      "fat": 4.1,
+      "snf": 8.5,
+      "rate": 52.78,
+      "total": 1034.49,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-933475",
+      "farmerId": "F-103",
+      "farmerName": "Mahesh Yadav",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-10-02",
+      "time": "Evening",
+      "weight": 1,
+      "fat": 4.1,
+      "snf": 8.4,
+      "rate": 52.56,
+      "total": 52.56,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-968385",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-09-28",
+      "time": "Morning",
+      "weight": 19,
+      "fat": 3.5,
+      "snf": 8.5,
+      "rate": 53.3,
+      "total": 1012.7,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-626856",
+      "farmerId": "F-101",
+      "farmerName": "Aditya Chavan",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-09-28",
+      "time": "Morning",
+      "weight": 12,
+      "fat": 3.5,
+      "snf": 8.5,
+      "rate": 53.3,
+      "total": 639.6,
+      "status": "Success",
+      "branchId": "B-01"
+    },
+    {
+      "id": "C-398900",
+      "farmerId": "F-103",
+      "farmerName": "Mahesh Yadav",
+      "village": "Kolhapur, Maharashtra",
+      "date": "2026-09-28",
+      "time": "Morning",
+      "weight": 36,
+      "fat": 3.5,
+      "snf": 8.5,
+      "rate": 53.3,
+      "total": 1918.8,
       "status": "Success",
       "branchId": "B-01"
     },
@@ -2390,7 +3573,6 @@
       "village": "Kolhapur, Maharashtra",
       "date": "2026-09-06",
       "time": "Evening",
-      "shift": "Evening",
       "weight": 6,
       "fat": 4.1,
       "snf": 8.4,
@@ -2406,7 +3588,6 @@
       "village": "Kolhapur, Maharashtra",
       "date": "2026-09-06",
       "time": "Evening",
-      "shift": "Evening",
       "weight": 1,
       "fat": 4.2,
       "snf": 8.5,
@@ -2472,51 +3653,6 @@
       "snf": 7.8,
       "rate": 48.35,
       "total": 430.32,
-      "status": "Success",
-      "branchId": "B-01"
-    },
-    {
-      "id": "C-898778",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "village": "Kolhapur, Maharashtra",
-      "date": "2026-09-02",
-      "time": "03:41 PM",
-      "weight": 12,
-      "fat": 4.2,
-      "snf": 8.5,
-      "rate": 55.1,
-      "total": 661.2,
-      "status": "Success",
-      "branchId": "B-01"
-    },
-    {
-      "id": "C-872129",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "village": "Kolhapur, Maharashtra",
-      "date": "2026-09-02",
-      "time": "03:41 PM",
-      "weight": 2,
-      "fat": 4.2,
-      "snf": 8.5,
-      "rate": 55.1,
-      "total": 110.2,
-      "status": "Success",
-      "branchId": "B-01"
-    },
-    {
-      "id": "C-708167",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "village": "Kolhapur, Maharashtra",
-      "date": "2026-09-02",
-      "time": "03:38 PM",
-      "weight": 6.2,
-      "fat": 4.2,
-      "snf": 8.5,
-      "rate": 55.1,
-      "total": 341.62,
       "status": "Success",
       "branchId": "B-01"
     },
@@ -2727,21 +3863,6 @@
       "snf": 8.6,
       "rate": 55.85,
       "total": 642.28,
-      "status": "Success",
-      "branchId": "B-01"
-    },
-    {
-      "id": "C-994465",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "village": "Kolhapur, Maharashtra",
-      "date": "2026-09-02",
-      "time": "Morning",
-      "weight": 0.5,
-      "fat": 4.2,
-      "snf": 8.5,
-      "rate": 55.1,
-      "total": 27.55,
       "status": "Success",
       "branchId": "B-01"
     },
@@ -5568,6 +6689,331 @@
   ],
   "payments": [
     {
+      "id": "PAY-454366",
+      "farmerId": "F-101",
+      "farmerName": "Aditya Chavan",
+      "date": "2026-10-30",
+      "time": "04:37 PM",
+      "amount": 637.92,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "04:37 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "04:37 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "04:37 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹637.92"
+        },
+        {
+          "time": "04:37 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_40133880"
+        }
+      ]
+    },
+    {
+      "id": "PAY-278833",
+      "farmerId": "F-105",
+      "farmerName": "Pritesh Ahire",
+      "date": "2026-10-30",
+      "time": "03:44 PM",
+      "amount": 637.92,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "03:44 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "03:44 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT: 4.2%, SNF: 8.5%, Rate: ₹53.16/L"
+        },
+        {
+          "time": "03:44 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹637.92"
+        },
+        {
+          "time": "03:44 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent to pritesh@upi via Instant Bank UPI. UTR: TXN10835621"
+        }
+      ]
+    },
+    {
+      "id": "PAY-882057",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-30",
+      "time": "08:08 AM",
+      "amount": 633.36,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "08:08 AM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "08:08 AM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "08:08 AM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹633.36"
+        },
+        {
+          "time": "08:08 AM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_39409139"
+        }
+      ]
+    },
+    {
+      "id": "PAY-953625",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-28",
+      "time": "03:35 PM",
+      "amount": 633.36,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "03:35 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "03:35 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "03:35 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹633.36"
+        },
+        {
+          "time": "03:35 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_29969171"
+        }
+      ]
+    },
+    {
+      "id": "PAY-987275",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-27",
+      "time": "12:23 PM",
+      "amount": 757.5,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "12:23 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "12:23 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "12:23 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹757.5"
+        },
+        {
+          "time": "12:23 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_82240532"
+        }
+      ]
+    },
+    {
+      "id": "PAY-507838",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-25",
+      "time": "09:55 PM",
+      "amount": 1063.2,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "09:55 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "09:55 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "09:55 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹1063.2"
+        },
+        {
+          "time": "09:55 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_63141154"
+        }
+      ]
+    },
+    {
+      "id": "PAY-113143",
+      "farmerId": "F-118",
+      "farmerName": "Divesh Chinchavalkar",
+      "date": "2026-10-23",
+      "time": "09:45 PM",
+      "amount": 239.22,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "09:45 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "09:45 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "09:45 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹239.22"
+        },
+        {
+          "time": "09:45 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_41527684"
+        }
+      ]
+    },
+    {
+      "id": "PAY-896110",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-23",
+      "time": "09:41 PM",
+      "amount": 409.33,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "09:41 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "09:41 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "09:41 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹409.33"
+        },
+        {
+          "time": "09:41 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_73179034"
+        }
+      ]
+    },
+    {
+      "id": "PAY-897135",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-21",
+      "time": "02:58 PM",
+      "amount": 637.92,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "02:58 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "02:58 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "02:58 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹637.92"
+        },
+        {
+          "time": "02:58 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_55708514"
+        }
+      ]
+    },
+    {
+      "id": "PAY-TEST-CHECK",
+      "farmerId": "F-101",
+      "farmerName": "Test Farmer",
+      "date": "2026-10-21",
+      "time": "Morning",
+      "amount": 525,
+      "status": "Success",
+      "timeline": []
+    },
+    {
       "id": "PAY-907737",
       "farmerId": "F-117",
       "farmerName": "Balasaheb Thorat",
@@ -5577,28 +7023,203 @@
       "status": "Success",
       "timeline": [
         {
+          "time": "01:48 PM",
           "label": "Milk Received",
           "status": "completed",
-          "time": "01:48 PM",
           "description": "Logged at 3T Dairy Sangamner Primary Center."
         },
         {
+          "time": "01:48 PM",
           "label": "Quality Analysis",
           "status": "completed",
-          "time": "01:48 PM",
           "description": "FAT: 4.3%, SNF: 8.6%, Rate: ₹56.26/L"
         },
         {
+          "time": "01:48 PM",
           "label": "Pricing Calculated",
           "status": "completed",
-          "time": "01:48 PM",
           "description": "Net payout calculated: ₹590.73"
         },
         {
+          "time": "01:48 PM",
           "label": "Bank Transfer",
           "status": "completed",
-          "time": "01:48 PM",
           "description": "Sent to Bank A/C ••••••••2739 (IFSC: SBIN0001234) via Direct IMPS. UTR: TXN52856803"
+        }
+      ]
+    },
+    {
+      "id": "PAY-142833",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-10-15",
+      "time": "10:55 PM",
+      "amount": 1034.49,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "10:55 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "10:55 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "10:55 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹1034.49"
+        },
+        {
+          "time": "10:55 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_27777776"
+        }
+      ]
+    },
+    {
+      "id": "PAY-933475",
+      "farmerId": "F-103",
+      "farmerName": "Mahesh Yadav",
+      "date": "2026-10-02",
+      "time": "02:02 PM",
+      "amount": 52.56,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "02:02 PM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "02:02 PM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "02:02 PM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹52.56"
+        },
+        {
+          "time": "02:02 PM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_82798026"
+        }
+      ]
+    },
+    {
+      "id": "PAY-968385",
+      "farmerId": "F-102",
+      "farmerName": "Sandesh Kadam",
+      "date": "2026-09-28",
+      "time": "11:09 AM",
+      "amount": 1012.7,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "11:09 AM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "11:09 AM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "11:09 AM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹1012.7"
+        },
+        {
+          "time": "11:09 AM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_86520785"
+        }
+      ]
+    },
+    {
+      "id": "PAY-626856",
+      "farmerId": "F-101",
+      "farmerName": "Aditya Chavan",
+      "date": "2026-09-28",
+      "time": "11:03 AM",
+      "amount": 639.6,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "11:03 AM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "11:03 AM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "11:03 AM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹639.6"
+        },
+        {
+          "time": "11:03 AM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_20767976"
+        }
+      ]
+    },
+    {
+      "id": "PAY-398900",
+      "farmerId": "F-103",
+      "farmerName": "Mahesh Yadav",
+      "date": "2026-09-28",
+      "time": "10:43 AM",
+      "amount": 1918.8,
+      "status": "Success",
+      "timeline": [
+        {
+          "time": "10:43 AM",
+          "label": "Milk Received",
+          "status": "completed",
+          "description": "Logged at 3T Dairy Sangamner Primary Center."
+        },
+        {
+          "time": "10:43 AM",
+          "label": "Quality Analysis",
+          "status": "completed",
+          "description": "FAT & SNF tested and approved."
+        },
+        {
+          "time": "10:43 AM",
+          "label": "Pricing Calculated",
+          "status": "completed",
+          "description": "Net payout calculated: ₹1918.8"
+        },
+        {
+          "time": "10:43 AM",
+          "label": "Bank Transfer",
+          "status": "completed",
+          "description": "Sent via Instant Bank UPI Gateway. UTR: pay_rzp_42959960"
         }
       ]
     },
@@ -5832,27 +7453,27 @@
       "status": "Success",
       "timeline": [
         {
+          "time": "06:51 PM",
           "label": "Milk Received",
           "status": "completed",
-          "time": "06:51 PM",
           "description": "Logged at Kolhapur, Maharashtra hub."
         },
         {
+          "time": "06:51 PM",
           "label": "Quality Analysis",
           "status": "completed",
-          "time": "06:51 PM",
           "description": "FAT: 4.1%, SNF: 8.4%, Rate: ₹46.15/L"
         },
         {
+          "time": "06:51 PM",
           "label": "Pricing Calculated",
           "status": "completed",
-          "time": "06:51 PM",
           "description": "Net payout calculated: ₹276.9"
         },
         {
+          "time": "06:51 PM",
           "label": "Bank Transfer",
           "status": "completed",
-          "time": "06:51 PM",
           "description": "Sent to Mahesh@upi via Bank Gateway. UTR: TXN93763063"
         }
       ]
@@ -5867,27 +7488,27 @@
       "status": "Success",
       "timeline": [
         {
+          "time": "06:46 PM",
           "label": "Milk Received",
           "status": "completed",
-          "time": "06:46 PM",
           "description": "Logged at Kolhapur, Maharashtra hub."
         },
         {
+          "time": "06:46 PM",
           "label": "Quality Analysis",
           "status": "completed",
-          "time": "06:46 PM",
           "description": "FAT: 4.2%, SNF: 8.5%, Rate: ₹46.7/L"
         },
         {
+          "time": "06:46 PM",
           "label": "Pricing Calculated",
           "status": "completed",
-          "time": "06:46 PM",
           "description": "Net payout calculated: ₹46.7"
         },
         {
+          "time": "06:46 PM",
           "label": "Bank Transfer",
           "status": "completed",
-          "time": "06:46 PM",
           "description": "Sent to name@upi via Bank Gateway. UTR: TXN14514802"
         }
       ]
@@ -6029,41 +7650,6 @@
           "label": "Razorpay UPI Transfer",
           "status": "completed",
           "description": "Settled via Razorpay Instant Payout Gateway. UTR: pay_rzp_54896445"
-        }
-      ]
-    },
-    {
-      "id": "PAY-994465",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "date": "2026-09-02",
-      "time": "04:33 PM",
-      "amount": 27.55,
-      "status": "Success",
-      "timeline": [
-        {
-          "time": "04:33 PM",
-          "label": "Milk Received",
-          "status": "completed",
-          "description": "Logged at village collection hub."
-        },
-        {
-          "time": "04:33 PM",
-          "label": "Quality Analysis",
-          "status": "completed",
-          "description": "FAT & SNF tested and approved."
-        },
-        {
-          "time": "04:33 PM",
-          "label": "Pricing Calculated",
-          "status": "completed",
-          "description": "Net payout calculated: ₹27.55"
-        },
-        {
-          "time": "04:33 PM",
-          "label": "Razorpay UPI Transfer",
-          "status": "completed",
-          "description": "Settled via Razorpay Instant Payout Gateway. UTR: pay_rzp_61977126"
         }
       ]
     },
@@ -6449,111 +8035,6 @@
           "label": "Bank Transfer",
           "status": "completed",
           "description": "Sent to name@upi via Bank Gateway. UTR: TXN63396643"
-        }
-      ]
-    },
-    {
-      "id": "PAY-898778",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "date": "2026-09-02",
-      "time": "03:41 PM",
-      "amount": 661.2,
-      "status": "Success",
-      "timeline": [
-        {
-          "time": "03:41 PM",
-          "label": "Milk Received",
-          "status": "completed",
-          "description": "Logged at village collection hub."
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Quality Analysis",
-          "status": "completed",
-          "description": "FAT & SNF tested and approved."
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Pricing Calculated",
-          "status": "completed",
-          "description": "Net payout calculated: ₹661.2"
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Razorpay UPI Transfer",
-          "status": "completed",
-          "description": "Settled via Razorpay Instant Payout Gateway. UTR: pay_rzp_62197954"
-        }
-      ]
-    },
-    {
-      "id": "PAY-872129",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "date": "2026-09-02",
-      "time": "03:41 PM",
-      "amount": 110.2,
-      "status": "Success",
-      "timeline": [
-        {
-          "time": "03:41 PM",
-          "label": "Milk Received",
-          "status": "completed",
-          "description": "Logged at village collection hub."
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Quality Analysis",
-          "status": "completed",
-          "description": "FAT & SNF tested and approved."
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Pricing Calculated",
-          "status": "completed",
-          "description": "Net payout calculated: ₹110.2"
-        },
-        {
-          "time": "03:41 PM",
-          "label": "Razorpay UPI Transfer",
-          "status": "completed",
-          "description": "Settled via Razorpay Instant Payout Gateway. UTR: pay_rzp_55307040"
-        }
-      ]
-    },
-    {
-      "id": "PAY-708167",
-      "farmerId": "F-112",
-      "farmerName": "Om Chavan",
-      "date": "2026-09-02",
-      "time": "03:38 PM",
-      "amount": 341.62,
-      "status": "Success",
-      "timeline": [
-        {
-          "time": "03:38 PM",
-          "label": "Milk Received",
-          "status": "completed",
-          "description": "Logged at village collection hub."
-        },
-        {
-          "time": "03:38 PM",
-          "label": "Quality Analysis",
-          "status": "completed",
-          "description": "FAT & SNF tested and approved."
-        },
-        {
-          "time": "03:38 PM",
-          "label": "Pricing Calculated",
-          "status": "completed",
-          "description": "Net payout calculated: ₹341.62"
-        },
-        {
-          "time": "03:38 PM",
-          "label": "Razorpay UPI Transfer",
-          "status": "completed",
-          "description": "Settled via Razorpay Instant Payout Gateway. UTR: pay_rzp_54386197"
         }
       ]
     },
@@ -13238,9 +14719,9 @@
     }
   ],
   "formulaConfig": {
-    "basePrice": 21,
-    "fatFactor": 3.4,
-    "snfFactor": 2.4
+    "basePrice": 18.5,
+    "fatFactor": 3.8,
+    "snfFactor": 2.2
   },
   "deletedFarmers": [],
   "retiredIds": [
@@ -13249,7 +14730,8 @@
     "F-110",
     "F-111",
     "F-109",
-    "F-115"
+    "F-115",
+    "F-112"
   ],
   "notifications": [
     {

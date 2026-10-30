@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getDb, syncCollectionToSupabase, syncFarmerToSupabase } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
 import { CollectionItem, PaymentItem, calculateRate, getLocalDateString, getAutoShift, getIndiaTimeString, getCollectionShift, isEveningShiftOpen, maskBankAccount } from '@/app/data';
-import { checkAndCreateMilkDropAlert } from '@/lib/notifications';
+import { checkAndCreateMilkDropAlert, checkAndCreateQualityFeedAdvisory } from '@/lib/notifications';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -199,6 +199,10 @@ export async function POST(request: Request) {
 
     farmer.monthlyEarnings = Math.round((farmer.monthlyEarnings + total) * 100) / 100;
 
+    // Capture baseline average FAT & SNF before updating
+    const prevAvgFat = farmer.avgFat || 4.2;
+    const prevAvgSnf = farmer.avgSnf || 8.5;
+
     // Recalculate average FAT & SNF
     if (farmer.milkHistory.length > 0) {
       const avgFat = farmer.milkHistory.reduce((acc, h) => acc + h.fat, 0) / farmer.milkHistory.length;
@@ -218,6 +222,22 @@ export async function POST(request: Request) {
     // Push into collections and payments
     db.data.collections.unshift(newCollection);
     db.data.payments.unshift(newPayment);
+
+    // ⚡ Automatic Cattle Feed Advisory (detects low FAT/SNF & generates nutrition tips)
+    let feedAdvisory = null;
+    try {
+      feedAdvisory = await checkAndCreateQualityFeedAdvisory(
+        farmer.id,
+        farmer.name,
+        targetBranchId,
+        numFat,
+        numSnf,
+        prevAvgFat,
+        prevAvgSnf
+      );
+    } catch (err) {
+      console.warn('Quality advisory check warning:', err);
+    }
 
     // ⚡ Automatic Milk Drop Detection Check
     checkAndCreateMilkDropAlert(
@@ -246,7 +266,8 @@ export async function POST(request: Request) {
       data: {
         collection: newCollection,
         payment: newPayment,
-        farmer
+        farmer,
+        feedAdvisory
       }
     }, { status: 201 });
 

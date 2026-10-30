@@ -45,6 +45,7 @@ const TYPE_OPTIONS = [
   { value: "rate_change", label: "Rate Change 💰", desc: "Milk price formula or FAT factor update" },
   { value: "announcement", label: "General Announcement 📢", desc: "Center schedule, holiday, or general notice" },
   { value: "health_advisory", label: "Health & Vet Advisory 🌿", desc: "Vaccination camp, disease warning, feed advice" },
+  { value: "quality_feed_advisory", label: "Cattle Feed Advisory 🥛", desc: "Automated low FAT/SNF cattle diet recommendation" },
   { value: "milk_drop_alert", label: "Milk Drop Alert 🔴", desc: "Alert farmer about drop in milk quantity" },
 ];
 

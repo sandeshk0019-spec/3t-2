@@ -50,10 +50,11 @@ const LANG_CONFIG = {
   english: {
     label: "English",
     flag: "🇬🇧",
-    placeholder: "Ask anything about your cows or milk quality...",
+    placeholder: "Ask anything — world knowledge, dairy, cattle, math...",
     greeting: (name: string, fat: string, snf: string) =>
       `Hello ${name}! 🐄 I'm your AI Krishi Mitra. Your average FAT is ${fat}% and SNF is ${snf}%. How can I help you today?`,
     chips: [
+      "Loan eligibility & credit score",
       "How to increase FAT%?",
       "How to improve SNF?",
       "Best cow feed plan",
@@ -61,7 +62,7 @@ const LANG_CONFIG = {
       "Govt dairy schemes",
     ],
     sending: "Thinking...",
-    rateLimited: "You've used all 10 AI questions for today. Try again tomorrow!",
+    rateLimited: "You have reached your daily question limit. Please try again tomorrow!",
     comingSoon: "🌾 AI Mitra is coming soon! We're setting up the system.",
     error: "Something went wrong. Please try again.",
     title: "AI Krishi Mitra",
@@ -83,10 +84,11 @@ const LANG_CONFIG = {
   marathi: {
     label: "मराठी",
     flag: "🇮🇳",
-    placeholder: "गाय किंवा दुधाबद्दल काहीही विचारा...",
+    placeholder: "काहीही विचारा — सामान्य ज्ञान, गणित, शेती, गायी किंवा दूध...",
     greeting: (name: string, fat: string, snf: string) =>
       `नमस्ते ${name}! 🐄 मी तुमचा AI कृषी मित्र आहे. तुमचा सरासरी FAT ${fat}% आणि SNF ${snf}% आहे. आज मी तुम्हाला कशी मदत करू?`,
     chips: [
+      "क्रेडिट स्कोअर व कर्ज पात्रता",
       "FAT% कसा वाढवावा?",
       "SNF कसा सुधारावा?",
       "गाईचा आहार नियोजन",
@@ -94,7 +96,7 @@ const LANG_CONFIG = {
       "सरकारी डेअरी योजना",
     ],
     sending: "विचार करतोय...",
-    rateLimited: "आजचे १० प्रश्न संपले. उद्या पुन्हा प्रयत्न करा!",
+    rateLimited: "आजची मोफत AI प्रश्नांची मर्यादा संपली आहे. उद्या पुन्हा विचारा!",
     comingSoon: "🌾 AI मित्र लवकरच येतोय! सिस्टम तयार होत आहे.",
     error: "काहीतरी चुकले. पुन्हा प्रयत्न करा.",
     title: "AI कृषी मित्र",
@@ -116,10 +118,11 @@ const LANG_CONFIG = {
   hindi: {
     label: "हिंदी",
     flag: "🇮🇳",
-    placeholder: "गाय या दूध के बारे में कुछ भी पूछें...",
+    placeholder: "कुछ भी पूछें — सामान्य ज्ञान, गणित, कृषि या पशु स्वास्थ्य...",
     greeting: (name: string, fat: string, snf: string) =>
       `नमस्ते ${name}! 🐄 मैं आपका AI कृषि मित्र हूं। आपका औसत FAT ${fat}% और SNF ${snf}% है। आज मैं आपकी कैसे मदद कर सकता हूं?`,
     chips: [
+      "क्रेडिट स्कोर और लोन पात्रता",
       "FAT% कैसे बढ़ाएं?",
       "SNF कैसे सुधारें?",
       "गाय का चारा योजना",
@@ -127,7 +130,7 @@ const LANG_CONFIG = {
       "सरकारी डेयरी योजनाएं",
     ],
     sending: "सोच रहा हूं...",
-    rateLimited: "आज के १० सवाल खत्म हो गए। कल फिर कोशिश करें!",
+    rateLimited: "आज के लिए AI प्रश्नों की सीमा समाप्त हो गई है। कल पुनः पूछें!",
     comingSoon: "🌾 AI मित्र जल्द आ रहा है! सिस्टम तैयार हो रहा है।",
     error: "कुछ गलत हो गया। दोबारा कोशिश करें।",
     title: "AI कृषि मित्र",

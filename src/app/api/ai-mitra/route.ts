@@ -14,7 +14,6 @@ const FALLBACK_MODELS = [
   'gemini-3.8-flash',
   'gemini-3.7-flash',
   'gemini-3.5-flash',
-  'gemini-3.1-flash-lite',
   'gemini-pro-latest',
   'gemini-flash-latest',
 ];
@@ -91,7 +90,7 @@ function generateLocalExpertResponse(question: string, language: string, farmerC
     q.includes('time to time')
   ) {
     if (isMarathi) {
-      return `नमस्कार शेतकरी मित्र, **३T (Time To Time)** बद्दल संपूर्ण माहिती खालीलप्रमाणे आहे:\n\n* **संस्थापक:** सन्देश कदम (Sandesh Kadam)\n* **३T चा अर्थ व उद्देश:** ३T म्हणजे **'Time To Time'** (वेळेवर, पारदर्शक, विश्वासू). आमचे ब्रीदवाक्य आहे **"Milk Now. Money Now."** (दूध मोजले की पैसे थेट बँकेत!).\n\n* **⚡ २ सेकंदात थेट UPI पेमेंट:** दूध मोजल्याबरोबर अवघ्या २ सेकंदात अधिकृत RBI UTR नंबरसह पैसे थेट तुमच्या बँक खात्यात जमा होतात. आठवडाभर किंवा पंधरा दिवस वाट पाहण्याची गरज नाही.\n\n* **⚖️ १००% पारदर्शक डिजिटल मापन:** डिजिटल वजन काटा आणि अल्ट्रासॉनिक फॅट/SNF अ‍ॅनालायझर थेट सिस्टीमशी जोडलेले आहेत. यामध्ये कोणीही कर्मचारी हाताने बदल करू शकत नाही (Zero Manipulation).\n\n* **📈 दर्जेदार दुधाला जास्त दर:** ३T मध्ये 'डायनॅमिक रेट फॉर्म्युला' (Rate = Base + FAT + SNF) वापरला जातो. चांगल्या गुणवत्तेच्या दुधाला बाजारापेक्षा ₹५ ते ₹१२ प्रति लिटर जास्त भाव मिळतो.\n\n* **📱 २४ तास मोबाईल पासबुक:** शेतकरी आपल्या मोबाईलवर कधीही प्रत्येक वेळच्या दुधाचे वजन, फॅट, SNF आणि पैशांचा हिशोब पाहू शकतात.\n\n* **🛡️ फसवणूक प्रतिबंध (Anti-Fraud):** प्रत्येक शेतकर्‍यासाठी १ सकाळ आणि १ संध्याकाळ शिफ्ट नियम लागू असून बनावट नोंदींना पूर्ण आळा घातला आहे.\n\n* **🤖 AI कृषी मित्र:** शेतकर्‍यांच्या सेवेसाठी २४ तास गायींचे आरोग्य, चारा, आजार व शासकीय योजनांबद्दल मोफत मार्गदर्शन करतो.`;
+      return `नमस्कार शेतकरी मित्र, **३T (Time To Time)** बद्दल संपूर्ण माहिती खालीलप्रमाणे आहे:\n\n* **संस्थापक:** संदेश कदम (Sandesh Kadam)\n* **३T चा अर्थ व उद्देश:** ३T म्हणजे **'Time To Time'** (वेळेवर, पारदर्शक, विश्वासू). आमचे ब्रीदवाक्य आहे **"Milk Now. Money Now."** (दूध मोजले की पैसे थेट बँकेत!).\n\n* **⚡ २ सेकंदात थेट UPI पेमेंट:** दूध मोजल्याबरोबर अवघ्या २ सेकंदात अधिकृत RBI UTR नंबरसह पैसे थेट तुमच्या बँक खात्यात जमा होतात. आठवडाभर किंवा पंधरा दिवस वाट पाहण्याची गरज नाही.\n\n* **⚖️ १००% पारदर्शक डिजिटल मापन:** डिजिटल वजन काटा आणि अल्ट्रासॉनिक फॅट/SNF अ‍ॅनालायझर थेट सिस्टीमशी जोडलेले आहेत. यामध्ये कोणीही कर्मचारी हाताने बदल करू शकत नाही (Zero Manipulation).\n\n* **📈 दर्जेदार दुधाला जास्त दर:** ३T मध्ये 'डायनॅमिक रेट फॉर्म्युला' (Rate = Base + FAT + SNF) वापरला जातो. चांगल्या गुणवत्तेच्या दुधाला बाजारापेक्षा ₹५ ते ₹१२ प्रति लिटर जास्त भाव मिळतो.\n\n* **📱 २४ तास मोबाईल पासबुक:** शेतकरी आपल्या मोबाईलवर कधीही प्रत्येक वेळच्या दुधाचे वजन, फॅट, SNF आणि पैशांचा हिशोब पाहू शकतात.\n\n* **🛡️ फसवणूक प्रतिबंध (Anti-Fraud):** प्रत्येक शेतकर्‍यासाठी १ सकाळ आणि १ संध्याकाळ शिफ्ट नियम लागू असून बनावट नोंदींना पूर्ण आळा घातला आहे.\n\n* **🤖 AI कृषी मित्र:** शेतकर्‍यांच्या सेवेसाठी २४ तास गायींचे आरोग्य, चारा, आजार व शासकीय योजनांबद्दल मोफत मार्गदर्शन करतो.`;
     }
     if (isHindi) {
       return `नमस्ते किसान मित्र, **3T (Time To Time)** के बारे में संपूर्ण जानकारी:\n\n* **संस्थापक:** संदेश कदम (Sandesh Kadam)\n* **3T का परिचय:** 3T का अर्थ है **'Time To Time'**। हमारा उद्देश्य है: **"Milk Now. Money Now."** (दूध जमा करें और तुरंत पैसा पाएं)।\n\n* **⚡ 2 सेकंड में सीधा बैंक भुगतान:** दूध वजन और टेस्टिंग होते ही 2 सेकंड के भीतर अधिकृत RBI UTR के साथ पैसे सीधे आपके बैंक खाते में जमा होते हैं।\n\n* **⚖️ डिजिटल व पारदर्शी टेस्टिंग:** डिजिटल वजन कांटा और अल्ट्रासोनिक एनालाइजर सीधे सॉफ्टवेयर से जुड़े हैं, जिससे वजन या फैट में कोई मानवीय हेराफेरी संभव नहीं है।\n\n* **📈 गुणवत्ता पर अधिक मुनाफा:** 3T में फैट और SNF के आधार पर गतिशील मूल्य निर्धारण होता है, जिससे किसानों को बाजार से ₹5 से ₹12 प्रति लीटर अधिक आय होती है।\n\n* **📱 24/7 डिजिटल पासबुक:** किसान अपने स्मार्टफोन पर हर समय अपना दूध रिकॉर्ड, फैट और पेमेंट इतिहास देख सकते हैं।\n\n* **🤖 AI कृषि मित्र:** पशु स्वास्थ्य, संतुलित आहार और सरकारी योजनाओं की 24 घंटे सहायता।`;
@@ -99,7 +98,25 @@ function generateLocalExpertResponse(question: string, language: string, farmerC
     return `Hello Farmer Friend, here is complete information about **3T (Time To Time Dairy Payment Network)**:\n\n* **Founder & Creator:** Sandesh Kadam (dairy3t@gmail.com)\n* **What is 3T?:** 3T stands for **'Time To Time'** with the vision **"Milk Now. Money Now."** — India's fastest instant direct-to-bank dairy settlement network.\n\n* **⚡ Sub-2-Second Instant UPI Payouts:** Milk payments are dispatched directly to the farmer's bank account with an official RBI UTR reference within 2 seconds of collection.\n\n* **⚖️ 100% Digital Transparency:** Automated digital scales and ultrasonic FAT/SNF analyzers connect directly to the cloud, eliminating manual tampering and cheating.\n\n* **📈 Dynamic Quality Pricing:** Uses the formula Rate = BasePrice + (FAT × Factor) + (SNF × Factor), rewarding farmers with ₹5 to ₹12 MORE per liter for high quality milk.\n\n* **📱 24/7 Digital Passbook:** Real-time mobile access to past delivery slips, volume trends, and payment logs (supports offline PWA sync).\n\n* **🤖 AI Krishi Mitra:** 24/7 multilingual cattle health, fodder, and government scheme advisory for Indian dairy farmers.`;
   }
 
-  // 1. Govt Dairy Schemes & Subsidies (AHIDF, NABARD, DEDS, Kamdhenu, KCC)
+  // 1. Credit Score & Loan Eligibility
+  if (
+    q.includes('credit') ||
+    q.includes('score') ||
+    q.includes('क्रेडिट') ||
+    q.includes('स्कोअर') ||
+    (q.includes('कर्ज') && (q.includes('पात्रता') || q.includes('मिळेल') || q.includes('किती') || q.includes('कसे'))) ||
+    (q.includes('loan') && (q.includes('eligibility') || q.includes('limit') || q.includes('how much') || q.includes('score')))
+  ) {
+    if (isMarathi) {
+      return `नमस्कार शेतकरी मित्र, **३T किसान डेअरी क्रेडिट स्कोअर (3T Dairy Credit Score)** बद्दल माहिती:\n\n* **३T क्रेडिट स्कोअर म्हणजे काय?:** शेतकर्‍यांच्या दैनंदिन दुधाचे वजन, नियमित पुरवठा (Consistency), फॅट/SNF गुणवत्ता आणि दररोजच्या बँक UTR ट्रान्झॅक्शनवरून हा ३०० ते ९०० दरम्यानचा स्कोअर मोजला जातो.\n\n* **शासकीय कर्जासाठी कसा उपयोगी ठरतो?:** पारंपारिक शेतकऱ्यांकडे पगार पावती (Payslip) किंवा ITR नसल्याने बँका सहसा कर्ज नाकारतात. मात्र ३T वरील डिजिटल दूध नोंदी आणि थेट बँक UTR ट्रान्झॅक्शन हिस्ट्री ही बँकांसाठी १००% अधिकृत आर्थिक पुरावा मानली जाते. याच्या जोरावर सरकारी बँका (SBI, बँक ऑफ महाराष्ट्र, DCC) **KCC (किसान क्रेडिट कार्ड)** अंतर्गत ₹२,००,००० ते ₹३,५०,००० पर्यंत विनातारण कर्ज अवघ्या **४% सवलतीच्या व्याजदराने** तात्काळ मंजूर करतात!\n\n* **नाबार्ड व AHIDF सबसिडी:** या स्कोअरच्या आधारे नवीन गाई-म्हशी खरेदी व आधुनिक गोठ्यासाठी २५% ते ३३% सबसिडी (अनुदान) मिळते.\n\n* **प्रमाणपत्र कसे मिळवाल?:** तुमच्या डिजिटल पासबुकमधील **"३T किसान क्रेडिट स्कोअर"** कार्डवर जाऊन **'शासकीय कर्ज पात्रता प्रमाणपत्र'** बटणावर क्लिक करा व बँकेत देण्यासाठी अधिकृत रिपोर्ट डाउनलोड करा!`;
+    }
+    if (isHindi) {
+      return `नमस्ते किसान मित्र, **3T डेयरी क्रेडिट स्कोर** की जानकारी:\n\n* **क्रेडिट स्कोर क्या है?:** 3T पर आपके दूध की दैनिक मात्रा, नियमितता, फैट/SNF और बैंक UTR ट्रांजेक्शन के आधार पर 300 से 900 के बीच क्रेडिट स्कोर तय होता है।\n\n* **लोन और सब्सिडी में लाभ:** इसके आधार पर सरकारी बैंक किसान क्रेडिट कार्ड (KCC) के तहत ₹2 लाख से ₹3.5 लाख तक का बिना गारंटी लोन मात्र 4% ब्याज पर देते हैं। नाबार्ड व AHIDF से 33% तक सब्सिडी मिलती है।\n\n* **सर्टिफिकेट डाउनलोड:** अपने पासबुक में "3T क्रेडिट स्कोर" कार्ड से बैंक के लिए आधिकारिक डिजिटल प्रमाण पत्र डाउनलोड करें!`;
+    }
+    return `Hello Farmer Friend, here is information about your **3T Dairy Credit Score**:\n\n* **What is 3T Credit Score?:** A 300–900 credit rating calculated from your verified daily milk supply, FAT/SNF quality, and direct-to-bank UTR transaction history.\n\n* **Govt & Bank Loan Benefits:** Overcomes the lack of payslips or ITR for farmers. Nationalized banks (SBI, BoM) and District Banks use 3T records to approve collateral-free **Kisan Credit Card (KCC)** loans up to ₹2.5–3.5 Lakh at subsidized 4% interest, plus 25%–33% NABARD/AHIDF capital subsidies.\n\n* **How to Get Your Certificate:** Open your 3T Passbook, scroll to the **"3T Dairy Credit Score"** card, and click **'View & Download Bank Loan Credit Certificate'**!`;
+  }
+
+  // 2. Govt Dairy Schemes & Subsidies (AHIDF, NABARD, DEDS, Kamdhenu, KCC)
   if (
     q.includes('scheme') ||
     q.includes('subsidy') ||
@@ -225,6 +242,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── 4. Check API key ──
+
     const apiKey = process.env.GEMINI_API_KEY || '';
 
     // ── 5. Load farmer's real full data & ledger history ──
@@ -298,6 +316,7 @@ CORE KNOWLEDGE ABOUT 3T DAIRY PAYMENT NETWORK:
   5. **Anti-Fraud Security**: 1 morning & 1 evening collection limit per registered farmer per day with collusion alerts to protect farmers and societies.
   6. **AI Krishi Mitra**: 24/7 multilingual dairy & farm advisory (disease prevention, silage, feed, government schemes, ledger queries).
   7. **Financial Inclusion**: Digital transaction history enables easy access to low-interest Kisan Credit Cards (KCC), AHIDF dairy loans, and cattle insurance.
+  8. **3T Dairy Credit Score**: Computes a 300–900 dairy credit rating based on regular milk supply, FAT/SNF quality, and verified direct-to-bank UTR cashflow. Enables farmers to get collateral-free KCC loans up to ₹2.5–3.5 Lakh at 4% subsidized interest and NABARD/AHIDF capital subsidies without needing payslips or ITR. Farmers can download their official verified credit certificate right from their passbook.
 
 INSTRUCTIONS:
 1. ANSWER ANY QUESTION: Whether the user asks about 3T, world general knowledge (e.g., 'Who is the President of China?', 'National bird of India', 'PM of Pakistan', 'Next Olympics'), math (e.g., '5+5'), science, or agriculture, answer directly, accurately, and politely.

@@ -68,7 +68,7 @@ import {
   Bluetooth,
   Cpu,
   Radio,
-  HelpCircle,
+  HelpCircle, Sparkles,
 } from "lucide-react";
 import { BroadcastTab } from "./BroadcastTab";
 import { FarmerQueriesTab } from "./FarmerQueriesTab";
@@ -1622,6 +1622,19 @@ export default function Dashboard() {
   }, [enrichedFarmers, collectionFarmerSearch]);
 
   const [fraudModalData, setFraudModalData] = useState<{ farmerName: string; farmerId: string; shift: string; existingLog: any } | null>(null);
+  const [feedAdvisoryModal, setFeedAdvisoryModal] = useState<{
+    farmerName: string;
+    farmerPhone?: string;
+    hasQualityDrop: boolean;
+    type?: 'low_fat' | 'low_snf' | 'low_both';
+    title?: string;
+    body?: string;
+    smsText?: string;
+    fatDiff?: number;
+    snfDiff?: number;
+    currentFat?: number;
+    currentSnf?: number;
+  } | null>(null);
 
   // Verification & Confirmation Modal State for Payment Dispatch
   const [dispatchConfirmation, setDispatchConfirmation] = useState<{
@@ -1731,6 +1744,17 @@ export default function Dashboard() {
           setNewFat("4.2");
           setNewSnf("8.5");
           triggerRealtimeBroadcast();
+
+          // ⚡ Automated Cattle Feed Advisory: Dispatched if FAT or SNF dropped below farmer avg
+          if (json.data.feedAdvisory?.hasQualityDrop) {
+            setFeedAdvisoryModal({
+              farmerName: farmer.name,
+              farmerPhone: farmer.phone,
+              currentFat: fatNum,
+              currentSnf: snfNum,
+              ...json.data.feedAdvisory
+            });
+          }
 
           // ⚡ Instant Trigger: Launch Razorpay Checkout Modal immediately (<100ms)!
           if (json.data.payment) {
@@ -5191,6 +5215,126 @@ UTR Settlement Gateway Status: ONLINE
                   <Mail className="w-3.5 h-3.5" />
                   <span>Contact 3T</span>
                 </a>
+              </div>
+            </motion.div>
+          </React.Fragment>
+        )}
+
+        {/* Automated Cattle Feed & Quality Drop Advisory Modal */}
+        {feedAdvisoryModal && (
+          <React.Fragment key="modal-feed-advisory">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setFeedAdvisoryModal(null)}
+              className="fixed inset-0 bg-black z-50 backdrop-blur-xs"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              className="fixed inset-0 m-auto max-w-lg h-fit max-h-[92vh] overflow-y-auto bg-white z-50 p-6 rounded-3xl border-2 border-amber-400 shadow-2xl flex flex-col space-y-4 font-sans"
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-amber-100">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-100 border border-amber-300 flex items-center justify-center text-xl shrink-0">
+                    🌾
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm text-amber-950 flex items-center space-x-1.5">
+                      <span>CATTLE FEED & QUALITY ADVISORY</span>
+                      <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-amber-500 text-white tracking-wide uppercase">
+                        SMS Sent
+                      </span>
+                    </h4>
+                    <p className="text-[11px] font-semibold text-amber-700">स्वयंचलित पशु आहार सल्ला व दुग्ध गुणवत्ता सुधारणा</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFeedAdvisoryModal(null)}
+                  className="p-1 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Farmer and Quality Stats */}
+              <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3.5 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-gray-500 font-medium">Farmer: </span>
+                    <span className="font-black text-gray-900">{feedAdvisoryModal.farmerName}</span>
+                  </div>
+                  {feedAdvisoryModal.farmerPhone && (
+                    <div className="flex items-center space-x-1 font-mono text-[11px] text-gray-600">
+                      <Phone className="w-3 h-3 text-emerald-600" />
+                      <span>+91 {feedAdvisoryModal.farmerPhone}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className={`p-2.5 rounded-xl border ${feedAdvisoryModal.fatDiff && feedAdvisoryModal.fatDiff >= 0.3 ? 'bg-red-50 border-red-200 text-red-900' : 'bg-white border-gray-200 text-gray-700'}`}>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Today FAT%</div>
+                    <div className="flex items-baseline space-x-1.5 mt-0.5">
+                      <span className="text-base font-black">{feedAdvisoryModal.currentFat ?? '—'}%</span>
+                      {feedAdvisoryModal.fatDiff && feedAdvisoryModal.fatDiff >= 0.3 && (
+                        <span className="text-[10px] font-bold text-red-600">(-{feedAdvisoryModal.fatDiff}%)</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className={`p-2.5 rounded-xl border ${feedAdvisoryModal.snfDiff && feedAdvisoryModal.snfDiff >= 0.3 ? 'bg-red-50 border-red-200 text-red-900' : 'bg-white border-gray-200 text-gray-700'}`}>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Today SNF%</div>
+                    <div className="flex items-baseline space-x-1.5 mt-0.5">
+                      <span className="text-base font-black">{feedAdvisoryModal.currentSnf ?? '—'}%</span>
+                      {feedAdvisoryModal.snfDiff && feedAdvisoryModal.snfDiff >= 0.3 && (
+                        <span className="text-[10px] font-bold text-red-600">(-{feedAdvisoryModal.snfDiff}%)</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SMS Text Dispatched Preview */}
+              {feedAdvisoryModal.smsText && (
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider flex items-center space-x-1">
+                      <span>📲 Dispatched SMS Message</span>
+                    </span>
+                    <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      Delivered
+                    </span>
+                  </div>
+                  <div className="p-3 bg-gray-900 text-emerald-300 font-mono text-xs rounded-xl border border-gray-800 leading-relaxed shadow-inner">
+                    {feedAdvisoryModal.smsText}
+                  </div>
+                </div>
+              )}
+
+              {/* Detailed Cattle Diet Guidance */}
+              <div className="space-y-2">
+                <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider">
+                  💡 Dietary Recommendations (आहार सूचना):
+                </span>
+                <div className="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 text-xs text-gray-800 font-medium whitespace-pre-line leading-relaxed max-h-48 overflow-y-auto">
+                  {feedAdvisoryModal.body}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setFeedAdvisoryModal(null)}
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center space-x-1.5"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>Acknowledge & Close</span>
+                </button>
               </div>
             </motion.div>
           </React.Fragment>

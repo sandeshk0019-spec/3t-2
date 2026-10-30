@@ -8,12 +8,13 @@ import { supabase } from './supabase';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type NotificationType =
-  | 'milk_drop_alert'   // Auto-generated when milk quantity drops significantly
-  | 'bonus_rate'        // Admin: extra bonus per liter this period
-  | 'rate_change'       // Admin: milk rate formula changed
-  | 'announcement'      // Admin: general center announcement
-  | 'health_advisory'   // Admin: vaccination camp / disease advisory
-  | 'payment_credited'; // Auto: payment successfully credited
+  | 'milk_drop_alert'        // Auto-generated when milk quantity drops significantly
+  | 'quality_feed_advisory'  // Auto-generated when FAT% or SNF% drops with cattle diet recommendations
+  | 'bonus_rate'             // Admin: extra bonus per liter this period
+  | 'rate_change'            // Admin: milk rate formula changed
+  | 'announcement'           // Admin: general center announcement
+  | 'health_advisory'        // Admin: vaccination camp / disease advisory
+  | 'payment_credited';      // Auto: payment successfully credited
 
 export interface Notification {
   id: string;
@@ -425,4 +426,99 @@ export async function checkAndCreateMilkDropAlert(
     sentBy: 'SYSTEM',
   });
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CATTLE FEED & MILK QUALITY ADVISORY
+// Auto-triggered when today's FAT% or SNF% drops below the farmer's average.
+// Provides veterinarian-verified dietary remedies (Cottonseed cake, dry fodder,
+// bypass fat, mineral mix, rumen buffering) in bilingual Marathi + English.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface FeedAdvisoryResult {
+  hasQualityDrop: boolean;
+  type?: 'low_fat' | 'low_snf' | 'low_both';
+  title?: string;
+  body?: string;
+  smsText?: string;
+  fatDiff?: number;
+  snfDiff?: number;
+}
+
+export async function checkAndCreateQualityFeedAdvisory(
+  farmerId: string,
+  farmerName: string,
+  branchId: string,
+  currentFat: number,
+  currentSnf: number,
+  baselineFat: number,
+  baselineSnf: number
+): Promise<FeedAdvisoryResult | null> {
+  const fatDiff = Math.round((baselineFat - currentFat) * 10) / 10;
+  const snfDiff = Math.round((baselineSnf - currentSnf) * 10) / 10;
+
+  const isFatDrop = fatDiff >= 0.3;
+  const isSnfDrop = snfDiff >= 0.3;
+
+  if (!isFatDrop && !isSnfDrop) {
+    return null;
+  }
+
+  let type: 'low_fat' | 'low_snf' | 'low_both' = 'low_fat';
+  let title = '';
+  let body = '';
+  let smsText = '';
+
+  if (isFatDrop && isSnfDrop) {
+    type = 'low_both';
+    title = '⚠️ दुधातील फॅट व SNF कमी: आहार सल्ला / Low FAT & SNF Alert';
+    body = `शेतकरी मित्र ${farmerName}, आजचे फॅट (${currentFat}%) व SNF (${currentSnf}%) आपल्या सरासरीपेक्षा (फॅट ${baselineFat}%, SNF ${baselineSnf}%) कमी आले आहे.\n\n💡 गुणवत्ता वाढीसाठी पशु आहार सल्ला:\n1. रुमेन बफरिंगसाठी आहारात रोज ३०-४० ग्रॅम खाण्याचा सोडा (सोडियम बायकार्बोनेट) द्या.\n2. सुका चारा (कडबा/गवत) ६०% व हिरवा चारा ४०% या प्रमाणात ठेवा.\n3. दररोज ५० ग्रॅम खनिज मिश्रण (Mineral Mixture) व १.५ किलो सरकी पेंड (Cottonseed Cake) द्या.\n4. जनावरास दिवसभरात ७०-८० लिटर स्वच्छ व थंड पिण्याचे पाणी द्या.\n\n(Tip: Feed 60% dry fodder, 1.5kg cottonseed cake, 50g mineral mix & 30g baking soda daily to balance rumen digestion).`;
+    smsText = `3T Dairy: ${farmerName}, today's FAT (${currentFat}%) & SNF (${currentSnf}%) dropped vs avg. Tip: Feed 60% dry fodder, 1.5kg cottonseed cake, 50g mineral mixture & 30g baking soda daily to boost quality.`;
+  } else if (isFatDrop) {
+    type = 'low_fat';
+    title = `🥛 दुधातील फॅट कमी: आहार सल्ला / Low FAT Alert (${currentFat}%)`;
+    body = `शेतकरी मित्र ${farmerName}, आजचे फॅट ${currentFat}% आले आहे (आपली सरासरी ${baselineFat}% आहे - ${fatDiff}% घट).\n\n💡 फॅट वाढवण्यासाठी आजचा आहार सल्ला:\n1. आहारात सुका चारा (कडबा, वाळलेले गवत) चे प्रमाण ६०% पर्यंत वाढवा.\n2. १ ते १.५ किलो कपाशी सरकी पेंड (Cottonseed Cake) व ५०-१०० ग्रॅम बायपास फॅट (Bypass Fat) खाऊ घाला.\n3. अति पाणथळ किंवा कोवळा हिरवा चारा मर्यादित द्या.\n4. धान्य भरडा बारीक पिठासारखा न दळता जाडसर (दलियासारखा) द्या.\n\n(Tip: Increase dry fodder ratio to 60%, add 1.5kg cottonseed cake and 50-100g bypass fat daily to improve butterfat).`;
+    smsText = `3T Dairy: ${farmerName}, today's FAT is ${currentFat}% (Avg: ${baselineFat}%). Tip to boost FAT tomorrow: Feed 60% dry fodder, 1.5kg cottonseed cake & 50-100g bypass fat daily.`;
+  } else {
+    type = 'low_snf';
+    title = `🌾 दुधातील SNF कमी: आहार सल्ला / Low SNF Alert (${currentSnf}%)`;
+    body = `शेतकरी मित्र ${farmerName}, आजचे SNF ${currentSnf}% आले आहे (आपली सरासरी ${baselineSnf}% आहे - ${snfDiff}% घट).\n\n💡 SNF वाढवण्यासाठी आजचा आहार सल्ला:\n1. प्रथिनांसाठी आहारात लसूण घास (Lucerne), बरसीम किंवा सोयाबीन/शेंगदाणा पेंड द्या.\n2. दररोज ५० ग्रॅम चांगल्या दर्जाचे चिलेटेड खनिज मिश्रण (Chelated Mineral Mixture) खाऊ घाला.\n3. जनावरास भरपूर व स्वच्छ पिण्याचे पाणी (७०-८० लिटर) उपलब्ध करा.\n4. जनावराची जंतनाशक औषधोपचार (Deworming) झालेली आहे का याची खात्री करा.\n\n(Tip: Feed protein-rich green legume fodder, 50g chelated mineral mix and 70-80L clean water to recover SNF%).`;
+    smsText = `3T Dairy: ${farmerName}, today's SNF is ${currentSnf}% (Avg: ${baselineSnf}%). Tip to boost SNF: Feed protein legume fodder (Lucerne), 50g chelated mineral mix & 70-80L water daily.`;
+  }
+
+  // Check if already notified for quality advisory today to avoid spamming the log
+  try {
+    const store = await getStore();
+    const today = new Date().toISOString().slice(0, 10);
+    const alreadyAlerted = store.data.notifications.some(
+      (n) =>
+        n.type === 'quality_feed_advisory' &&
+        n.farmerId === farmerId &&
+        n.createdAt.startsWith(today)
+    );
+
+    if (!alreadyAlerted) {
+      await createNotification({
+        type: 'quality_feed_advisory',
+        title,
+        body,
+        farmerId,
+        branchId,
+        sentBy: 'SYSTEM',
+      });
+    }
+  } catch (err) {
+    console.warn('Error creating quality feed advisory notification:', err);
+  }
+
+  return {
+    hasQualityDrop: true,
+    type,
+    title,
+    body,
+    smsText,
+    fatDiff,
+    snfDiff
+  };
+}
+
 

@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     // ── 4. Check API key configured ──
+
     const apiKey = process.env.GEMINI_API_KEY || '';
     if (!apiKey || apiKey === 'YOUR_GEMINI_API_KEY_HERE') {
       return NextResponse.json(
@@ -152,6 +153,7 @@ CORE KNOWLEDGE ABOUT 3T DAIRY PAYMENT NETWORK:
   5. **Anti-Fraud Security**: 1 morning & 1 evening collection limit per registered farmer per day with collusion alerts to protect farmers and societies.
   6. **AI Krishi Mitra**: 24/7 multilingual dairy & farm advisory (disease prevention, silage, feed, government schemes, ledger queries).
   7. **Financial Inclusion**: Digital transaction history enables easy access to low-interest Kisan Credit Cards (KCC), AHIDF dairy loans, and cattle insurance.
+  8. **3T Dairy Credit Score**: Computes a 300–900 dairy credit rating based on regular milk supply, FAT/SNF quality, and verified direct-to-bank UTR cashflow. Enables farmers to get collateral-free KCC loans up to ₹2.5–3.5 Lakh at 4% subsidized interest and NABARD/AHIDF capital subsidies without needing payslips or ITR. Farmers can download their official verified credit certificate right from their passbook.
 
 INSTRUCTIONS:
 1. ANSWER ANY QUESTION: Whether the user asks about 3T, world general knowledge (e.g., 'Who is the President of China?', 'National bird of India', 'PM of Pakistan', 'Next Olympics'), math (e.g., '5+5'), science, or agriculture, answer directly, accurately, and politely.

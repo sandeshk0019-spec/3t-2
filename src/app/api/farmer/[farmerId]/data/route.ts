@@ -11,7 +11,7 @@ export const revalidate = 0;
 // Used by the LivePassbookLedger component to poll for real-time updates.
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ farmerId: string }> | { farmerId: string } }
+  { params }: { params: Promise<{ farmerId: string }> }
 ) {
   try {
     const resolved = await Promise.resolve(params);

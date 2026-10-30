@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, X, CheckCheck, Megaphone, TrendingDown, Gift, DollarSign, Stethoscope, CreditCard, Info } from "lucide-react";
+import { Bell, X, CheckCheck, Megaphone, TrendingDown, Gift, DollarSign, Stethoscope, CreditCard, Info, Sparkles } from "lucide-react";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -28,8 +28,9 @@ interface Props {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const TYPE_CONFIG: Record<string, { icon: React.ElementType; color: string; bg: string; label: string }> = {
-  milk_drop_alert:  { icon: TrendingDown,  color: "text-red-600",    bg: "bg-red-50 border-red-200",    label: "Milk Alert" },
-  bonus:            { icon: Gift,          color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200", label: "Bonus" },
+  milk_drop_alert:        { icon: TrendingDown,  color: "text-red-600",    bg: "bg-red-50 border-red-200",    label: "Milk Alert" },
+  quality_feed_advisory:  { icon: Sparkles,      color: "text-amber-700",  bg: "bg-amber-50 border-amber-300", label: "Feed Advisory" },
+  bonus:                  { icon: Gift,          color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200", label: "Bonus" },
   bonus_rate:       { icon: Gift,          color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-200", label: "Bonus" },
   rate_change:      { icon: DollarSign,    color: "text-blue-600",   bg: "bg-blue-50 border-blue-200",   label: "Rate Change" },
   announcement:     { icon: Megaphone,     color: "text-purple-600", bg: "bg-purple-50 border-purple-200", label: "Notice" },

@@ -13,12 +13,13 @@ import { NotificationPanel } from "./NotificationPanel";
 import { LivePassbookLedger } from "./LivePassbookLedger";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
 import { FarmerQueryBanner } from "./FarmerQueryBanner";
+import { FarmerCreditScoreCard } from "./FarmerCreditScoreCard";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 interface Props {
-  params: Promise<{ farmerId: string }> | { farmerId: string };
+  params: Promise<{ farmerId: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -168,7 +169,14 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
           farmerPhone={farmer.phone}
         />
 
-        {/* 2. Farmer Account Profile Card */}
+        {/* 2. 3T Dairy Credit Score & Government Loan Eligibility Assessment */}
+        <FarmerCreditScoreCard
+          farmer={farmer}
+          collections={collections}
+          payments={payments}
+        />
+
+        {/* 3. Farmer Account Profile Card & Live Daily Ledger */}
         <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 shadow-sm space-y-5 sm:space-y-6 print:border-black print:rounded-none">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-gray-200 pb-4 gap-3 sm:gap-4">
             <div className="flex items-center space-x-3 sm:space-x-4">
