@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { CheckCircle2 } from "lucide-react";
 import { usePassbookLanguage, LanguageSelector } from "./PassbookLanguageContext";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
 
@@ -33,6 +34,26 @@ export function PassbookHeader() {
         <LanguageSelector />
         <FarmerLogoutButton />
       </div>
+    </div>
+  );
+}
+
+export function FarmerVerificationBadge() {
+  const { t } = usePassbookLanguage();
+  return (
+    <span className="inline-flex items-center space-x-1.5 text-[11px] sm:text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl">
+      <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
+      <span>{t.bankVerified}</span>
+    </span>
+  );
+}
+
+export function PassbookFooter() {
+  const { t } = usePassbookLanguage();
+  return (
+    <div className="text-center text-xs text-gray-500 font-medium py-4 space-y-1 no-print">
+      <p>© {new Date().getFullYear()} {t.footerCopyright}</p>
+      <p className="text-[10px] text-gray-400">{t.footerPowered}</p>
     </div>
   );
 }
