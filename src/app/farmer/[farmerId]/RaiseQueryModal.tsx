@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HelpCircle,
@@ -280,17 +280,20 @@ export function RaiseQueryModal({
 
   const t = DICTIONARY[language];
 
-  // Load history on mount or when tab changes
-  useEffect(() => {
-    if (isOpen && farmerId) {
-      loadHistory();
-    }
-  }, [isOpen, farmerId]);
-
-  const loadHistory = async () => {
+  const loadHistory = useCallback(async () => {
+    if (!farmerId) return;
     setLoadingHistory(true);
     try {
-      const res = await fetch(`/api/farmer/query?farmerId=${encodeURIComponent(farmerId)}&_t=${Date.now()}`);
+      const res = await fetch(
+        `/api/farmer/query?farmerId=${encodeURIComponent(farmerId)}&_t=${Date.now()}`,
+        {
+          cache: "no-store",
+          headers: {
+            "Pragma": "no-cache",
+            "Cache-Control": "no-cache, no-store, must-revalidate"
+          }
+        }
+      );
       const data = await res.json();
       if (data.success && Array.isArray(data.queries)) {
         setHistoryList(data.queries);
@@ -300,7 +303,53 @@ export function RaiseQueryModal({
     } finally {
       setLoadingHistory(false);
     }
-  };
+  }, [farmerId]);
+
+  // Load history on mount or when tab changes, and listen for live updates
+  useEffect(() => {
+    if (!isOpen || !farmerId) return;
+    loadHistory();
+
+    // 1. BroadcastChannel real-time sync across open browser tabs
+    let channel: BroadcastChannel | null = null;
+    try {
+      channel = new BroadcastChannel("3t_realtime_sync");
+      channel.onmessage = (event) => {
+        if (event?.data?.type === "QUERY_UPDATED" || event?.data?.type === "QUERY_DELETED") {
+          loadHistory();
+        }
+      };
+    } catch {}
+
+    // 2. Storage event listener for cross-tab local storage fallback
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "3t_last_query_sync") {
+        loadHistory();
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+
+    // 3. Tab visibility / window focus listener (when switching from Admin tab to Farmer tab)
+    const handleFocus = () => {
+      loadHistory();
+    };
+    window.addEventListener("focus", handleFocus);
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") {
+        loadHistory();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      if (channel) {
+        try { channel.close(); } catch {}
+      }
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", handleFocus);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [isOpen, farmerId, activeTab, loadHistory]);
 
   const handleSelectChip = (chipText: string) => {
     setSubject(chipText);
@@ -791,7 +840,13 @@ export function RaiseQueryModal({
                   {historyList.map((item) => (
                     <div
                       key={item.id}
-                      className="p-4 bg-white border border-gray-200 rounded-2xl space-y-2.5 shadow-2xs hover:border-gray-300 transition-all"
+                      className={`p-4 bg-white border rounded-2xl space-y-2.5 shadow-2xs transition-all ${
+                        item.status === "resolved"
+                          ? "border-emerald-300 ring-1 ring-emerald-300/30 bg-gradient-to-b from-white to-emerald-50/20"
+                          : item.status === "in_progress"
+                          ? "border-blue-200 ring-1 ring-blue-200/30"
+                          : "border-gray-200 hover:border-gray-300"
+                      }`}
                     >
                       {/* Query Card Header */}
                       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2">

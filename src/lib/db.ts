@@ -482,16 +482,60 @@ export async function refreshFromSupabase(force = false): Promise<void> {
         const parsedQ = typeof queriesRes.data.status === 'string' ? JSON.parse(queriesRes.data.status) : queriesRes.data.status;
         if (Array.isArray(parsedQ)) {
           if (!store.data.queries) store.data.queries = [];
-          const remoteMap = new Map(parsedQ.map((q: any) => [q.id, q]));
-          // Keep local queries that may not yet be in cloud
-          store.data.queries.forEach((q: any) => {
-            if (!remoteMap.has(q.id)) {
-              remoteMap.set(q.id, q);
+          const localQueries = store.data.queries || [];
+          const localMap = new Map<string, any>(localQueries.map((q: any) => [q.id, q]));
+          const remoteMap = new Map<string, any>(parsedQ.map((q: any) => [q.id, q]));
+          const mergedList: any[] = [];
+          let hasLocalAdvancement = false;
+
+          // Merge each remote query with its local counterpart
+          parsedQ.forEach((remoteQ: any) => {
+            if (!remoteQ?.id) return;
+            const localQ = localMap.get(remoteQ.id);
+            if (!localQ) {
+              mergedList.push(remoteQ);
+            } else {
+              // Compare status and timestamps: Local resolution or notes always take precedence over stale pending cloud
+              const isLocalResolved = localQ.status === 'resolved';
+              const isRemoteResolved = remoteQ.status === 'resolved';
+              const localHasNotes = Boolean(localQ.adminNotes);
+              const remoteHasNotes = Boolean(remoteQ.adminNotes);
+
+              const localTime = new Date(localQ.updatedAt || localQ.resolvedAt || localQ.createdAt || 0).getTime();
+              const remoteTime = new Date(remoteQ.updatedAt || remoteQ.resolvedAt || remoteQ.createdAt || 0).getTime();
+
+              if (isLocalResolved && !isRemoteResolved) {
+                // Local is resolved, cloud is stale pending -> Keep local!
+                mergedList.push({ ...remoteQ, ...localQ });
+                hasLocalAdvancement = true;
+              } else if (localHasNotes && !remoteHasNotes) {
+                mergedList.push({ ...remoteQ, ...localQ });
+                hasLocalAdvancement = true;
+              } else if (localTime > remoteTime) {
+                mergedList.push({ ...remoteQ, ...localQ });
+                hasLocalAdvancement = true;
+              } else {
+                mergedList.push({ ...localQ, ...remoteQ });
+              }
             }
           });
-          store.data.queries = Array.from(remoteMap.values()).sort((a, b) => 
+
+          // Add any local queries that have not yet reached the cloud
+          localQueries.forEach((localQ: any) => {
+            if (localQ?.id && !remoteMap.has(localQ.id)) {
+              mergedList.push(localQ);
+              hasLocalAdvancement = true;
+            }
+          });
+
+          store.data.queries = mergedList.sort((a, b) => 
             (b.createdAt || '').localeCompare(a.createdAt || '')
           );
+
+          // If local had newer state or resolved status, sync back to cloud
+          if (hasLocalAdvancement) {
+            syncQueriesToCloud(store.data.queries).catch(() => {});
+          }
         }
       } catch (err) {
         console.warn('[Queries Supabase Parse Warning]', err);
@@ -778,16 +822,18 @@ export async function syncPaymentStatusToSupabase(paymentId: string, status: str
 
 export async function syncQueriesToCloud(queries: FarmerQuery[]): Promise<void> {
   try {
-    await supabase.from('branches').upsert({
+    const { error } = await supabase.from('branches').upsert({
       id: 'CONFIG-FARMER-QUERIES-STORE',
       name: '3T Farmer Queries Store',
       manager: 'SYSTEM',
-      phone: '0000000000',
-      location: 'Cloud',
-      active_farmers: 0,
-      daily_volume: 0,
+      capacity: 0,
+      today_collection: 0,
+      payments: 0,
       status: JSON.stringify(queries)
     }, { onConflict: 'id' });
+    if (error) {
+      console.warn('[syncQueriesToCloud error]:', error);
+    }
   } catch (err) {
     console.warn('[Queries Cloud Sync Warning]', err);
   }

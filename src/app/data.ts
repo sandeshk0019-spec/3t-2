@@ -272,6 +272,7 @@ export interface FarmerQuery {
   description: string;
   language: 'marathi' | 'english' | 'hindi';
   createdAt: string;
+  updatedAt?: string;
   status: QueryStatus;
   adminNotes?: string;
   resolvedAt?: string;

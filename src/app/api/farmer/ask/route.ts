@@ -10,8 +10,10 @@ import { checkAIRateLimit } from '@/lib/ai-rate-limit';
 // Only OTP-verified farmers can call this
 // ─────────────────────────────────────────────────────────────────────────────
 
+export const maxDuration = 30;
+
 const GEMINI_API_URL =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent';
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent';
 
 export async function POST(request: NextRequest) {
   try {
@@ -162,7 +164,7 @@ INSTRUCTIONS:
 4. FORMATTING: Use clean bullet points or concise paragraphs. Respond in the requested language (${language}).`;
 
     const FALLBACK_MODELS = [
-      'gemini-3.6-flash',
+      'gemini-3.8-flash',
       'gemini-3.7-flash',
       'gemini-3.5-flash',
       'gemini-3.1-flash-lite',

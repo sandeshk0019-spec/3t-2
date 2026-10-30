@@ -9,13 +9,14 @@ import { checkAIRateLimit } from '@/lib/ai-rate-limit';
 // Universal Omniscient AI Assistant (General Knowledge + Math + Dairy + Ledger)
 // ─────────────────────────────────────────────────────────────────────────────
 
+export const maxDuration = 30;
+
 const FALLBACK_MODELS = [
-  'gemini-3.6-flash',
   'gemini-3.8-flash',
-  'gemini-3.7-flash',
-  'gemini-3.5-flash',
-  'gemini-pro-latest',
+  'gemini-3.6-flash',
   'gemini-flash-latest',
+  'gemini-pro-latest',
+  'gemini-3.7-flash',
 ];
 
 function generateLocalExpertResponse(question: string, language: string, farmerContext?: string): string {
@@ -332,7 +333,7 @@ INSTRUCTIONS:
         try {
           const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 20000);
+          const timeoutId = setTimeout(() => controller.abort(), 9000);
 
           const geminiRes = await fetch(endpoint, {
             method: 'POST',

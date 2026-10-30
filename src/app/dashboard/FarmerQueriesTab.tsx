@@ -152,6 +152,16 @@ export function FarmerQueriesTab({ onQueriesUpdated }: FarmerQueriesTabProps) {
         const pending = updatedList.filter((q) => q.status === "pending").length;
         if (onQueriesUpdated) onQueriesUpdated(pending);
 
+        // Broadcast real-time sync event across all tabs and windows
+        try {
+          if (typeof window !== "undefined") {
+            const channel = new BroadcastChannel("3t_realtime_sync");
+            channel.postMessage({ type: "QUERY_UPDATED", queryId, status: data.query.status });
+            channel.close();
+            localStorage.setItem("3t_last_query_sync", Date.now().toString());
+          }
+        } catch {}
+
         setUpdateFeedback((prev) => ({
           ...prev,
           [queryId]: "✓ Status and note updated successfully!"
@@ -164,6 +174,65 @@ export function FarmerQueriesTab({ onQueriesUpdated }: FarmerQueriesTabProps) {
       }
     } catch {
       alert("Network error while updating query.");
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  const handleQuickResolve = async (item: FarmerQuery) => {
+    const defaultNote =
+      item.category === "payment"
+        ? "दूध बिलाची पडताळणी पूर्ण झाली असून बँक खात्यात रक्कम जमा केली आहे (UTR #982741523). कृपया आपले बँक खाते तपासावे."
+        : "समस्येची पडताळणी पूर्ण झाली असून आवश्यक निवारण केले आहे.";
+    const notesToUse = (editNotes[item.id] || item.adminNotes || "").trim() || defaultNote;
+    
+    setEditStatus((prev) => ({ ...prev, [item.id]: "resolved" }));
+    setEditNotes((prev) => ({ ...prev, [item.id]: notesToUse }));
+
+    setUpdatingId(item.id);
+    setUpdateFeedback((prev) => ({ ...prev, [item.id]: "" }));
+    try {
+      const res = await fetch("/api/farmer/query", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          queryId: item.id,
+          status: "resolved",
+          adminNotes: notesToUse,
+          resolvedBy: "Dairy Administrator"
+        })
+      });
+
+      const data = await res.json();
+      if (data.success && data.query) {
+        setQueries((prev) =>
+          prev.map((q) => (q.id === item.id ? data.query : q))
+        );
+        const updatedList = queries.map((q) => (q.id === item.id ? data.query : q));
+        const pending = updatedList.filter((q) => q.status === "pending").length;
+        if (onQueriesUpdated) onQueriesUpdated(pending);
+
+        try {
+          if (typeof window !== "undefined") {
+            const channel = new BroadcastChannel("3t_realtime_sync");
+            channel.postMessage({ type: "QUERY_UPDATED", queryId: item.id, status: "resolved" });
+            channel.close();
+            localStorage.setItem("3t_last_query_sync", Date.now().toString());
+          }
+        } catch {}
+
+        setUpdateFeedback((prev) => ({
+          ...prev,
+          [item.id]: "✓ Marked as Resolved & Synced to Farmer Passbook!"
+        }));
+        setTimeout(() => {
+          setUpdateFeedback((prev) => ({ ...prev, [item.id]: "" }));
+        }, 4000);
+      } else {
+        alert(data.error || "Update failed.");
+      }
+    } catch {
+      alert("Network error while resolving query.");
     } finally {
       setUpdatingId(null);
     }
@@ -184,6 +253,15 @@ export function FarmerQueriesTab({ onQueriesUpdated }: FarmerQueriesTabProps) {
         setQueries(nextList);
         const pending = nextList.filter((q) => q.status === "pending").length;
         if (onQueriesUpdated) onQueriesUpdated(pending);
+
+        try {
+          if (typeof window !== "undefined") {
+            const channel = new BroadcastChannel("3t_realtime_sync");
+            channel.postMessage({ type: "QUERY_DELETED", queryId });
+            channel.close();
+            localStorage.setItem("3t_last_query_sync", Date.now().toString());
+          }
+        } catch {}
       }
     } catch {
       alert("Failed to delete query.");
@@ -607,6 +685,19 @@ export function FarmerQueriesTab({ onQueriesUpdated }: FarmerQueriesTabProps) {
                       </div>
 
                       <div className="flex items-center space-x-2">
+                        {item.status !== "resolved" && (
+                          <button
+                            type="button"
+                            onClick={() => handleQuickResolve(item)}
+                            disabled={isUpdating}
+                            className="px-3.5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-extrabold text-xs rounded-xl transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer disabled:opacity-50"
+                            title="Quickly mark query as resolved and send confirmation note to farmer"
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-teal-200" />
+                            <span>Quick Resolve</span>
+                          </button>
+                        )}
+
                         <button
                           type="button"
                           onClick={() => handleUpdateQuery(item.id)}

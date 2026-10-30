@@ -30,12 +30,21 @@ export async function GET(request: Request) {
     // Sort newest first
     queries.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
 
-    return NextResponse.json({
-      success: true,
-      queries,
-      totalCount: queries.length,
-      pendingCount: queries.filter((q) => q.status === 'pending').length
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        queries,
+        totalCount: queries.length,
+        pendingCount: queries.filter((q) => q.status === 'pending').length
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      }
+    );
   } catch (err: any) {
     console.error('[API /api/farmer/query GET Error]:', err);
     return NextResponse.json(
@@ -154,11 +163,13 @@ export async function PATCH(request: Request) {
     }
 
     const query = db.data.queries[queryIndex];
+    const nowIso = new Date().toISOString();
+    query.updatedAt = nowIso;
 
     if (status && ['pending', 'in_progress', 'resolved'].includes(status)) {
       query.status = status as QueryStatus;
       if (status === 'resolved') {
-        query.resolvedAt = new Date().toISOString();
+        query.resolvedAt = query.resolvedAt || nowIso;
         query.resolvedBy = resolvedBy || 'Dairy Administrator';
       }
     }
@@ -171,9 +182,11 @@ export async function PATCH(request: Request) {
 
     await db.write();
 
-    syncQueriesToCloud(db.data.queries).catch((err) =>
-      console.warn('[syncQueriesToCloud background error]:', err)
-    );
+    try {
+      await syncQueriesToCloud(db.data.queries);
+    } catch (syncErr) {
+      console.warn('[syncQueriesToCloud PATCH warning]:', syncErr);
+    }
 
     return NextResponse.json({
       success: true,
