@@ -137,10 +137,15 @@ export function BroadcastTab() {
           ...prev.filter((p) => p.id !== data.notification.id),
         ]);
         try {
-          if (typeof window !== "undefined" && "BroadcastChannel" in window) {
-            const channel = new BroadcastChannel("3t_realtime_sync");
-            channel.postMessage({ type: "NOTIFICATION_SENT", time: Date.now() });
-            channel.close();
+          if (typeof window !== "undefined") {
+            localStorage.setItem("3t_last_notification_sync", Date.now().toString());
+            if ("BroadcastChannel" in window) {
+              const channel = new BroadcastChannel("3t_realtime_sync");
+              channel.postMessage({ type: "NOTIFICATION_SENT", notification: data.notification, time: Date.now() });
+              setTimeout(() => {
+                try { channel.close(); } catch {}
+              }, 1000);
+            }
           }
         } catch {}
       } else {
@@ -159,10 +164,15 @@ export function BroadcastTab() {
       await fetch(`/api/admin/broadcast?id=${id}`, { method: "DELETE" });
       setPastBroadcasts((prev) => prev.filter((n) => n.id !== id));
       try {
-        if (typeof window !== "undefined" && "BroadcastChannel" in window) {
-          const channel = new BroadcastChannel("3t_realtime_sync");
-          channel.postMessage({ type: "NOTIFICATION_DELETED", time: Date.now() });
-          channel.close();
+        if (typeof window !== "undefined") {
+          localStorage.setItem("3t_last_notification_sync", Date.now().toString());
+          if ("BroadcastChannel" in window) {
+            const channel = new BroadcastChannel("3t_realtime_sync");
+            channel.postMessage({ type: "NOTIFICATION_DELETED", id, time: Date.now() });
+            setTimeout(() => {
+              try { channel.close(); } catch {}
+            }, 1000);
+          }
         }
       } catch {}
     } catch {}

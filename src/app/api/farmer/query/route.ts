@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb, syncQueriesToCloud } from '@/lib/db';
+import { createNotification } from '@/lib/notifications';
 import { FarmerQuery, QueryCategory, QueryStatus } from '@/app/data';
 
 export const dynamic = 'force-dynamic';
@@ -186,6 +187,25 @@ export async function PATCH(request: Request) {
       await syncQueriesToCloud(db.data.queries);
     } catch (syncErr) {
       console.warn('[syncQueriesToCloud PATCH warning]:', syncErr);
+    }
+
+    // Auto-notify the farmer with a direct notification about the dairy's update
+    if (adminNotes && adminNotes.trim()) {
+      try {
+        const notifTitle = status === 'resolved' 
+          ? `तक्रार निवारण: #${queryId} (Resolved)` 
+          : `तक्रार अपडेट: #${queryId} (Dairy Update)`;
+        await createNotification({
+          type: 'announcement',
+          title: notifTitle,
+          body: adminNotes.trim(),
+          farmerId: query.farmerId,
+          branchId: 'ALL',
+          sentBy: resolvedBy || 'Dairy Administrator'
+        });
+      } catch (err) {
+        console.warn('[Auto Notification on Query Response Warning]', err);
+      }
     }
 
     return NextResponse.json({

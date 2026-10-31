@@ -10,6 +10,7 @@ import Link from "next/link";
 import { PassbookHeaderActions } from "./PassbookHeaderActions";
 import { AIMitra } from "./AIMitra";
 import { NotificationPanel } from "./NotificationPanel";
+import { FarmerBroadcastBanner } from "./FarmerBroadcastBanner";
 import { LivePassbookLedger } from "./LivePassbookLedger";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
 import { FarmerQueryBanner } from "./FarmerQueryBanner";
@@ -136,13 +137,16 @@ export default async function PublicFarmerPassbookPage({ params }: Props) {
         <div className="max-w-4xl mx-auto space-y-6">
 
           {/* Client Interactive Header Actions & Notifications */}
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-end gap-3 no-print">
             <PassbookHeaderActions farmerName={farmer.name} farmerId={farmer.id} />
-            <NotificationPanel farmerId={farmer.id} />
+
           </div>
 
           {/* 1. Official Passbook Header with Language Switcher & Logout */}
-          <PassbookHeader />
+          <PassbookHeader farmerId={farmer.id} />
+
+          {/* 2. Real-Time Dairy Broadcast Announcement Banner (pops up on new message) */}
+          <FarmerBroadcastBanner farmerId={farmer.id} />
 
           {/* Support & Queries Banner + 3T Credit Score Card in a Single Line */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-stretch no-print">

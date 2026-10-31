@@ -99,29 +99,28 @@ async function getStore() {
 /** Atomic save of all active notifications & deleted tombstones to Supabase Cloud */
 async function saveNotificationsToCloud(notifications: Notification[], deletedNotifications: string[]): Promise<void> {
   try {
+    // Only pass schema-compliant columns for branches table: id, name, manager, capacity, today_collection, payments, status
     const p1 = supabase.from('branches').upsert({
       id: 'CONFIG-NOTIFICATIONS-STORE',
       name: '3T Notifications Store',
       manager: 'SYSTEM',
-      phone: '0000000000',
-      location: 'Cloud',
-      active_farmers: 0,
-      daily_volume: 0,
-      status: JSON.stringify(notifications)
-    });
+      capacity: 0,
+      today_collection: 0,
+      payments: 0,
+      status: JSON.stringify(notifications || [])
+    }, { onConflict: 'id' });
 
     const p2 = supabase.from('branches').upsert({
       id: 'CONFIG-DELETED-NOTIFS',
       name: '3T Deleted Tombstones Store',
       manager: 'SYSTEM',
-      phone: '0000000000',
-      location: 'Cloud',
-      active_farmers: 0,
-      daily_volume: 0,
+      capacity: 0,
+      today_collection: 0,
+      payments: 0,
       status: JSON.stringify(deletedNotifications || [])
-    });
+    }, { onConflict: 'id' });
 
-    await withTimeout(Promise.allSettled([p1, p2]), 2500, null);
+    await withTimeout(Promise.allSettled([p1, p2]), 4000, null);
   } catch (err) {
     console.warn('[Notification Cloud Save Warning]', err);
   }
@@ -133,20 +132,25 @@ async function refreshNotificationsFromCloud(): Promise<void> {
     const db = await getDb();
     if (!db.data.deletedNotifications) db.data.deletedNotifications = [];
 
-    const [notifsRes, delRes] = await Promise.all([
+    const [notifsRes, delRes, individualNotifsRes] = await Promise.all([
       withTimeout(
         supabase.from('branches').select('*').eq('id', 'CONFIG-NOTIFICATIONS-STORE').single(),
-        2500,
+        3500,
         { data: null, error: null } as any
       ),
       withTimeout(
         supabase.from('branches').select('*').eq('id', 'CONFIG-DELETED-NOTIFS').single(),
-        2500,
+        3500,
+        { data: null, error: null } as any
+      ),
+      withTimeout(
+        supabase.from('branches').select('*').like('id', 'NOTIF-%').limit(200),
+        3500,
         { data: null, error: null } as any
       )
     ]);
 
-    // Gather deleted tombstones
+    // 1. Gather deleted tombstones
     if (delRes?.data?.status) {
       try {
         const parsedDels = typeof delRes.data.status === 'string' ? JSON.parse(delRes.data.status) : delRes.data.status;
@@ -164,6 +168,7 @@ async function refreshNotificationsFromCloud(): Promise<void> {
     const deletedSet = new Set((db.data.deletedNotifications || []).map((d: string) => (d || '').trim().toUpperCase()));
     const remoteNotifs: Notification[] = [];
 
+    // 2. Parse from CONFIG-NOTIFICATIONS-STORE
     if (notifsRes?.data?.status) {
       try {
         const parsedNotifs = typeof notifsRes.data.status === 'string' ? JSON.parse(notifsRes.data.status) : notifsRes.data.status;
@@ -185,6 +190,22 @@ async function refreshNotificationsFromCloud(): Promise<void> {
           }
         }
       } catch {}
+    }
+
+    // 3. Also parse individual NOTIF-% records from branches table for 100% redundancy
+    if (individualNotifsRes?.data && Array.isArray(individualNotifsRes.data)) {
+      for (const row of individualNotifsRes.data) {
+        if (row?.status && !deletedSet.has((row.id || '').toUpperCase())) {
+          try {
+            const parsed = typeof row.status === 'string' ? JSON.parse(row.status) : row.status;
+            if (parsed && parsed.id && !deletedSet.has(parsed.id.toUpperCase())) {
+              if (!remoteNotifs.some((r) => r.id.toUpperCase() === parsed.id.toUpperCase())) {
+                remoteNotifs.push(parsed);
+              }
+            }
+          } catch {}
+        }
+      }
     }
 
     if (!db.data.notifications) db.data.notifications = [];
@@ -241,8 +262,22 @@ export async function createNotification(
 
   await db.write().catch(() => {});
 
-  // Persist the entire updated notifications array to Supabase Cloud immediately
-  await saveNotificationsToCloud(db.data.notifications, db.data.deletedNotifications).catch(() => {});
+  // Direct individual row backup into branches table with valid schema
+  const directRowSave = supabase.from('branches').upsert({
+    id: notif.id,
+    name: (notif.title || 'Notification').slice(0, 80),
+    manager: notif.farmerId || 'ALL',
+    capacity: 0,
+    today_collection: 0,
+    payments: 0,
+    status: JSON.stringify(notif)
+  }, { onConflict: 'id' });
+
+  // Persist both the full array and the individual record to Supabase Cloud immediately
+  await Promise.allSettled([
+    saveNotificationsToCloud(db.data.notifications, db.data.deletedNotifications),
+    directRowSave
+  ]).catch(() => {});
 
   return notif;
 }
@@ -258,25 +293,25 @@ export async function getNotificationsForFarmer(
   const db = await getDb();
   const store = await getStore();
   const cleanFarmerId = (farmerId || '').trim().toUpperCase();
-  const cleanBranchId = (branchId || 'ALL').trim().toUpperCase();
+  const cleanBranchId = (branchId || 'ALL').trim().toUpperCase().replace(/-/g, '');
   const deletedSet = new Set((db.data.deletedNotifications || []).map((d: string) => (d || '').trim().toUpperCase()));
 
   return store.data.notifications
     .filter((n) => {
       if (deletedSet.has(n.id.toUpperCase())) return false;
       const notifTargetFarmer = (n.farmerId || '').trim().toUpperCase();
-      const notifBranch = (n.branchId || 'ALL').trim().toUpperCase();
+      const notifBranch = (n.branchId || 'ALL').trim().toUpperCase().replace(/-/g, '');
       
       const isDirectToFarmer = notifTargetFarmer !== '' && notifTargetFarmer !== 'ALL' && notifTargetFarmer === cleanFarmerId;
       const isBroadcast = notifTargetFarmer === 'ALL' || notifTargetFarmer === '';
-      const branchMatch = notifBranch === 'ALL' || notifBranch === '' || notifBranch === cleanBranchId;
+      const branchMatch = notifBranch === 'ALL' || notifBranch === '' || notifBranch === cleanBranchId || cleanBranchId === 'ALL';
 
-      // 1. Direct messages sent specifically to this farmer (bonus, drop alert, receipts)
+      // 1. Direct messages sent specifically to this farmer are ALWAYS delivered
       if (isDirectToFarmer) {
-        return branchMatch;
+        return true;
       }
 
-      // 2. Broadcast announcements to all farmers (always visible, never wiped out)
+      // 2. Broadcast announcements to all farmers (always visible to relevant branch)
       if (isBroadcast && branchMatch) {
         return true;
       }
@@ -291,6 +326,31 @@ export async function getUnreadCount(farmerId: string, branchId: string, registe
   const notifs = await getNotificationsForFarmer(farmerId, branchId, registeredAt);
   const cleanFarmerId = (farmerId || '').trim().toUpperCase();
   return notifs.filter((n) => !n.readBy.some((r: string) => r.trim().toUpperCase() === cleanFarmerId)).length;
+}
+
+/** Mark a single notification as read for a farmer */
+export async function markSingleNotificationAsRead(notificationId: string, farmerId: string): Promise<void> {
+  if (!notificationId || !farmerId) return;
+  const cleanFarmerId = farmerId.trim().toUpperCase();
+  const db = await getDb();
+  if (!db.data.notifications) db.data.notifications = [];
+  let modified = false;
+
+  db.data.notifications.forEach((n) => {
+    if (n.id.toUpperCase() === notificationId.toUpperCase()) {
+      if (!n.readBy.some((r: string) => r.trim().toUpperCase() === cleanFarmerId)) {
+        n.readBy.push(farmerId);
+        modified = true;
+      }
+    }
+  });
+
+  if (modified) {
+    try {
+      await db.write();
+    } catch {}
+    await saveNotificationsToCloud(db.data.notifications || [], db.data.deletedNotifications || []).catch(() => {});
+  }
 }
 
 /** Mark all of a farmer's notifications as read */
@@ -368,8 +428,12 @@ export async function deleteNotification(id: string): Promise<boolean> {
     }
   } catch {}
 
-  // 5. Persist the updated notifications array & tombstones to Supabase Cloud
-  await saveNotificationsToCloud(db.data.notifications || [], db.data.deletedNotifications || []).catch(() => {});
+  // 5. Persist the updated notifications array & tombstones to Supabase Cloud, and delete individual row
+  await Promise.allSettled([
+    saveNotificationsToCloud(db.data.notifications || [], db.data.deletedNotifications || []),
+    supabase.from('branches').delete().eq('id', id),
+    supabase.from('branches').delete().eq('id', upperId)
+  ]).catch(() => {});
 
   return true;
 }

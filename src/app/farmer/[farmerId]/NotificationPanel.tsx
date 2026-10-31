@@ -99,7 +99,7 @@ export function NotificationPanel({ farmerId }: Props) {
     } catch {}
   }, [farmerId, getClientReadIds]);
 
-  // Fetch on mount and on realtime broadcast / 4s interval
+  // Fetch on mount and on realtime broadcast / 3.5s interval
   useEffect(() => {
     fetchNotifications();
 
@@ -113,9 +113,25 @@ export function NotificationPanel({ farmerId }: Props) {
       }
     } catch {}
 
-    const interval = setInterval(fetchNotifications, 4_000);
+    const handleCustomOpen = () => {
+      handleOpen();
+    };
+    window.addEventListener("3t_open_notifications", handleCustomOpen);
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "3t_last_notification_sync" || e.key?.startsWith("3t_read_notifs_")) {
+        fetchNotifications();
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+
+    const interval = setInterval(fetchNotifications, 3_500);
     return () => {
-      if (channel) channel.close();
+      if (channel) {
+        try { channel.close(); } catch {}
+      }
+      window.removeEventListener("3t_open_notifications", handleCustomOpen);
+      window.removeEventListener("storage", handleStorage);
       clearInterval(interval);
     };
   }, [fetchNotifications]);
@@ -147,18 +163,22 @@ export function NotificationPanel({ farmerId }: Props) {
         <button
           id="notification-bell-btn"
           onClick={handleOpen}
-          className="relative w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+          className="relative w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 border border-gray-200 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs"
           aria-label="Notifications"
+          title="डेअरी संदेश / Messages"
         >
-          <Bell className="w-5 h-5 text-gray-600" />
+          <Bell className="w-5 h-5 text-gray-700" />
           {unreadCount > 0 && (
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center"
-            >
-              {unreadCount > 9 ? "9+" : unreadCount}
-            </motion.span>
+            <>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full animate-ping opacity-75" />
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-xs"
+              >
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </motion.span>
+            </>
           )}
         </button>
       </div>

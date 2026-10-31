@@ -6,6 +6,7 @@ import {
   getNotificationsForFarmer,
   getUnreadCount,
   markAllAsRead,
+  markSingleNotificationAsRead,
 } from '@/lib/notifications';
 
 export const dynamic = 'force-dynamic';
@@ -49,17 +50,19 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// PATCH /api/farmer/notifications — mark all as read
+// PATCH /api/farmer/notifications — mark all as read or mark a single notification as read
 export async function PATCH(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const farmerToken = cookieStore.get(FARMER_COOKIE_NAME)?.value || cookieStore.get('3t_farmer_token')?.value;
 
     let farmerId: string | null = request.nextUrl.searchParams.get('farmerId')?.trim() || null;
-    if (!farmerId) {
+    let notificationId: string | null = request.nextUrl.searchParams.get('notificationId')?.trim() || null;
+    if (!farmerId || !notificationId) {
       try {
         const body = await request.json();
-        farmerId = body.farmerId?.trim() || null;
+        if (!farmerId && body.farmerId) farmerId = body.farmerId.trim();
+        if (!notificationId && body.notificationId) notificationId = body.notificationId.trim();
       } catch {}
     }
 
@@ -72,13 +75,18 @@ export async function PATCH(request: NextRequest) {
       farmerId = 'F-101';
     }
 
+    if (notificationId) {
+      await markSingleNotificationAsRead(notificationId, farmerId);
+      return NextResponse.json({ success: true, markedId: notificationId });
+    }
+
     let branchId = 'ALL';
     const db = await getDb();
     const farmer = db.data.farmers.find((f) => f.id.toUpperCase() === farmerId!.toUpperCase());
     if (farmer) branchId = farmer.branchId;
 
     await markAllAsRead(farmerId, branchId, farmer?.createdAt || farmer?.joinedDate);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, allRead: true });
   } catch (error) {
     console.error('[farmer/notifications PATCH]', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });

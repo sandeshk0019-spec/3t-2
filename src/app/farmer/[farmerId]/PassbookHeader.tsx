@@ -4,8 +4,13 @@ import React from "react";
 import { CheckCircle2 } from "lucide-react";
 import { usePassbookLanguage, LanguageSelector } from "./PassbookLanguageContext";
 import { FarmerLogoutButton } from "./FarmerLogoutButton";
+import { NotificationPanel } from "./NotificationPanel";
 
-export function PassbookHeader() {
+interface PassbookHeaderProps {
+  farmerId?: string;
+}
+
+export function PassbookHeader({ farmerId }: PassbookHeaderProps) {
   const { t } = usePassbookLanguage();
 
   return (
@@ -29,8 +34,9 @@ export function PassbookHeader() {
         </div>
       </div>
 
-      {/* Language Selector + Logout Button */}
-      <div className="no-print flex flex-wrap items-center gap-2.5 self-end md:self-auto">
+      {/* Language Selector + Notification Bell + Logout Button */}
+      <div className="no-print flex flex-wrap items-center gap-2 sm:gap-2.5 self-end md:self-auto">
+        {farmerId && <NotificationPanel farmerId={farmerId} />}
         <LanguageSelector />
         <FarmerLogoutButton />
       </div>
