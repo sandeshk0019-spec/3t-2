@@ -98,6 +98,64 @@ import {
   maskIfsc
 } from "../data";
 
+function getAdvisoryContent(
+  modal: {
+    type?: 'low_fat' | 'low_snf' | 'low_both';
+    farmerName: string;
+    currentFat?: number;
+    currentSnf?: number;
+    fatDiff?: number;
+    snfDiff?: number;
+    body?: string;
+    bodyEn?: string;
+    bodyMr?: string;
+    bodyHi?: string;
+  },
+  lang: 'en' | 'mr' | 'hi'
+): string {
+  if (lang === 'en' && modal.bodyEn) return modal.bodyEn;
+  if (lang === 'mr' && modal.bodyMr) return modal.bodyMr;
+  if (lang === 'hi' && modal.bodyHi) return modal.bodyHi;
+
+  const name = modal.farmerName || 'Farmer';
+  const cFat = modal.currentFat ?? 3.5;
+  const cSnf = modal.currentSnf ?? 8.0;
+  const fDiff = modal.fatDiff ?? 0.5;
+  const sDiff = modal.snfDiff ?? 0.5;
+  const type = modal.type || (fDiff >= 0.3 && sDiff >= 0.3 ? 'low_both' : fDiff >= 0.3 ? 'low_fat' : 'low_snf');
+
+  if (lang === 'en') {
+    if (type === 'low_both') {
+      return `Dear Farmer ${name}, today's milk FAT (${cFat}%) and SNF (${cSnf}%) have dropped below your baseline average.\n\n💡 Dietary Recommendations to Boost Quality:\n1. Add 30–40g of sodium bicarbonate (baking soda) daily to balance and buffer rumen digestion.\n2. Maintain 60% dry fodder (dry straw / hay / kadba) and 40% green fodder ratio.\n3. Feed 50g mineral mixture and 1.5kg cottonseed cake daily to support butterfat.\n4. Ensure 70–80 liters of clean, cool drinking water is available throughout the day.\n5. Avoid feeding finely pulverized grain; provide coarsely ground grains (dalia style).`;
+    }
+    if (type === 'low_fat') {
+      return `Dear Farmer ${name}, today's milk FAT is ${cFat}% (drop of -${fDiff}% vs baseline).\n\n💡 Butterfat Optimization Feed Advisory:\n1. Increase dry fodder (straw, hay, dry kadba) proportion up to 60% of total daily feed.\n2. Add 1.0–1.5kg cottonseed cake (saraki pend) and 50–100g bypass fat to daily ration.\n3. Restrict excess succulent or watery young green fodder right before milking.\n4. Feed coarsely ground grains (dalia form) rather than fine powder to stimulate rumination.\n5. Provide adequate resting time and 70–80L clean drinking water daily.`;
+    }
+    return `Dear Farmer ${name}, today's milk SNF is ${cSnf}% (drop of -${sDiff}% vs baseline).\n\n💡 SNF Recovery & Protein Advisory:\n1. Provide protein-rich legume green fodder such as Lucerne (alfalfa), Berseem, or soybean/groundnut meal.\n2. Supplement 50g high-grade chelated mineral mixture daily.\n3. Ensure 70–80 liters of fresh, clean drinking water is freely accessible at all times.\n4. Verify that the animal has received regular seasonal deworming.\n5. Maintain good cattle shed ventilation and hygiene.`;
+  }
+
+  if (lang === 'hi') {
+    if (type === 'low_both') {
+      return `किसान मित्र ${name}, आज दूध का फैट (${cFat}%) और SNF (${cSnf}%) आपके सामान्य औसत से कम आया है।\n\n💡 दूध की गुणवत्ता सुधार हेतु आहार सलाह:\n1. रूमेन पाचन संतुलन के लिए रोजाना 30-40 ग्राम मीठा सोडा (सोडियम बाइकार्बोनेट) दें।\n2. दैनिक आहार में 60% सूखा चारा (भूसा/कड़बी) और 40% हरा चारा का अनुपात रखें।\n3. रोजाना 50 ग्राम मिनरल मिक्सचर और 1.5 किग्रा बिनौला खल (Cottonseed Cake) दें।\n4. पशु को दिनभर में 70-80 लीटर साफ और ठंडा पीने का पानी उपलब्ध कराएं।\n5. अनाज को बारीक आटे की जगह दलिया के रूप में दरदरा खिलाएं।`;
+    }
+    if (type === 'low_fat') {
+      return `किसान मित्र ${name}, आज दूध का फैट ${cFat}% आया है (-${fDiff}% की गिरावट)।\n\n💡 दूध में फैट बढ़ाने हेतु आहार सलाह:\n1. दैनिक आहार में सूखे चारे (भूसा/कड़बी) का अनुपात 60% तक बढ़ाएं।\n2. रोजाना 1 से 1.5 किग्रा बिनौला खल और 50-100 ग्राम बाईपास फैट आहार में शामिल करें।\n3. अत्यधिक गीला या कच्चा हरा चारा सीमित मात्रा में दें।\n4. अनाज को बारीक पीसने के बजाय दरदरा (दलिया जैसा) खिलाएं।\n5. पशु को जुगाली के लिए पर्याप्त विश्राम और 70-80 लीटर स्वच्छ पानी दें।`;
+    }
+    return `किसान मित्र ${name}, आज दूध का SNF ${cSnf}% आया है (-${sDiff}% की गिरावट)।\n\n💡 SNF सुधार एवं प्रोटीन आहार सलाह:\n1. प्रोटीन पूर्ति हेतु आहार में लूसर्न (बरसीम/रिजका) या सोयाबीन/मूंगफली की खल दें।\n2. रोजाना 50 ग्राम उच्च गुणवत्ता वाला चीलेटेड मिनरल मिक्सचर दें।\n3. पशु को 70-80 लीटर ताजा व स्वच्छ पीने का पानी हमेशा उपलब्ध रखें।\n4. सुनिश्चित करें कि पशु को समय पर पेट के कीड़ों की दवा (डिवॉर्मिंग) दी गई है।\n5. पशु बाड़े में हवादार माहौल और सफाई बनाए रखें।`;
+  }
+
+  // Fallback to Marathi
+  if (modal.bodyMr) return modal.bodyMr;
+  if (modal.body && !modal.bodyEn) return modal.body;
+  if (type === 'low_both') {
+    return `शेतकरी मित्र ${name}, आजचे फॅट (${cFat}%) व SNF (${cSnf}%) आपल्या सरासरीपेक्षा कमी आले आहे.\n\n💡 गुणवत्ता वाढीसाठी पशु आहार सल्ला:\n1. रुमेन बफरिंगसाठी आहारात रोज ३०-४० ग्रॅम खाण्याचा सोडा (सोडियम बायकार्बोनेट) द्या.\n2. सुका चारा (कडबा/गवत) ६०% व हिरवा चारा ४०% या प्रमाणात ठेवा.\n3. दररोज ५० ग्रॅम खनिज मिश्रण (Mineral Mixture) व १.५ किलो सरकी पेंड (Cottonseed Cake) द्या.\n4. जनावरास दिवसभरात ७०-८० लिटर स्वच्छ व थंड पिण्याचे पाणी द्या.\n5. धान्य बारीक पिठासारखे न दळता जाडसर (दलियासारखे) द्या.`;
+  }
+  if (type === 'low_fat') {
+    return `शेतकरी मित्र ${name}, आजचे फॅट ${cFat}% आले आहे (-${fDiff}% घट).\n\n💡 फॅट वाढवण्यासाठी आजचा आहार सल्ला:\n1. आहारात सुका चारा (कडबा, वाळलेले गवत) चे प्रमाण ६०% पर्यंत वाढवा.\n2. १ ते १.५ किलो कपाशी सरकी पेंड (Cottonseed Cake) व ५०-१०० ग्रॅम बायपास फॅट खाऊ घाला.\n3. अति पाणथळ किंवा कोवळा हिरवा चारा मर्यादित द्या.\n4. धान्य भरडा बारीक पिठासारखा न दळता जाडसर (दलियासारखा) द्या.\n5. जनावरास रवंथ करण्यासाठी पुरेशी विश्रांती व मुबलक पाणी द्या.`;
+  }
+  return `शेतकरी मित्र ${name}, आजचे SNF ${cSnf}% आले आहे (-${sDiff}% घट).\n\n💡 SNF वाढवण्यासाठी आजचा आहार सल्ला:\n1. प्रथिनांसाठी आहारात लसूण घास (Lucerne), बरसीम किंवा सोयाबीन/शेंगदाणा पेंड द्या.\n2. दररोज ५० ग्रॅम चांगल्या दर्जाचे चिलेटेड खनिज मिश्रण (Chelated Mineral Mixture) खाऊ घाला.\n3. जनावरास भरपूर व स्वच्छ पिण्याचे पाणी (७०-८० लिटर) उपलब्ध करा.\n4. जनावराची जंतनाशक औषधोपचार (Deworming) झालेली आहे का याची खात्री करा.\n5. गोठ्यात खेळती हवा व स्वच्छता ठेवा.`;
+}
+
 export default function Dashboard() {
   const router = useRouter();
 
@@ -1628,13 +1686,20 @@ export default function Dashboard() {
     hasQualityDrop: boolean;
     type?: 'low_fat' | 'low_snf' | 'low_both';
     title?: string;
+    titleEn?: string;
+    titleMr?: string;
+    titleHi?: string;
     body?: string;
+    bodyEn?: string;
+    bodyMr?: string;
+    bodyHi?: string;
     smsText?: string;
     fatDiff?: number;
     snfDiff?: number;
     currentFat?: number;
     currentSnf?: number;
   } | null>(null);
+  const [advisoryLang, setAdvisoryLang] = useState<'en' | 'mr' | 'hi'>('en');
 
   // Verification & Confirmation Modal State for Payment Dispatch
   const [dispatchConfirmation, setDispatchConfirmation] = useState<{
@@ -5249,7 +5314,9 @@ UTR Settlement Gateway Status: ONLINE
                         SMS Sent
                       </span>
                     </h4>
-                    <p className="text-[11px] font-semibold text-amber-700">स्वयंचलित पशु आहार सल्ला व दुग्ध गुणवत्ता सुधारणा</p>
+                    <p className="text-[11px] font-semibold text-amber-700">
+                      Automated Cattle Diet Guidance & Quality Optimization · स्वयंचलित पशु आहार सल्ला
+                    </p>
                   </div>
                 </div>
                 <button
@@ -5271,7 +5338,11 @@ UTR Settlement Gateway Status: ONLINE
                   {feedAdvisoryModal.farmerPhone && (
                     <div className="flex items-center space-x-1 font-mono text-[11px] text-gray-600">
                       <Phone className="w-3 h-3 text-emerald-600" />
-                      <span>+91 {feedAdvisoryModal.farmerPhone}</span>
+                      <span>
+                        {feedAdvisoryModal.farmerPhone.startsWith('+')
+                          ? feedAdvisoryModal.farmerPhone
+                          : `+91 ${feedAdvisoryModal.farmerPhone}`}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -5315,13 +5386,56 @@ UTR Settlement Gateway Status: ONLINE
                 </div>
               )}
 
-              {/* Detailed Cattle Diet Guidance */}
+              {/* Detailed Cattle Diet Guidance with English Default & Language Options */}
               <div className="space-y-2">
-                <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider">
-                  💡 Dietary Recommendations (आहार सूचना):
-                </span>
-                <div className="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 text-xs text-gray-800 font-medium whitespace-pre-line leading-relaxed max-h-48 overflow-y-auto">
-                  {feedAdvisoryModal.body}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider flex items-center space-x-1.5">
+                    <span>💡 Dietary Recommendations:</span>
+                  </span>
+
+                  {/* Language Selector: English (Default), Marathi, Hindi */}
+                  <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200 text-xs font-semibold self-start sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => setAdvisoryLang('en')}
+                      className={`px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1 ${
+                        advisoryLang === 'en'
+                          ? 'bg-white text-emerald-800 shadow-xs font-black'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      <span>🇬🇧</span>
+                      <span>English (Default)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAdvisoryLang('mr')}
+                      className={`px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1 ${
+                        advisoryLang === 'mr'
+                          ? 'bg-white text-emerald-800 shadow-xs font-black'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      <span>🇮🇳</span>
+                      <span>मराठी</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAdvisoryLang('hi')}
+                      className={`px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1 ${
+                        advisoryLang === 'hi'
+                          ? 'bg-white text-emerald-800 shadow-xs font-black'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      <span>🇮🇳</span>
+                      <span>हिंदी</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-3.5 bg-gray-50 rounded-2xl border border-gray-200 text-xs text-gray-800 font-medium whitespace-pre-line leading-relaxed max-h-52 overflow-y-auto shadow-inner">
+                  {getAdvisoryContent(feedAdvisoryModal, advisoryLang)}
                 </div>
               </div>
 

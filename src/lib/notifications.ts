@@ -502,7 +502,13 @@ export interface FeedAdvisoryResult {
   hasQualityDrop: boolean;
   type?: 'low_fat' | 'low_snf' | 'low_both';
   title?: string;
-  body?: string;
+  titleEn?: string;
+  titleMr?: string;
+  titleHi?: string;
+  body: string; // English by default
+  bodyEn: string;
+  bodyMr: string;
+  bodyHi: string;
   smsText?: string;
   fatDiff?: number;
   snfDiff?: number;
@@ -528,24 +534,52 @@ export async function checkAndCreateQualityFeedAdvisory(
   }
 
   let type: 'low_fat' | 'low_snf' | 'low_both' = 'low_fat';
-  let title = '';
-  let body = '';
+  let titleEn = '';
+  let titleMr = '';
+  let titleHi = '';
+  let bodyEn = '';
+  let bodyMr = '';
+  let bodyHi = '';
   let smsText = '';
 
   if (isFatDrop && isSnfDrop) {
     type = 'low_both';
-    title = '⚠️ दुधातील फॅट व SNF कमी: आहार सल्ला / Low FAT & SNF Alert';
-    body = `शेतकरी मित्र ${farmerName}, आजचे फॅट (${currentFat}%) व SNF (${currentSnf}%) आपल्या सरासरीपेक्षा (फॅट ${baselineFat}%, SNF ${baselineSnf}%) कमी आले आहे.\n\n💡 गुणवत्ता वाढीसाठी पशु आहार सल्ला:\n1. रुमेन बफरिंगसाठी आहारात रोज ३०-४० ग्रॅम खाण्याचा सोडा (सोडियम बायकार्बोनेट) द्या.\n2. सुका चारा (कडबा/गवत) ६०% व हिरवा चारा ४०% या प्रमाणात ठेवा.\n3. दररोज ५० ग्रॅम खनिज मिश्रण (Mineral Mixture) व १.५ किलो सरकी पेंड (Cottonseed Cake) द्या.\n4. जनावरास दिवसभरात ७०-८० लिटर स्वच्छ व थंड पिण्याचे पाणी द्या.\n\n(Tip: Feed 60% dry fodder, 1.5kg cottonseed cake, 50g mineral mix & 30g baking soda daily to balance rumen digestion).`;
+    titleEn = '⚠️ Quality Drop: Low FAT & SNF Diet Advisory';
+    titleMr = '⚠️ दुधातील फॅट व SNF कमी: आहार सल्ला';
+    titleHi = '⚠️ दूध में फैट व SNF की कमी: आहार सलाह';
+
+    bodyEn = `Dear Farmer ${farmerName}, today's milk FAT (${currentFat}%) and SNF (${currentSnf}%) have dropped below your baseline average (FAT ${baselineFat}%, SNF ${baselineSnf}%).\n\n💡 Dietary Recommendations to Boost Quality:\n1. Feed 30–40g baking soda (sodium bicarbonate) daily to balance and buffer rumen digestion.\n2. Maintain 60% dry fodder (dry straw / hay / kadba) and 40% green fodder ratio.\n3. Provide 50g mineral mixture and 1.5kg cottonseed cake daily to support butterfat.\n4. Ensure the cattle receives 70–80 liters of clean, cool drinking water throughout the day.\n5. Avoid finely ground flour; feed coarsely crushed grains (dalia style).`;
+
+    bodyMr = `शेतकरी मित्र ${farmerName}, आजचे फॅट (${currentFat}%) व SNF (${currentSnf}%) आपल्या सरासरीपेक्षा (फॅट ${baselineFat}%, SNF ${baselineSnf}%) कमी आले आहे.\n\n💡 गुणवत्ता वाढीसाठी पशु आहार सल्ला:\n1. रुमेन बफरिंगसाठी आहारात रोज ३०-४० ग्रॅम खाण्याचा सोडा (सोडियम बायकार्बोनेट) द्या.\n2. सुका चारा (कडबा/गवत) ६०% व हिरवा चारा ४०% या प्रमाणात ठेवा.\n3. दररोज ५० ग्रॅम खनिज मिश्रण (Mineral Mixture) व १.५ किलो सरकी पेंड (Cottonseed Cake) द्या.\n4. जनावरास दिवसभरात ७०-८० लिटर स्वच्छ व थंड पिण्याचे पाणी द्या.\n5. धान्य बारीक पिठासारखे न दळता जाडसर (दलियासारखे) द्या.`;
+
+    bodyHi = `किसान मित्र ${farmerName}, आज दूध का फैट (${currentFat}%) और SNF (${currentSnf}%) आपके सामान्य औसत (फैट ${baselineFat}%, SNF ${baselineSnf}%) से कम आया है।\n\n💡 दूध की गुणवत्ता सुधार हेतु आहार सलाह:\n1. रूमेन पाचन संतुलन के लिए रोजाना 30-40 ग्राम मीठा सोडा (सोडियम बाइकार्बोनेट) दें।\n2. दैनिक आहार में 60% सूखा चारा (भूसा/कड़बी) और 40% हरा चारा का अनुपात रखें।\n3. रोजाना 50 ग्राम मिनरल मिक्सचर और 1.5 किग्रा बिनौला खल (Cottonseed Cake) दें।\n4. पशु को दिनभर में 70-80 लीटर साफ और ठंडा पीने का पानी उपलब्ध कराएं।\n5. अनाज को बारीक आटे की जगह दलिया के रूप में दरदरा खिलाएं।`;
+
     smsText = `3T Dairy: ${farmerName}, today's FAT (${currentFat}%) & SNF (${currentSnf}%) dropped vs avg. Tip: Feed 60% dry fodder, 1.5kg cottonseed cake, 50g mineral mixture & 30g baking soda daily to boost quality.`;
   } else if (isFatDrop) {
     type = 'low_fat';
-    title = `🥛 दुधातील फॅट कमी: आहार सल्ला / Low FAT Alert (${currentFat}%)`;
-    body = `शेतकरी मित्र ${farmerName}, आजचे फॅट ${currentFat}% आले आहे (आपली सरासरी ${baselineFat}% आहे - ${fatDiff}% घट).\n\n💡 फॅट वाढवण्यासाठी आजचा आहार सल्ला:\n1. आहारात सुका चारा (कडबा, वाळलेले गवत) चे प्रमाण ६०% पर्यंत वाढवा.\n2. १ ते १.५ किलो कपाशी सरकी पेंड (Cottonseed Cake) व ५०-१०० ग्रॅम बायपास फॅट (Bypass Fat) खाऊ घाला.\n3. अति पाणथळ किंवा कोवळा हिरवा चारा मर्यादित द्या.\n4. धान्य भरडा बारीक पिठासारखा न दळता जाडसर (दलियासारखा) द्या.\n\n(Tip: Increase dry fodder ratio to 60%, add 1.5kg cottonseed cake and 50-100g bypass fat daily to improve butterfat).`;
+    titleEn = `🥛 Low Butterfat Alert: Feed Advisory (${currentFat}%)`;
+    titleMr = `🥛 दुधातील फॅट कमी: आहार सल्ला (${currentFat}%)`;
+    titleHi = `🥛 दूध में फैट की कमी: आहार सलाह (${currentFat}%)`;
+
+    bodyEn = `Dear Farmer ${farmerName}, today's milk FAT is ${currentFat}% (your normal average is ${baselineFat}% — a drop of -${fatDiff}%).\n\n💡 Butterfat Optimization Feed Advisory:\n1. Increase dry fodder (straw, hay, dry kadba) proportion up to 60% of total daily feed.\n2. Add 1.0–1.5kg cottonseed cake (saraki pend) and 50–100g bypass fat to daily ration.\n3. Restrict excess succulent or watery young green fodder right before milking.\n4. Feed coarsely ground grains (dalia form) rather than fine powder to stimulate rumination.\n5. Provide adequate resting time and 70–80L clean drinking water daily.`;
+
+    bodyMr = `शेतकरी मित्र ${farmerName}, आजचे फॅट ${currentFat}% आले आहे (आपली सरासरी ${baselineFat}% आहे — ${fatDiff}% घट).\n\n💡 फॅट वाढवण्यासाठी आजचा आहार सल्ला:\n1. आहारात सुका चारा (कडबा, वाळलेले गवत) चे प्रमाण ६०% पर्यंत वाढवा.\n2. १ ते १.५ किलो कपाशी सरकी पेंड (Cottonseed Cake) व ५०-१०० ग्रॅम बायपास फॅट खाऊ घाला.\n3. अति पाणथळ किंवा कोवळा हिरवा चारा मर्यादित द्या.\n4. धान्य भरडा बारीक पिठासारखा न दळता जाडसर (दलियासारखा) द्या.\n5. जनावरास रवंथ करण्यासाठी पुरेशी विश्रांती व मुबलक पाणी द्या.`;
+
+    bodyHi = `किसान मित्र ${farmerName}, आज दूध का फैट ${currentFat}% आया है (आपका सामान्य औसत ${baselineFat}% है — -${fatDiff}% की गिरावट)।\n\n💡 दूध में फैट बढ़ाने हेतु आहार सलाह:\n1. दैनिक आहार में सूखे चारे (भूसा/कड़बी) का अनुपात 60% तक बढ़ाएं।\n2. रोजाना 1 से 1.5 किग्रा बिनौला खल और 50-100 ग्राम बाईपास फैट आहार में शामिल करें।\n3. अत्यधिक गीला या कच्चा हरा चारा सीमित मात्रा में दें।\n4. अनाज को बारीक पीसने के बजाय दरदरा (दलिया जैसा) खिलाएं।\n5. पशु को जुगाली के लिए पर्याप्त विश्राम और 70-80 लीटर स्वच्छ पानी दें।`;
+
     smsText = `3T Dairy: ${farmerName}, today's FAT is ${currentFat}% (Avg: ${baselineFat}%). Tip to boost FAT tomorrow: Feed 60% dry fodder, 1.5kg cottonseed cake & 50-100g bypass fat daily.`;
   } else {
     type = 'low_snf';
-    title = `🌾 दुधातील SNF कमी: आहार सल्ला / Low SNF Alert (${currentSnf}%)`;
-    body = `शेतकरी मित्र ${farmerName}, आजचे SNF ${currentSnf}% आले आहे (आपली सरासरी ${baselineSnf}% आहे - ${snfDiff}% घट).\n\n💡 SNF वाढवण्यासाठी आजचा आहार सल्ला:\n1. प्रथिनांसाठी आहारात लसूण घास (Lucerne), बरसीम किंवा सोयाबीन/शेंगदाणा पेंड द्या.\n2. दररोज ५० ग्रॅम चांगल्या दर्जाचे चिलेटेड खनिज मिश्रण (Chelated Mineral Mixture) खाऊ घाला.\n3. जनावरास भरपूर व स्वच्छ पिण्याचे पाणी (७०-८० लिटर) उपलब्ध करा.\n4. जनावराची जंतनाशक औषधोपचार (Deworming) झालेली आहे का याची खात्री करा.\n\n(Tip: Feed protein-rich green legume fodder, 50g chelated mineral mix and 70-80L clean water to recover SNF%).`;
+    titleEn = `🌾 Low SNF Alert: Protein & Mineral Advisory (${currentSnf}%)`;
+    titleMr = `🌾 दुधातील SNF कमी: आहार सल्ला (${currentSnf}%)`;
+    titleHi = `🌾 दूध में SNF की कमी: आहार सलाह (${currentSnf}%)`;
+
+    bodyEn = `Dear Farmer ${farmerName}, today's milk SNF is ${currentSnf}% (your normal average is ${baselineSnf}% — a drop of -${snfDiff}%).\n\n💡 SNF Recovery & Protein Advisory:\n1. Provide protein-rich legume green fodder such as Lucerne (alfalfa), Berseem, or soybean/groundnut meal.\n2. Supplement 50g high-grade chelated mineral mixture daily.\n3. Ensure 70–80 liters of fresh, clean drinking water is freely accessible at all times.\n4. Verify that the animal has received regular seasonal deworming.\n5. Maintain good cattle shed ventilation and hygiene.`;
+
+    bodyMr = `शेतकरी मित्र ${farmerName}, आजचे SNF ${currentSnf}% आले आहे (आपली सरासरी ${baselineSnf}% आहे — ${snfDiff}% घट).\n\n💡 SNF वाढवण्यासाठी आजचा आहार सल्ला:\n1. प्रथिनांसाठी आहारात लसूण घास (Lucerne), बरसीम किंवा सोयाबीन/शेंगदाणा पेंड द्या.\n2. दररोज ५० ग्रॅम चांगल्या दर्जाचे चिलेटेड खनिज मिश्रण (Chelated Mineral Mixture) खाऊ घाला.\n3. जनावरास भरपूर व स्वच्छ पिण्याचे पाणी (७०-८० लिटर) उपलब्ध करा.\n4. जनावराची जंतनाशक औषधोपचार (Deworming) झालेली आहे का याची खात्री करा.\n5. गोठ्यात खेळती हवा व स्वच्छता ठेवा.`;
+
+    bodyHi = `किसान मित्र ${farmerName}, आज दूध का SNF ${currentSnf}% आया है (आपका सामान्य औसत ${baselineSnf}% है — -${snfDiff}% की गिरावट)।\n\n💡 SNF सुधार एवं प्रोटीन आहार सलाह:\n1. प्रोटीन पूर्ति हेतु आहार में लूसर्न (बरसीम/रिजका) या सोयाबीन/मूंगफली की खल दें।\n2. रोजाना 50 ग्राम उच्च गुणवत्ता वाला चीलेटेड मिनरल मिक्सचर दें।\n3. पशु को 70-80 लीटर ताजा व स्वच्छ पीने का पानी हमेशा उपलब्ध रखें।\n4. सुनिश्चित करें कि पशु को समय पर पेट के कीड़ों की दवा (डिवॉर्मिंग) दी गई है।\n5. पशु बाड़े में हवादार माहौल और सफाई बनाए रखें।`;
+
     smsText = `3T Dairy: ${farmerName}, today's SNF is ${currentSnf}% (Avg: ${baselineSnf}%). Tip to boost SNF: Feed protein legume fodder (Lucerne), 50g chelated mineral mix & 70-80L water daily.`;
   }
 
@@ -563,8 +597,8 @@ export async function checkAndCreateQualityFeedAdvisory(
     if (!alreadyAlerted) {
       await createNotification({
         type: 'quality_feed_advisory',
-        title,
-        body,
+        title: titleEn,
+        body: bodyEn,
         farmerId,
         branchId,
         sentBy: 'SYSTEM',
@@ -577,8 +611,14 @@ export async function checkAndCreateQualityFeedAdvisory(
   return {
     hasQualityDrop: true,
     type,
-    title,
-    body,
+    title: titleEn,
+    titleEn,
+    titleMr,
+    titleHi,
+    body: bodyEn, // English by default
+    bodyEn,
+    bodyMr,
+    bodyHi,
     smsText,
     fatDiff,
     snfDiff
