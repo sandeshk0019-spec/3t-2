@@ -194,111 +194,125 @@ export default function LandingPage() {
       {/* Main content */}
       <main className="flex-grow z-10">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-7 flex flex-col space-y-6">
-            <div className="inline-flex items-center space-x-2 bg-primary-light text-primary px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-primary/10">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span>India&apos;s Fastest Farmer Payment Network</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-extrabold text-text-main tracking-tight leading-tight md:leading-none">
-              Milk Now.<br />
-              <span className="text-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Money Now.</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-text-muted max-w-xl font-medium leading-relaxed">
-              Get paid instantly in your bank account right after every milk collection. Fast checks, 100% transparency, and bulletproof security.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-              <Link
-                  href="/farmer/login"
-                  className="px-8 py-4 rounded-xl bg-primary text-white font-semibold text-center hover:bg-[#0b6b49] transition-all shadow-premium-md hover:shadow-premium-lg hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
-                >
-                  <span>🌾 View My Catalog</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              <Link
-                href="/login"
-                className="px-8 py-4 rounded-xl border border-border-light bg-white text-text-main font-semibold text-center hover:bg-[#FAFAFA] transition-all hover:border-gray-300 flex items-center justify-center space-x-2 shadow-premium-sm"
-              >
-                <span>Launch Dashboard</span>
-              </Link>
-            </div>
-
-            <div className="flex items-center space-x-8 pt-8 border-t border-border-light max-w-md">
-              <div>
-                <span className="block text-2xl font-bold text-text-main">10s</span>
-                <span className="text-xs text-text-muted font-medium">Quality Testing</span>
-              </div>
-              <div className="w-px h-8 bg-border-light" />
-              <div>
-                <span className="block text-2xl font-bold text-text-main">Instant</span>
-                <span className="text-xs text-text-muted font-medium">Direct Bank Settlement</span>
-              </div>
-              <div className="w-px h-8 bg-border-light" />
-              <div>
-                <span className="block text-2xl font-bold text-text-main">100%</span>
-                <span className="text-xs text-text-muted font-medium">Digital Transparency</span>
-              </div>
-            </div>
+        <section className="relative overflow-hidden border-b border-border-light/60">
+          {/* Scenic Dairy Background with Grazing Cows & Snow-Capped Mountain */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <img
+              src="/landing-hero-bg.jpg"
+              alt="Pastoral dairy farmland with grazing cows and mountain"
+              className="w-full h-full object-cover object-[center_35%] scale-[1.02] filter saturate-[1.05]"
+            />
+            {/* Elegant multi-tier gradient overlays to keep typography 100% crisp & readable */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/40 md:to-white/20" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-transparent to-white/95" />
           </div>
 
-          {/* Workflow Interactive Illustration */}
-          <div className="md:col-span-5 relative">
-            <div className="bg-white border border-border-light rounded-2xl p-6 shadow-premium-lg">
-              <div className="flex items-center justify-between mb-8">
-                <span className="text-xs font-bold uppercase tracking-widest text-text-muted">Instant Payment Pipeline</span>
-                <div className="flex space-x-1.5">
-                  {steps.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveStep(idx)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        activeStep === idx ? "bg-primary w-6" : "bg-gray-200"
-                      }`}
-                    />
-                  ))}
-                </div>
+          <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-7 flex flex-col space-y-6">
+              <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm text-primary px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-primary/20 shadow-xs w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span>India&apos;s Fastest Farmer Payment Network</span>
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl font-extrabold text-text-main tracking-tight leading-tight md:leading-none">
+                Milk Now.<br />
+                <span className="text-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Money Now.</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-text-muted max-w-xl font-medium leading-relaxed">
+                Get paid instantly in your bank account right after every milk collection. Fast checks, 100% transparency, and bulletproof security.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                <Link
+                    href="/farmer/login"
+                    className="px-8 py-4 rounded-xl bg-primary text-white font-semibold text-center hover:bg-[#0b6b49] transition-all shadow-premium-md hover:shadow-premium-lg hover:-translate-y-0.5 flex items-center justify-center space-x-2 group"
+                  >
+                    <span>🌾 View My Catalog</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                <Link
+                  href="/login"
+                  className="px-8 py-4 rounded-xl border border-border-light bg-white/90 backdrop-blur-sm text-text-main font-semibold text-center hover:bg-white transition-all hover:border-gray-300 flex items-center justify-center space-x-2 shadow-premium-sm"
+                >
+                  <span>Launch Dashboard</span>
+                </Link>
               </div>
 
-              <div className="space-y-6">
-                {steps.map((step, idx) => {
-                  const Icon = step.icon;
-                  const isActive = activeStep === idx;
-                  
-                  return (
-                    <motion.div
-                      key={idx}
-                      onClick={() => setActiveStep(idx)}
-                      className={`flex items-start space-x-4 p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
-                        isActive 
-                          ? "border-primary bg-primary-light/30 shadow-premium-sm" 
-                          : "border-transparent hover:bg-gray-50"
-                      }`}
-                      animate={{ scale: isActive ? 1.02 : 1 }}
-                    >
-                      <div className={`p-3 rounded-xl ${isActive ? step.bgColor : "bg-gray-100"} ${isActive ? step.color : "text-gray-400"} transition-colors`}>
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <h4 className={`text-base font-bold transition-colors ${isActive ? "text-primary" : "text-text-main"}`}>
-                            {step.title}
-                          </h4>
-                          {isActive && (
-                            <span className="text-xs bg-primary text-white font-bold px-2 py-0.5 rounded-md">
-                              Live
-                            </span>
-                          )}
+              <div className="flex items-center space-x-8 pt-8 border-t border-border-light/80 max-w-md bg-white/60 backdrop-blur-xs rounded-xl px-4 py-3 border border-white/60 shadow-xs">
+                <div>
+                  <span className="block text-2xl font-bold text-text-main">10s</span>
+                  <span className="text-xs text-text-muted font-medium">Quality Testing</span>
+                </div>
+                <div className="w-px h-8 bg-border-light" />
+                <div>
+                  <span className="block text-2xl font-bold text-text-main">Instant</span>
+                  <span className="text-xs text-text-muted font-medium">Direct Bank Settlement</span>
+                </div>
+                <div className="w-px h-8 bg-border-light" />
+                <div>
+                  <span className="block text-2xl font-bold text-text-main">100%</span>
+                  <span className="text-xs text-text-muted font-medium">Digital Transparency</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Workflow Interactive Illustration */}
+            <div className="md:col-span-5 relative">
+              <div className="bg-white/95 backdrop-blur-md border border-white/80 rounded-2xl p-6 shadow-2xl">
+                <div className="flex items-center justify-between mb-8">
+                  <span className="text-xs font-bold uppercase tracking-widest text-text-muted">Instant Payment Pipeline</span>
+                  <div className="flex space-x-1.5">
+                    {steps.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveStep(idx)}
+                        className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                          activeStep === idx ? "bg-primary w-6" : "bg-gray-200"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {steps.map((step, idx) => {
+                    const Icon = step.icon;
+                    const isActive = activeStep === idx;
+                    
+                    return (
+                      <motion.div
+                        key={idx}
+                        onClick={() => setActiveStep(idx)}
+                        className={`flex items-start space-x-4 p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
+                          isActive 
+                            ? "border-primary bg-primary-light/40 shadow-premium-sm" 
+                            : "border-transparent hover:bg-gray-50/80"
+                        }`}
+                        animate={{ scale: isActive ? 1.02 : 1 }}
+                      >
+                        <div className={`p-3 rounded-xl ${isActive ? step.bgColor : "bg-gray-100"} ${isActive ? step.color : "text-gray-400"} transition-colors`}>
+                          <Icon className="w-6 h-6" />
                         </div>
-                        <p className="text-sm text-text-muted font-medium mt-1 leading-relaxed">
-                          {step.desc}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className={`text-base font-bold transition-colors ${isActive ? "text-primary" : "text-text-main"}`}>
+                              {step.title}
+                            </h4>
+                            {isActive && (
+                              <span className="text-xs bg-primary text-white font-bold px-2 py-0.5 rounded-md">
+                                Live
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-text-muted font-medium mt-1 leading-relaxed">
+                            {step.desc}
+                          </p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
